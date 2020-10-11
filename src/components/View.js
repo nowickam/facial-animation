@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
 
 class View extends Component {
   constructor(props) {
