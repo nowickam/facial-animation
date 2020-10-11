@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier.js'
 
 class View extends Component {
   constructor(props) {
     super(props)
+    this.move = 0.01
+    this.delta = 0
     this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
     this.animate = this.animate.bind(this)
@@ -32,7 +33,8 @@ class View extends Component {
 
     this.addModel()
     // this.addCube()
-    this.camera.position.z = 30
+    this.camera.position.z = 0.5
+    this.camera.position.y = 0
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.update();
@@ -57,23 +59,13 @@ class View extends Component {
     var loader = new GLTFLoader();
 
     loader.load('model/head.gltf', gltf => {
-      for (const model of gltf.scene.children) {
-        if (model.name === 'head') {
-          var geometry = model.geometry
-          var subdivide = new SubdivisionModifier(2);
-          var subdividedGeometry = subdivide.modify(geometry)
-          var material = model.material
-          var mesh = new THREE.Mesh(subdividedGeometry, material)
-          console.log(mesh)
-          this.scene.add(mesh);
-        }
-      }
-
+      console.log(gltf)
+      this.model = SkeletonUtils.clone(gltf.scene)
+      this.scene.add(this.model)
     }, undefined, function (error) {
-
       console.error(error);
-
-    });
+    }
+    )
   }
 
   onWindowResize() {
@@ -100,9 +92,29 @@ class View extends Component {
   }
 
   animate() {
+    if (this.model) {
+      this.model.traverse(o => {
+        this.delta += this.move
+        if (o.isBone && o.name.includes("down_control")) {
+          o.position.y -= this.move
+        }
+        if (o.isBone && o.name.includes("top_control")) {
+          o.position.y += this.move/2
+        }
+        if (o.isBone && o.name.includes("left_control")) {
+          o.position.x -= this.move
+        }
+        if (o.isBone && o.name.includes("right_control")) {
+          o.position.x += this.move
+        }
+        if(this.delta > 15 || this.delta < 0){
+            this.move = -this.move
+        }
+      })
+    }
+    this.controls.update()
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
-    this.controls.update()
   }
 
   renderScene() {
