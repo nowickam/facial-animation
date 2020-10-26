@@ -7,17 +7,22 @@ import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
 class View extends Component {
   constructor(props) {
     super(props)
-    this.move = 0.01
+    this.move = 0.02
     this.delta = 0
+    this.mouthControlActive = false
     this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
     this.animate = this.animate.bind(this)
     this.onWindowResize = this.onWindowResize.bind(this)
     this.addCube = this.addCube.bind(this)
     this.addModel = this.addModel.bind(this)
+    this.getMouthControl = this.getMouthControl.bind(this)
   }
 
   componentDidMount() {
+    this.json = require('C:/Users/Gosia/Documents/CS/BSc thesis/web/src/components/data.json');
+    console.log(this.json)
+
     const width = window.innerWidth
     const height = window.innerHeight
 
@@ -33,7 +38,8 @@ class View extends Component {
     this.scene.add(light)
 
     this.addModel()
-    // this.addCube()
+    // this.mouthWidth = t
+
     this.camera.position.z = 0.5
     this.camera.position.y = 0
 
@@ -59,10 +65,11 @@ class View extends Component {
   addModel() {
     var loader = new GLTFLoader();
 
-    loader.load('model/head.gltf', gltf => {
-      console.log(gltf)
+    loader.load('model/head_shape_keys.gltf', gltf => {
       this.model = SkeletonUtils.clone(gltf.scene)
+      console.log(this.model)
       this.scene.add(this.model)
+      this.getMouthControl()
     }, undefined, function (error) {
       console.error(error);
     }
@@ -92,26 +99,25 @@ class View extends Component {
     cancelAnimationFrame(this.frameId)
   }
 
-  animate() {
+  getMouthControl(){
     if (this.model) {
       this.model.traverse(o => {
-        this.delta += this.move
-        if (o.isBone && o.name.includes("down_control")) {
-          o.position.y -= this.move
-        }
-        if (o.isBone && o.name.includes("top_control")) {
-          o.position.y += this.move/2
-        }
-        if (o.isBone && o.name.includes("left_control")) {
-          o.position.x -= this.move
-        }
-        if (o.isBone && o.name.includes("right_control")) {
-          o.position.x += this.move
-        }
-        if(this.delta > 15 || this.delta < 0){
-            this.move = -this.move
+        if(o.isSkinnedMesh && o.name == 'head'){
+          this.mouthControl = o.morphTargetInfluences;
         }
       })
+      this.mouthControlActive = true
+    }
+  }
+
+  animate() {
+    if(this.mouthControlActive){
+      this.delta += this.move
+      this.mouthControl[0] += this.move
+      this.mouthControl[1] += this.move
+      if(this.delta > 1.0 || this.delta < 0){
+                this.move = -this.move
+            }
     }
     this.controls.update()
     this.renderScene()
