@@ -9,6 +9,11 @@ import './View.css'
 class View extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      file: null,
+      audio: new Audio(),
+      animationStatus: 'STOP'
+    }
 
     this.move = 0.02
     this.delta = 0
@@ -24,7 +29,8 @@ class View extends Component {
     this.obamaRatio = [0.8, 0.8]
 
     this.start = this.start.bind(this)
-    this.stop = this.stop.bind(this)
+    // this.stop = this.stop.bind(this)
+    this.pause = this.pause.bind(this)
     this.animate = this.animate.bind(this)
     this.onWindowResize = this.onWindowResize.bind(this)
     this.addCube = this.addCube.bind(this)
@@ -34,6 +40,9 @@ class View extends Component {
     this.fetchInput = this.fetchInput.bind(this)
     this.moveLid = this.moveLid.bind(this)
     this.moveMouth = this.moveMouth.bind(this)
+    this.playAnimation = this.playAnimation.bind(this)
+    this.pauseAnimation = this.pauseAnimation.bind(this)
+    this.stopAnimation = this.stopAnimation.bind(this)
   }
 
   componentDidMount() {
@@ -52,7 +61,7 @@ class View extends Component {
       0.1,
       1000
     )
-    this.renderer = new THREE.WebGLRenderer({ antialias: true })
+    this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
     var light = new THREE.HemisphereLight(0xffffff, 0x444444);
     this.scene.add(light)
 
@@ -73,8 +82,6 @@ class View extends Component {
 
     this.audio = new Audio()
     this.audio.src = 'obama.mp4'
-    
-    this.start()
   }
 
 
@@ -94,6 +101,7 @@ class View extends Component {
       // console.log(this.model)
       this.scene.add(this.model)
       this.getModelControl()
+      this.renderScene()
     }, undefined, function (error) {
       console.error(error);
     }
@@ -114,13 +122,21 @@ class View extends Component {
   }
 
   start() {
+    console.log(this.frameId)
     if (!this.frameId) {
       this.frameId = requestAnimationFrame(this.animate)
     }
   }
 
-  stop() {
+  pause() {
+    console.log(this.frameId)
     cancelAnimationFrame(this.frameId)
+    this.frameId = undefined
+  }
+
+  stop() {
+    this.pause()
+    this.currentFrame = 0
   }
 
   getModelControl() {
@@ -212,6 +228,31 @@ class View extends Component {
     this.renderer.render(this.scene, this.camera)
   }
 
+  playAnimation(){
+    if(this.state.animationStatus == 'STOP' || this.state.animationStatus == 'PAUSE'){
+      this.start();
+      this.audio.play()
+      this.setState({animationStatus: 'PLAY'});
+    }
+  }
+
+  stopAnimation(){
+    if(this.state.animationStatus == 'PLAY' || this.state.animationStatus == 'PAUSE'){
+      this.stop();
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.setState({animationStatus: 'STOP'});
+    }
+  }
+
+  pauseAnimation(){
+    if(this.state.animationStatus == 'PLAY'){
+      this.pause();
+      this.audio.pause();
+      this.setState({animationStatus: 'PAUSE'});
+    }
+  }
+
   render() {
     return (
       <div>
@@ -219,9 +260,9 @@ class View extends Component {
         <div
           ref={(mount) => { this.mount = mount }}
         />
-        <button id="play">Play</button>
-        <button id="pause">Pause</button>
-        <button id="stop">Stop</button>
+        <button id="play" onClick={this.playAnimation}>Play</button>
+        <button id="pause" onClick={this.pauseAnimation}>Pause</button>
+        <button id="stop" onClick={this.stopAnimation}>Stop</button>
       </div>
     )
   }
