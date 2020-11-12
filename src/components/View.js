@@ -3,16 +3,25 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
+import './View.css'
 
-var VIDEO_WINDOW = 5
 
 class View extends Component {
   constructor(props) {
     super(props)
+
     this.move = 0.02
     this.delta = 0
-    this.mouthControlActive = false
+
+    this.modelControlActive = false
+
     this.currentFrame = 0
+
+    this.lidMove = 0.1
+    this.lidSpeed = 0.1
+    this.lidWait = 1
+
+    this.obamaRatio = [0.8, 0.8]
 
     this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
@@ -20,13 +29,15 @@ class View extends Component {
     this.onWindowResize = this.onWindowResize.bind(this)
     this.addCube = this.addCube.bind(this)
     this.addModel = this.addModel.bind(this)
-    this.getMouthControl = this.getMouthControl.bind(this)
+    this.getMouthControl = this.getModelControl.bind(this)
     this.processInput = this.processInput.bind(this)
     this.fetchInput = this.fetchInput.bind(this)
+    this.moveLid = this.moveLid.bind(this)
+    this.moveMouth = this.moveMouth.bind(this)
   }
 
   componentDidMount() {
-    this.input = require('C:/Users/Gosia/Documents/CS/BSc thesis/web/src/components/pbwp6n.json');
+    this.input = require('C:/Users/Gosia/Documents/CS/BSc thesis/web/src/components/obama2.json');
     console.log(this.input)
     this.fetchInput()
     this.processInput()
@@ -61,13 +72,15 @@ class View extends Component {
     this.mount.appendChild(this.renderer.domElement)
 
     this.audio = new Audio()
-    this.audio.src='pbwp6n.wav'
+    this.audio.src = 'obama.mp4'
+    
     this.start()
   }
 
 
-  addCube() {
-    var geometry = new THREE.BoxGeometry(1, 1, 1)
+  addCube(x, y, z) {
+    var geometry = new THREE.BoxGeometry(.1,.1,.1)
+    geometry.translate(x, y, z)
     var material = new THREE.MeshBasicMaterial({ color: '#433F81' })
     var cube = new THREE.Mesh(geometry, material)
     this.scene.add(cube)
@@ -78,9 +91,9 @@ class View extends Component {
 
     loader.load('model/head_shape_keys.gltf', gltf => {
       this.model = SkeletonUtils.clone(gltf.scene)
-      console.log(this.model)
+      // console.log(this.model)
       this.scene.add(this.model)
-      this.getMouthControl()
+      this.getModelControl()
     }, undefined, function (error) {
       console.error(error);
     }
@@ -110,14 +123,14 @@ class View extends Component {
     cancelAnimationFrame(this.frameId)
   }
 
-  getMouthControl() {
+  getModelControl() {
     if (this.model) {
       this.model.traverse(o => {
-        if (o.isSkinnedMesh && o.name == 'head') {
-          this.mouthControl = o.morphTargetInfluences;
+        if (o.isSkinnedMesh && o.name === 'head') {
+          this.modelControl = o.morphTargetInfluences;
         }
       })
-      this.mouthControlActive = true
+      this.modelControlActive = true
     }
   }
 
@@ -131,81 +144,67 @@ class View extends Component {
     return Math.sqrt(Math.pow(point1[0] - point2[0], 2) + Math.pow(point1[1] - point2[1], 2))
   }
 
-  processInput() {
-    var newInput = []
-    for (var i = 0; i <= this.input.length - VIDEO_WINDOW; i += VIDEO_WINDOW) {
-      var k = Math.floor(VIDEO_WINDOW / 2);
-      var newFrame = [];
-      for (var j = 0; j < this.input[0].length - 1; j += 2) {
-        var sumX = 0;
-        var sumY = 0;
-        for (var k = 0; k < VIDEO_WINDOW; k++) {
-          sumX += this.input[i + k][j];
-          sumY += this.input[i + k][j + 1];
-        }
-        newFrame.push([sumX / k, sumY / k]);
-      }
-      newInput.push(newFrame);
-    }
-    console.log(newInput);
+  processInput(){
     this.mouthHeight = []
     this.mouthWidth = []
-    for (const frame of newInput) {
-      this.mouthHeight.push(this.calculateDistance(frame[18], frame[14]))
-      this.mouthWidth.push(this.calculateDistance(frame[16], frame[12]))
+
+    for(var i=0; i<this.input.length-1; i+=2){
+      this.mouthWidth.push(this.input[i]/this.obamaRatio[0]-1)
+      this.mouthHeight.push(this.input[i+1]/this.obamaRatio[1])
     }
 
-    var heightMax = Math.max.apply(Math, this.mouthHeight)
-    console.log(heightMax)
-    this.mouthHeight.forEach(function (height, idx) {
-      this[idx] = Math.round(height / heightMax * 100) / 100
-    }, this.mouthHeight)
-    console.log(this.mouthHeight)
-
-    var widthMax = Math.max.apply(Math, this.mouthWidth)
-    console.log(widthMax)
-    this.mouthWidth.forEach(function (width, idx) {
-      this[idx] = Math.round(width / widthMax * 100) / 100
-    }, this.mouthWidth)
-    var widthMin = Math.min.apply(Math, this.mouthWidth)
-
-    this.mouthWidth.forEach(function (width, idx) {
-      this[idx] -= widthMin
-      this[idx] = Math.round(this[idx] * 100) / 100
-    }, this.mouthWidth)
     console.log(this.mouthWidth)
   }
 
+  moveLid(){
+    if(this.modelControl[2] < 0){
+      if (this.lidWait > 100){
+        this.lidMove = this.lidSpeed;
+        this.lidWait = 0
+      }
+      else {
+        this.lidMove = 0
+      }
+      this.lidWait += 1
+    }
+    else if (this.modelControl[2] > 1) {
+      this.lidMove = -this.lidMove;
+    }
+
+    this.modelControl[2] = this.modelControl[2] + this.lidMove;
+  }
+
+  moveMouth(){
+    this.modelControl[0] = this.mouthHeight[this.currentFrame]
+    this.modelControl[1] = this.mouthWidth[this.currentFrame]
+  }
+
   animate() {
-    if (this.mouthControlActive) {
-      //   this.delta += this.move
-      //   this.mouthControl[0] += this.move
-      //   this.mouthControl[1] += this.move
-      //   if(this.delta > 1.0 || this.delta < 0){
-      //             this.move = -this.move
-      //         }
+    if (this.modelControlActive) {
+      this.moveMouth()
+      // this.modelControl[1] = 1.6/this.obamaRatio[0]-1
+      // this.modelControl[0] = -0.2/this.obamaRatio[1]
+      this.moveLid()
 
-      this.mouthControl[0] = this.mouthHeight[this.currentFrame]
-      this.mouthControl[1] = this.mouthWidth[this.currentFrame]
-
-      this.currentFrame += 1
-
-      if (this.currentFrame >= this.mouthHeight.length) {
+      if (this.currentFrame >= this.mouthWidth.length || this.currentFrame === 0) {
         this.currentFrame = 0
         this.audio.play()
+        console.log("PLAY")
       }
-      
+
+      this.currentFrame += 1
     }
 
     if (this.currentHeight === 0) {
       console.log("START")
     }
 
-    setTimeout(() => {
-      this.controls.update()
-      this.renderScene()
-      this.frameId = window.requestAnimationFrame(this.animate)
-    }, 1000 / 25)   // 25 fps
+    // setTimeout(() => {
+    this.controls.update()
+    this.renderScene()
+    this.frameId = window.requestAnimationFrame(this.animate)
+    
+    // }, 1000 / 60)   // 25 fps
 
   }
 
@@ -215,9 +214,15 @@ class View extends Component {
 
   render() {
     return (
-      <div
-        ref={(mount) => { this.mount = mount }}
-      />
+      <div>
+        <input id="upload" type="file"/>
+        <div
+          ref={(mount) => { this.mount = mount }}
+        />
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+        <button id="stop">Stop</button>
+      </div>
     )
   }
 }

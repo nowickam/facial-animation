@@ -1,0 +1,22 @@
+button {
+    position: absolute;
+    bottom: 0px;
+}
+
+#play {
+    left: 0px
+}
+
+#pause {
+    left: 100px;
+}
+
+#stop {
+    left: 200px;
+}
+
+input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
