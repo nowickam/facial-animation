@@ -1,4 +1,4 @@
-button {
+.player {
     position: absolute;
     bottom: 0px;
 }
@@ -15,7 +15,7 @@ button {
     left: 200px;
 }
 
-input {
+#upload {
     position: absolute;
     top: 0px;
     left: 0px;

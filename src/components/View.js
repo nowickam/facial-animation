@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
 import './View.css'
 
 
@@ -70,7 +67,7 @@ class View extends Component {
     this.camera.position.z = 0.5
     this.camera.position.y = 0
 
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls = require('three/examples/jsm/controls/OrbitControls.js').OrbitControls(this.camera, this.renderer.domElement);
     this.controls.update();
 
     this.renderer.setClearColor('#ffffff')
@@ -82,6 +79,8 @@ class View extends Component {
 
     this.audio = new Audio()
     this.audio.src = 'obama.mp4'
+
+    this.start()
   }
 
 
@@ -94,10 +93,10 @@ class View extends Component {
   }
 
   addModel() {
-    var loader = new GLTFLoader();
+    var loader = require('three/examples/jsm/loaders/GLTFLoader').GLTFLoader;
 
     loader.load('model/head_shape_keys.gltf', gltf => {
-      this.model = SkeletonUtils.clone(gltf.scene)
+      this.model = require('three/examples/jsm/utils/SkeletonUtils.js').SkeletonUtils.clone(gltf.scene)
       // console.log(this.model)
       this.scene.add(this.model)
       this.getModelControl()
@@ -196,7 +195,7 @@ class View extends Component {
   }
 
   animate() {
-    if (this.modelControlActive) {
+    if (this.state.animationStatus == 'PLAY' && this.modelControlActive) {
       this.moveMouth()
       // this.modelControl[1] = 1.6/this.obamaRatio[0]-1
       // this.modelControl[0] = -0.2/this.obamaRatio[1]
@@ -238,7 +237,8 @@ class View extends Component {
 
   stopAnimation(){
     if(this.state.animationStatus == 'PLAY' || this.state.animationStatus == 'PAUSE'){
-      this.stop();
+      // this.stop();
+      this.currentFrame = 0
       this.audio.pause();
       this.audio.currentTime = 0;
       this.setState({animationStatus: 'STOP'});
@@ -247,7 +247,7 @@ class View extends Component {
 
   pauseAnimation(){
     if(this.state.animationStatus == 'PLAY'){
-      this.pause();
+      // this.pause();
       this.audio.pause();
       this.setState({animationStatus: 'PAUSE'});
     }
@@ -256,13 +256,13 @@ class View extends Component {
   render() {
     return (
       <div>
-        <input id="upload" type="file"/>
+        <input id="upload" type="file" accept="audio/wav, audio/mp3"/>
         <div
           ref={(mount) => { this.mount = mount }}
         />
-        <button id="play" onClick={this.playAnimation}>Play</button>
-        <button id="pause" onClick={this.pauseAnimation}>Pause</button>
-        <button id="stop" onClick={this.stopAnimation}>Stop</button>
+        <button id="play" className="player" onClick={this.playAnimation}>Play</button>
+        <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>
+        <button id="stop" className="player" onClick={this.stopAnimation}>Stop</button>
       </div>
     )
   }
