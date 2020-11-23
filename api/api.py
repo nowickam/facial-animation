@@ -41,10 +41,10 @@ def file_upload():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    user = load_user(request.values.get('username'))
-    if not user or not user.verify_password(request.values.get('password')):
-        return jsonify(status='error', message='Wrong username of password')
-    return jsonify(status='ok', username=user.username)
+    user = load_user(request.get_json(force=True)['username'])
+    if not user or not user.verify_password(request.get_json(force=True)['password']):
+        return jsonify(status=404, message='Wrong username of password')
+    return jsonify(status=200, username=user.name)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ const axios = require('axios');
 jest.mock('axios');
 let wrapper
   
-describe("initiation", () => {
+describe("initiation: ", () => {
   beforeEach(() => {
     wrapper= shallow(<View />);
   });
@@ -42,7 +42,7 @@ test('player buttons do not change the state when there is no audio file', () =>
 })
 
 
-describe('upload', () => {
+describe('upload: ', () => {
   beforeAll(() => {
     wrapper= shallow(<View />);
     wrapper.find('#upload').prop('onChange')({

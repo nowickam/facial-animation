@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "start-api": "cd api && venv\\Scripts\\flask run",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
+    "test": "react-scripts test --verbose --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

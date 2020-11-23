@@ -10,7 +10,7 @@ const axios = require('axios');
 jest.mock('axios');
 let wrapper
   
-describe("initiation", () => {
+describe("initiation: ", () => {
   beforeEach(() => {
     wrapper= shallow(<Login />);
   });
@@ -23,54 +23,63 @@ describe("initiation", () => {
     expect(wrapper.find('#username')).toHaveLength(1);
     expect(wrapper.find('#password')).toHaveLength(1);
     expect(wrapper.find('#login-button')).toHaveLength(1);
-
-
-    // expect(wrapper.state('animationStatus')).toBe('STOP');
   })
-
-// test('player buttons do not change the state when there is no audio file', () => {
-//   wrapper.find('#play').prop('onClick')("test");
-//   expect(wrapper.state('animationStatus')).toBe('STOP');
-
-//   wrapper.find('#pause').prop('onClick');
-//   expect(wrapper.state('animationStatus')).toBe('STOP');
-
-//   wrapper.find('#stop').prop('onClick');
-//   expect(wrapper.state('animationStatus')).toBe('STOP');
-// })
  })
 
 
-// describe('upload', () => {
-//   beforeAll(() => {
-//     wrapper= shallow(<View />);
-//     wrapper.find('#upload').prop('onChange')({
-//       target: {
-//          files: [
-//            'dummy.mp3'
-//          ]   
-//       }
-//     });
-//   });
+describe('logging in:', () => {
+  beforeAll(() => {
+    wrapper= shallow(<Login />);
+  });
 
-//   test('state after upload is changed correctly', () => {
-//     expect(wrapper.state('inputProcessed')).toBeFalsy()
-//     expect(wrapper.state('file')).not.toBeUndefined()
-//   })
+  test('login button is disabled for empty username or password', () => {
+      expect(wrapper.find("#login-button").prop('disabled')).toBeTruthy()
+  })
 
-//   test('sends the data to server', async () => {
-//     const dummyResponse = {
-//       data : [0, 0]
-//     };
-//     axios.post.mockResolvedValue(
-//       dummyResponse
-//   );
+  test('login button is enabled for non-empty username and password', () => {
+    wrapper.find('#username-form').prop('onChange')({
+        target: {
+           value: "dummyName"
+        }
+      });
+      wrapper.find('#password-form').prop('onChange')({
+          target: {
+             value: "dummyPassword"
+          }
+        });
+    expect(wrapper.find("#login-button").prop('disabled')).toBeFalsy()
+  })
 
-//   await act(async () => {
-//     wrapper.instance().sendFile()
-//   });
-//     expect(wrapper.state('animationStatus')).toBe('STOP');
-//     expect(wrapper.state('mouthMoves')).not.toBeUndefined();
-//     expect(wrapper.state('inputProcessed')).toBeTruthy();
-//   })
-// })
+
+  test('CORRECT state for correct username and password', async () => {
+    const dummyResponse = {
+        data: {
+            status : 200
+        }
+    };
+    axios.post.mockResolvedValue(
+      dummyResponse
+  );
+
+  await act(async () => {
+    wrapper.instance().validateData()
+  });
+  expect(wrapper.instance().state.status).toBe('CORRECT')
+})
+
+test('FALSE state for incorrect username and password', async () => {
+    const dummyResponse = {
+        data: {
+            status : 404
+        }
+    };
+    axios.post.mockResolvedValue(
+      dummyResponse
+  );
+
+  await act(async () => {
+    wrapper.instance().validateData()
+  });
+  expect(wrapper.instance().state.status).toBe('CORRECT')
+})
+})

@@ -65,7 +65,6 @@ class View extends Component {
   processInput(input){
     var mouthHeight = []
     var mouthWidth = []
-    console.log(input)
 
     for(var i=0; i<input.length-1; i+=2){
       mouthWidth.push(input[i]/this.obamaRatio[0]-1)
