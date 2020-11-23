@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from 'enzyme';
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
-import View from "./components/View";
+import View from "../components/View";
 import ReactDOM from 'react-dom';
 
 const axios = require('axios');
