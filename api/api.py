@@ -3,8 +3,8 @@ from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
 import time
 import os
-import logger
 import json
+from users import load_user
 
 app = Flask(__name__)
 
@@ -37,6 +37,15 @@ def file_upload():
     # return the output
     json_file = json.load(open(app.config['STATIC_SOURCE']))
     return jsonify(json_file)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    user = load_user(request.values.get('username'))
+    if not user or not user.verify_password(request.values.get('password')):
+        return jsonify(status='error', message='Wrong username of password')
+    return jsonify(status='ok', username=user.username)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

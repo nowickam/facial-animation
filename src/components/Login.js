@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 // import "./Login.css";
+import axios from 'axios';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -17,14 +18,18 @@ export default function Login() {
     event.preventDefault();
   }
 
-  function validateData(){
-    history.push('/lipsync');
+  async function validateData(){
+    const userData = {"username" : username, "password" : password}
+    const res = await axios.post("http://localhost:5000/login", userData, {});
+    console.log(res)
+    if(res.statusText === "OK")
+      history.push('/lipsync');
   }
 
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="username" bssize="large">
+        <FormGroup id="username" bssize="large">
           <FormLabel>Username</FormLabel>
           <FormControl
             autoFocus
@@ -33,7 +38,7 @@ export default function Login() {
             onChange={e => setUsername(e.target.value)}
           />
         </FormGroup>
-        <FormGroup controlId="password" bssize="large">
+        <FormGroup id="password" bssize="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
@@ -41,7 +46,7 @@ export default function Login() {
             type="password"
           />
         </FormGroup>
-        <Button block bssize="large" disabled={!validateForm()} type="submit" onClick={validateData}>
+        <Button id="login-button" block bssize="large" disabled={!validateForm()} type="submit" onClick={validateData}>
           Login
         </Button>
       </form>
