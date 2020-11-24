@@ -54,12 +54,12 @@ describe('upload: ', () => {
     });
   });
 
-  test('state after upload is changed correctly', () => {
+  test('state after upload is changed correctly (new file is registered)', () => {
     expect(wrapper.state('inputProcessed')).toBeFalsy()
     expect(wrapper.state('file')).not.toBeUndefined()
   })
 
-  test('sends the data to server', async () => {
+  test('sends files to the server and processes the response (the new animation moves are received and processed, the current animation stops)', async () => {
     const dummyResponse = {
       data : [0, 0]
     };
@@ -73,5 +73,6 @@ describe('upload: ', () => {
     expect(wrapper.state('animationStatus')).toBe('STOP');
     expect(wrapper.state('mouthMoves')).not.toBeUndefined();
     expect(wrapper.state('inputProcessed')).toBeTruthy();
+    axios.post.mockRestore()
   })
 })

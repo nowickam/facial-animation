@@ -51,7 +51,7 @@ describe('logging in:', () => {
   })
 
 
-  test('CORRECT state for correct username and password', async () => {
+  test('renders the view page for correct username and password', async () => {
     const dummyResponse = {
         data: {
             status : 200
@@ -67,7 +67,7 @@ describe('logging in:', () => {
   expect(wrapper.instance().state.status).toBe('CORRECT')
 })
 
-test('FALSE state for incorrect username and password', async () => {
+test('renders the login page incorrect username and password', async () => {
     const dummyResponse = {
         data: {
             status : 404
@@ -80,6 +80,6 @@ test('FALSE state for incorrect username and password', async () => {
   await act(async () => {
     wrapper.instance().validateData()
   });
-  expect(wrapper.instance().state.status).toBe('CORRECT')
+  expect(wrapper.instance().state.status).toBe('FALSE')
 })
 })

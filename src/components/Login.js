@@ -38,6 +38,11 @@ class Login extends Component {
           status : 'CORRECT'
         })
       }
+      else{
+        this.setState({
+          status : 'FALSE'
+        })
+      }
   }
 
   setUsername(e){
