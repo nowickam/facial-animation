@@ -5,6 +5,8 @@ import time
 import os
 import json
 from users import load_user
+from phonemes import timit_char_map
+from tensorflow import keras
 
 app = Flask(__name__)
 
@@ -12,7 +14,10 @@ CORS(app, expose_headers='Authorization')
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['UPLOAD_EXTENSIONS'] = {'.wav', '.mp3', '.mp4'}
-app.config['STATIC_SOURCE'] = 'static/obama2.json'
+app.config['STATIC_SOURCE'] = 'static'
+
+# model = keras.models.load_model("/".join(app.config['STATIC_SOURCE']),'anylength_1024lstm_55acc.h5')
+
 
 @app.route('/time')
 def get_current_time():
@@ -29,13 +34,17 @@ def file_upload():
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
-    destination="/".join([app.config['UPLOAD_FOLDER'], filename])
+    destination=os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(destination)
 
-    #pass the file to the ml model
+    # pass the file to the ml model
+    # prediction = model.predict()
+    with open(os.path.join(app.config['STATIC_SOURCE'],'pred_sa1')) as prediction_file:
+        prediction = prediction_file.read()
+        print(prediction)
 
     # return the output
-    json_file = json.load(open(app.config['STATIC_SOURCE']))
+    json_file = json.load(open(os.path.join(app.config['STATIC_SOURCE'],'obama2.json')))
     return jsonify(json_file)
 
 
