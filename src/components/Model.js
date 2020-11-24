@@ -12,18 +12,21 @@ class Model extends Component {
         animationStatus: this.props.animationStatus,
     }
 
-    this.visemes = []
+    this.visemes = undefined
+    this.visemesNames = undefined
 
     this.move = 0.02
     this.delta = 0
 
     this.modelControlActive = false
 
-    this.currentFrame = 0
+    this.currentFrame = 1
 
     this.lidMove = 0.1
     this.lidSpeed = 0.1
     this.lidWait = 1
+
+    this.exponent = 1
 
     this.obamaRatio = [0.8, 0.8]
 
@@ -83,7 +86,9 @@ class Model extends Component {
       }
       if(prevProps.visemes !== this.props.visemes){
         this.visemes = this.props.visemes
+        this.visemesNames = [... new Set(this.props.visemes)]
         console.log(this.visemes)
+        console.log(this.visemesNames)
     }
   }
 
@@ -150,8 +155,6 @@ class Model extends Component {
 
 
   moveLid(){
-    if(this.modelControlActive)
-    {
     if(this.modelControl[this.modelControlDict['wink']] < 0){
       if (this.lidWait > 100){
         this.lidMove = this.lidSpeed;
@@ -167,7 +170,6 @@ class Model extends Component {
     }
 
     this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
-    }
   }
 
   moveObama(){
@@ -179,25 +181,33 @@ class Model extends Component {
   }
 
   nextViseme(){
-    if(this.modelControlActive)
-      {
-        if(this.currentFrame > 0)
-          {
-            var currentVisemes = this.visemes[this.currentFrame-1]
-            for(var viseme in currentVisemes)
-              this.modelControl[this.modelControlDict[viseme]] = 0
-          }
-        var currentVisemes = this.visemes[this.currentFrame]
-        for(var viseme in currentVisemes)
-          this.modelControl[this.modelControlDict[viseme]] = currentVisemes[viseme] * 0.5
+    if(this.currentFrame < 1)
+      this.currentFrame = 1
+
+    var currViseme = this.visemes[this.currentFrame]
+    var prevViseme = this.visemes[this.currentFrame-1]
+    for(var visemeName of this.visemesNames){
+      if(visemeName === currViseme){
+        this.modelControl[this.modelControlDict[visemeName]] += Math.pow(0.4, this.exponent)
+        if(this.modelControl[this.modelControlDict[visemeName]]>1)
+          this.modelControl[this.modelControlDict[visemeName]] = 1
       }
+      else{
+        this.modelControl[this.modelControlDict[visemeName]] -= Math.pow(0.4, this.exponent)
+        if(this.modelControl[this.modelControlDict[visemeName]]<0)
+          this.modelControl[this.modelControlDict[visemeName]] = 0
+      }
+    }
+
+    if(currViseme === prevViseme)
+      this.exponent += 1
+    else
+      this.exponent = 1
   }
 
   animate() {
     if (this.state.animationStatus == 'PLAY' && this.modelControlActive) {
       this.nextViseme()
-      // this.modelControl[1] = 1.6/this.obamaRatio[0]-1
-      // this.modelControl[0] = -0.2/this.obamaRatio[1]
       this.moveLid()
 
       if (this.currentFrame >= this.visemes.length || this.currentFrame === 0) {
@@ -207,8 +217,7 @@ class Model extends Component {
       this.currentFrame += 1
     }
     else if(this.state.animationStatus == "STOP"){
-        this.currentFrame = 0
-        this.nextViseme()
+        this.currentFrame = 1
     }
 
     // setTimeout(() => {

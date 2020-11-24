@@ -81,13 +81,12 @@ class View extends Component {
   // }
 
   processResponse(response){
-    console.log(response)
+    // console.log(response)
     const step = 100/FPS
     var result = [], maxViseme = undefined
     for(var i = 0; i < response.length; i += step){
       maxViseme = this.maxElement(response.slice(i, i+step))
       result.push(maxViseme)
-      console.log(maxViseme, i)
     }
     this.setState({
       animationStatus: 'STOP',
@@ -99,20 +98,22 @@ class View extends Component {
   maxElement(array){
     if(array.length == 0)
         return null;
-    var elementDict = {};
+    var modeMap = {};
     var maxEl = array[0], maxCount = 1;
     for(var i = 0; i < array.length; i++)
     {
         var el = array[i];
-        if(elementDict[el] == null)
-          elementDict[el] = 1;
+        if(modeMap[el] == null)
+            modeMap[el] = 1;
         else
-          elementDict[el]++;  
+            modeMap[el]++;  
+        if(modeMap[el] > maxCount)
+        {
+            maxEl = el;
+            maxCount = modeMap[el];
+        }
     }
-    for(var key in elementDict){
-      elementDict[key] = elementDict[key]/array.length
-    }
-    return elementDict;
+    return maxEl;
   }
 
 
@@ -153,6 +154,7 @@ class View extends Component {
     if(this.state.file){
       const data = new FormData();
       data.append('file', this.state.file)
+      this.setState({inputProcessed : undefined})
 
       const res = await axios.post("http://localhost:5000/upload", data, {});
       this.processResponse(res.data);
@@ -164,6 +166,7 @@ class View extends Component {
       <div>
         <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
         <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
+        {this.state.inputProcessed == undefined && <div id="upload-text" className="upload">Loading...</div>}
         <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes}/>
         <button id="play" className="player" onClick={this.playAnimation}>Play</button>
         <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>
