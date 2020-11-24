@@ -6,7 +6,7 @@ import os
 import json
 import pickle
 from users import load_user
-from phonemes import timit_char_map
+from phoneme_to_viseme import timit_char_map
 from phoneme_decoder import timit_index_map
 from tensorflow import keras
 import numpy as np

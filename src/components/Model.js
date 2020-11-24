@@ -189,7 +189,7 @@ class Model extends Component {
           }
         var currentVisemes = this.visemes[this.currentFrame]
         for(var viseme in currentVisemes)
-          this.modelControl[this.modelControlDict[viseme]] = currentVisemes[viseme]
+          this.modelControl[this.modelControlDict[viseme]] = currentVisemes[viseme] * 0.5
       }
   }
 
