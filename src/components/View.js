@@ -3,6 +3,8 @@ import './View.css'
 import  Model from './Model.js'
 import axios from 'axios';
 
+const AUDIO_FRAME = 10
+const FPS = 60
 
 class View extends Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class View extends Component {
     this.state={
       file : undefined,
       animationStatus: 'STOP',
-      mouthMoves: undefined,
+      visemes: undefined,
       inputProcessed : false
     }
 
@@ -27,7 +29,7 @@ class View extends Component {
 
     this.obamaRatio = [0.8, 0.8]
 
-    this.processInput = this.processInput.bind(this)
+    this.processResponse = this.processResponse.bind(this)
     this.fetchInput = this.fetchInput.bind(this)
     this.playAnimation = this.playAnimation.bind(this)
     this.pauseAnimation = this.pauseAnimation.bind(this)
@@ -62,20 +64,55 @@ class View extends Component {
     return Math.sqrt(Math.pow(point1[0] - point2[0], 2) + Math.pow(point1[1] - point2[1], 2))
   }
 
-  processInput(input){
-    var mouthHeight = []
-    var mouthWidth = []
+  // processObama(input){
+  //   var mouthHeight = []
+  //   var mouthWidth = []
 
-    for(var i=0; i<input.length-1; i+=2){
-      mouthWidth.push(input[i]/this.obamaRatio[0]-1)
-      mouthHeight.push(input[i+1]/this.obamaRatio[1])
+  //   for(var i=0; i<input.length-1; i+=2){
+  //     mouthWidth.push(input[i]/this.obamaRatio[0]-1)
+  //     mouthHeight.push(input[i+1]/this.obamaRatio[1])
+  //   }
+
+  //   this.setState({
+  //     animationStatus: 'STOP',
+  //     mouthMoves: [mouthWidth, mouthHeight],
+  //     inputProcessed : true
+  //   })
+  // }
+
+  processResponse(response){
+    console.log(response)
+    const step = 100/FPS
+    var result = [], maxViseme = undefined
+    for(var i = 0; i < response.length; i += step){
+      maxViseme = this.maxElement(response.slice(i, i+step))
+      result.push(maxViseme)
+      console.log(maxViseme, i)
     }
-
     this.setState({
       animationStatus: 'STOP',
-      mouthMoves: [mouthWidth, mouthHeight],
+      visemes : result,
       inputProcessed : true
     })
+  }
+
+  maxElement(array){
+    if(array.length == 0)
+        return null;
+    var elementDict = {};
+    var maxEl = array[0], maxCount = 1;
+    for(var i = 0; i < array.length; i++)
+    {
+        var el = array[i];
+        if(elementDict[el] == null)
+          elementDict[el] = 1;
+        else
+          elementDict[el]++;  
+    }
+    for(var key in elementDict){
+      elementDict[key] = elementDict[key]/array.length
+    }
+    return elementDict;
   }
 
 
@@ -118,16 +155,16 @@ class View extends Component {
       data.append('file', this.state.file)
 
       const res = await axios.post("http://localhost:5000/upload", data, {});
-      this.processInput(res.data);
+      this.processResponse(res.data);
     }
   }
 
   render() {
     return (
       <div>
-        <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3, video/mp4" onChange={this.handleFile} multiple={false}/>
+        <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
         <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
-        <Model id="model" animationStatus={this.state.animationStatus} mouthMoves = {this.state.mouthMoves}/>
+        <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes}/>
         <button id="play" className="player" onClick={this.playAnimation}>Play</button>
         <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>
         <button id="stop" className="player" onClick={this.stopAnimation}>Stop</button>

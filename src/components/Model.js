@@ -12,8 +12,7 @@ class Model extends Component {
         animationStatus: this.props.animationStatus,
     }
 
-    this.mouthHeight = []
-    this.mouthWidth = []
+    this.visemes = []
 
     this.move = 0.02
     this.delta = 0
@@ -35,7 +34,7 @@ class Model extends Component {
     this.addModel = this.addModel.bind(this)
     this.getMouthControl = this.getModelControl.bind(this)
     this.moveLid = this.moveLid.bind(this)
-    this.moveMouth = this.moveMouth.bind(this)
+    this.nextViseme = this.nextViseme.bind(this)
   }
 
   componentDidMount() {
@@ -82,10 +81,9 @@ class Model extends Component {
               animationStatus: this.props.animationStatus
           })
       }
-      if(prevProps.mouthMoves !== this.props.mouthMoves){
-          console.log(prevProps.mouthMoves,this.props.mouthMoves)
-        this.mouthWidth = this.props.mouthMoves[0]
-        this.mouthHeight = this.props.mouthMoves[1]
+      if(prevProps.visemes !== this.props.visemes){
+        this.visemes = this.props.visemes
+        console.log(this.visemes)
     }
   }
 
@@ -172,7 +170,7 @@ class Model extends Component {
     }
   }
 
-  moveMouth(){
+  moveObama(){
       if(this.modelControlActive)
       {
           this.modelControl[this.modelControlDict['vertical']] = this.mouthHeight[this.currentFrame]
@@ -180,14 +178,29 @@ class Model extends Component {
       }
   }
 
+  nextViseme(){
+    if(this.modelControlActive)
+      {
+        if(this.currentFrame > 0)
+          {
+            var currentVisemes = this.visemes[this.currentFrame-1]
+            for(var viseme in currentVisemes)
+              this.modelControl[this.modelControlDict[viseme]] = 0
+          }
+        var currentVisemes = this.visemes[this.currentFrame]
+        for(var viseme in currentVisemes)
+          this.modelControl[this.modelControlDict[viseme]] = currentVisemes[viseme]
+      }
+  }
+
   animate() {
     if (this.state.animationStatus == 'PLAY' && this.modelControlActive) {
-      this.moveMouth()
+      this.nextViseme()
       // this.modelControl[1] = 1.6/this.obamaRatio[0]-1
       // this.modelControl[0] = -0.2/this.obamaRatio[1]
       this.moveLid()
 
-      if (this.currentFrame >= this.mouthWidth.length || this.currentFrame === 0) {
+      if (this.currentFrame >= this.visemes.length || this.currentFrame === 0) {
         this.currentFrame = 0
       }
 
@@ -195,7 +208,7 @@ class Model extends Component {
     }
     else if(this.state.animationStatus == "STOP"){
         this.currentFrame = 0
-        this.moveMouth()
+        this.nextViseme()
     }
 
     // setTimeout(() => {
