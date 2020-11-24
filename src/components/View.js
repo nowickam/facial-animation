@@ -125,8 +125,8 @@ class View extends Component {
   render() {
     return (
       <div>
-        <input id="upload" type="file" accept="audio/wav, audio/mp3, video/mp4" onChange={this.handleFile} multiple={false}/>
-        <button id="upload-button" onClick={this.sendFile}>Upload</button>
+        <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3, video/mp4" onChange={this.handleFile} multiple={false}/>
+        <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
         <Model id="model" animationStatus={this.state.animationStatus} mouthMoves = {this.state.mouthMoves}/>
         <button id="play" className="player" onClick={this.playAnimation}>Play</button>
         <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>

@@ -15,8 +15,15 @@
     left: 200px;
 }
 
-#upload {
+.upload {
     position: absolute;
     top: 0px;
-    left: 0px;
+}
+
+#upload-input{
+    left:0px
+}
+
+#upload-button{
+    left: 200px
 }

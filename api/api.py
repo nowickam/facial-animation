@@ -39,9 +39,9 @@ def file_upload():
 
     # pass the file to the ml model
     # prediction = model.predict()
-    with open(os.path.join(app.config['STATIC_SOURCE'],'pred_sa1')) as prediction_file:
-        prediction = prediction_file.read()
-        print(prediction)
+    # with open(os.path.join(app.config['STATIC_SOURCE'],'pred_sa1')) as prediction_file:
+    #     prediction = prediction_file.read()
+    #     print(prediction)
 
     # return the output
     json_file = json.load(open(os.path.join(app.config['STATIC_SOURCE'],'obama2.json')))

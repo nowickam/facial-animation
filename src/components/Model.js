@@ -50,7 +50,12 @@ class Model extends Component {
       1000
     )
     this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
-    var light = new THREE.HemisphereLight(0xffffff, 0x444444);
+
+    var light = new THREE.HemisphereLight(0xBEDDED, 0xDECADE, 0.55);
+    this.scene.add(light)
+    light = new THREE.SpotLight(0xffffff, 0.75);
+    light.position.set(-80,100,100);
+    light.castShadow = true;
     this.scene.add(light)
 
     this.addModel()
@@ -96,9 +101,9 @@ class Model extends Component {
   addModel() {
     var loader = new GLTFLoader();
 
-    loader.load('model/head_shape_keys.gltf', gltf => {
+    loader.load('model/head_visemes.gltf', gltf => {
       this.model = SkeletonUtils.clone(gltf.scene)
-      // console.log(this.model)
+      console.log(this.model)
       this.scene.add(this.model)
       this.getModelControl()
       this.renderScene()
@@ -131,11 +136,12 @@ class Model extends Component {
   getModelControl() {
     if (this.model) {
       this.model.traverse(o => {
-        if (o.isSkinnedMesh && o.name === 'head') {
+        if (o.isMesh && o.name === 'head') {
           this.modelControl = o.morphTargetInfluences;
+          this.modelControlDict = o.morphTargetDictionary;
+          this.modelControlActive = true
         }
       })
-      this.modelControlActive = true
     }
   }
 
@@ -148,7 +154,7 @@ class Model extends Component {
   moveLid(){
     if(this.modelControlActive)
     {
-    if(this.modelControl[2] < 0){
+    if(this.modelControl[this.modelControlDict['wink']] < 0){
       if (this.lidWait > 100){
         this.lidMove = this.lidSpeed;
         this.lidWait = 0
@@ -158,19 +164,19 @@ class Model extends Component {
       }
       this.lidWait += 1
     }
-    else if (this.modelControl[2] > 1) {
+    else if (this.modelControl[this.modelControlDict['wink']] > 1) {
       this.lidMove = -this.lidMove;
     }
 
-    this.modelControl[2] = this.modelControl[2] + this.lidMove;
+    this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
     }
   }
 
   moveMouth(){
       if(this.modelControlActive)
       {
-          this.modelControl[0] = this.mouthHeight[this.currentFrame]
-          this.modelControl[1] = this.mouthWidth[this.currentFrame]
+          this.modelControl[this.modelControlDict['vertical']] = this.mouthHeight[this.currentFrame]
+          this.modelControl[this.modelControlDict['horizontal']] = this.mouthWidth[this.currentFrame]
       }
   }
 
