@@ -57,7 +57,7 @@ def file_upload():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user = load_user(request.get_json(force=True)['username'])
-    if not user or not user.verify_password(request.get_json(force=True)['password']):
+    if user is None or not user.verify_password(request.get_json(force=True)['password']):
         return jsonify(status=404, message='Wrong username of password')
     return jsonify(status=200, username=user.name)
 
