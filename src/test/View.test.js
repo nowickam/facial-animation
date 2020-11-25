@@ -23,7 +23,9 @@ describe("initiation: ", () => {
     expect(wrapper.find('#play')).toHaveLength(1);
     expect(wrapper.find('#pause')).toHaveLength(1);
     expect(wrapper.find('#stop')).toHaveLength(1);
-    expect(wrapper.find('#upload')).toHaveLength(1);
+    expect(wrapper.find('#upload-input')).toHaveLength(1);
+    expect(wrapper.find('#upload-button')).toHaveLength(1);
+    expect(wrapper.find('#upload-text')).toHaveLength(0);
     expect(wrapper.find('#model')).toHaveLength(1);
 
     expect(wrapper.state('animationStatus')).toBe('STOP');
@@ -45,7 +47,7 @@ test('player buttons do not change the state when there is no audio file', () =>
 describe('upload: ', () => {
   beforeAll(() => {
     wrapper= shallow(<View />);
-    wrapper.find('#upload').prop('onChange')({
+    wrapper.find('#upload-input').prop('onChange')({
       target: {
          files: [
            'dummy.mp3'
@@ -54,7 +56,7 @@ describe('upload: ', () => {
     });
   });
 
-  test('state after upload is changed correctly (new file is registered)', () => {
+  test('state after upload is changed correctly (new file is registered and unprocessed yet)', () => {
     expect(wrapper.state('inputProcessed')).toBeFalsy()
     expect(wrapper.state('file')).not.toBeUndefined()
   })
@@ -71,7 +73,7 @@ describe('upload: ', () => {
     wrapper.instance().sendFile()
   });
     expect(wrapper.state('animationStatus')).toBe('STOP');
-    expect(wrapper.state('mouthMoves')).not.toBeUndefined();
+    expect(wrapper.state('visemes')).not.toBeUndefined();
     expect(wrapper.state('inputProcessed')).toBeTruthy();
     axios.post.mockRestore()
   })
