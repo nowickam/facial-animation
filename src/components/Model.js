@@ -10,6 +10,7 @@ class Model extends Component {
     super(props)
     this.state = {
         animationStatus: this.props.animationStatus,
+        intensity: this.props.sliderValue
     }
 
     this.visemes = undefined
@@ -89,6 +90,11 @@ class Model extends Component {
         this.visemesNames = [... new Set(this.props.visemes)]
         console.log(this.visemes)
         console.log(this.visemesNames)
+    }
+    if(prevProps.sliderValue != this.props.sliderValue){
+      this.setState({
+        intensity: this.props.sliderValue
+      })
     }
   }
 
@@ -188,12 +194,12 @@ class Model extends Component {
     var prevViseme = this.visemes[this.currentFrame-1]
     for(var visemeName of this.visemesNames){
       if(visemeName === currViseme){
-        this.modelControl[this.modelControlDict[visemeName]] += Math.pow(0.4, this.exponent)
+        this.modelControl[this.modelControlDict[visemeName]] += Math.pow(this.state.intensity, this.exponent)
         if(this.modelControl[this.modelControlDict[visemeName]]>1)
           this.modelControl[this.modelControlDict[visemeName]] = 1
       }
       else{
-        this.modelControl[this.modelControlDict[visemeName]] -= Math.pow(0.4, this.exponent)
+        this.modelControl[this.modelControlDict[visemeName]] -= Math.pow(this.state.intensity, this.exponent)
         if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
       }

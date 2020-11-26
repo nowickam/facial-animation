@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import './View.css'
 import  Model from './Model.js'
 import axios from 'axios';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 const AUDIO_FRAME = 10
 const FPS = 60
@@ -13,7 +15,8 @@ class View extends Component {
       file : undefined,
       animationStatus: 'STOP',
       visemes: undefined,
-      inputProcessed : false
+      inputProcessed : false,
+      sliderValue : 0.4
     }
 
     this.move = 0.02
@@ -36,6 +39,7 @@ class View extends Component {
     this.stopAnimation = this.stopAnimation.bind(this)
     this.handleFile = this.handleFile.bind(this)
     this.sendFile = this.sendFile.bind(this)
+    this.handleSlider = this.handleSlider.bind(this)
   }
 
   componentDidMount() {
@@ -161,16 +165,27 @@ class View extends Component {
     }
   }
 
+  handleSlider(event){
+    this.setState({
+        sliderValue : event.target.value
+    })
+  }
+
   render() {
     return (
       <div>
         <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
         <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
         {this.state.inputProcessed == undefined && <div id="upload-text" className="upload">Loading...</div>}
-        <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes}/>
+        <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes} sliderValue = {this.state.sliderValue}/>
         <button id="play" className="player" onClick={this.playAnimation}>Play</button>
         <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>
         <button id="stop" className="player" onClick={this.stopAnimation}>Stop</button>
+        <div id="slider-container" className="player">
+          <input type="range" id="slider" min={0.1} max={1} value={this.state.sliderValue} step={0.05} onChange={this.handleSlider}/>
+          <div>{this.state.sliderValue}</div>
+        </div>
+        
       </div>
     )
   }
