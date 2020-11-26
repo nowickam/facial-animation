@@ -4,6 +4,7 @@ import  Model from './Model.js'
 import axios from 'axios';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import AudioRecorder from './AudioRecorder.js'
 
 const AUDIO_FRAME = 10
 const FPS = 60
@@ -40,6 +41,7 @@ class View extends Component {
     this.handleFile = this.handleFile.bind(this)
     this.sendFile = this.sendFile.bind(this)
     this.handleSlider = this.handleSlider.bind(this)
+    this.handleRecording = this.handleRecording.bind(this)
   }
 
   componentDidMount() {
@@ -154,6 +156,13 @@ class View extends Component {
     }
   }
 
+  handleRecording(recording){
+    this.setState({file : recording, inputProcessed : false})
+    this.audio.src = URL.createObjectURL(recording)
+    
+    console.log(this.state.file, this.audio.src)
+  }
+
   async sendFile(){
     if(this.state.file){
       const data = new FormData();
@@ -174,6 +183,7 @@ class View extends Component {
   render() {
     return (
       <div>
+        <AudioRecorder newRecording={this.handleRecording}/>
         <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
         <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
         {this.state.inputProcessed == undefined && <div id="upload-text" className="upload">Loading...</div>}

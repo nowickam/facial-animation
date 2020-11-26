@@ -32,11 +32,15 @@ def get_current_time():
 @app.route('/upload', methods=['POST'])
 def file_upload():
     # save the file
+    print("READ")
     file = request.files['file'] 
     filename = secure_filename(file.filename)
+    print(file)
+    print(filename)
 
     if filename != '':
         file_ext = os.path.splitext(filename)[1]
+        print(file_ext)
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
             abort(400)
 
