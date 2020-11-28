@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import './View.css'
 import  Model from './Model.js'
 import axios from 'axios';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import AudioRecorder from './AudioRecorder.js'
+import './Slider.css'
 
 const AUDIO_FRAME = 10
 const FPS = 60
@@ -183,19 +182,26 @@ class View extends Component {
   render() {
     return (
       <div>
-        <AudioRecorder newRecording={this.handleRecording}/>
-        <input id="upload-input" className="upload" type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
-        <button id="upload-button" className="upload" onClick={this.sendFile}>Upload</button>
-        {this.state.inputProcessed == undefined && <div id="upload-text" className="upload">Loading...</div>}
-        <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes} sliderValue = {this.state.sliderValue}/>
-        <button id="play" className="player" onClick={this.playAnimation}>Play</button>
-        <button id="pause" className="player" onClick={this.pauseAnimation}>Pause</button>
-        <button id="stop" className="player" onClick={this.stopAnimation}>Stop</button>
-        <div id="slider-container" className="player">
-          <input type="range" id="slider" min={0.1} max={1} value={this.state.sliderValue} step={0.05} onChange={this.handleSlider}/>
-          <div>{this.state.sliderValue}</div>
+        <div className="top vertical">
+          <AudioRecorder newRecording={this.handleRecording}/>
+          <label className="styled-button narrow">
+            <div>Choose file</div>
+            <input type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false}/>
+          </label>
+          <button id="upload-button" className="styled-button narrow" onClick={this.sendFile}>Upload</button>
+          {this.state.inputProcessed == undefined && <div id="upload-text" className="upload">Loading...</div>}
         </div>
-        
+        <Model id="model" animationStatus={this.state.animationStatus} visemes = {this.state.visemes} sliderValue = {this.state.sliderValue}/>
+        <div class="bottom horizontal">
+          <button id="play" className="player styled-button" onClick={this.playAnimation}>Play</button>
+          <button id="pause" className="player styled-button" onClick={this.pauseAnimation}>Pause</button>
+          <button id="stop" className="player styled-button" onClick={this.stopAnimation}>Stop</button>
+          <span className="spacer"/>
+          <div id="slider-container" className="player">
+            <input type="range" id="slider" min={0.1} max={1} value={this.state.sliderValue} step={0.05} onChange={this.handleSlider}/>
+            <div>{this.state.sliderValue}</div>
+          </div>
+        </div>
       </div>
     )
   }

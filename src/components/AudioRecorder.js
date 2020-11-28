@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ReactMic } from 'react-mic';
+import './AudioRecorder.css'
 
 class AudioRecorder extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class AudioRecorder extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="recorder-container">
         <ReactMic
           record={this.state.record}
           className="sound-wave"
@@ -46,10 +47,13 @@ class AudioRecorder extends React.Component {
           onSave={this.onSave}
           strokeColor="#000000"
           backgroundColor="#FFFFFF"
-          mimeType="audio/wav"  />
-        <button onClick={this.startRecording} type="button">Start</button>
-        <button onClick={this.stopRecording} type="button">Stop</button>
-        <a href={this.state.downloadLinkURL} download="recording.wav">Download</a>
+          mimeType="audio/wav"
+          width="100"
+          height="50"
+          noiseSuppression={true}  />
+        <button className="record-button record" onClick={this.startRecording} type="button">Start</button>
+        <button className="record-button record" onClick={this.stopRecording} type="button">Stop</button>
+        <a className="record" href={this.state.downloadLinkURL} download="recording.wav">Download</a>
       </div>
     );
   }

@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+* {
+  font-family: arial, sans-serif;
+  font-size: large;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -27,7 +27,7 @@ class Model extends Component {
     this.lidSpeed = 0.1
     this.lidWait = 1
 
-    this.exponent = 1
+    this.exponent = 2
 
     this.obamaRatio = [0.8, 0.8]
 
@@ -194,12 +194,12 @@ class Model extends Component {
     var prevViseme = this.visemes[this.currentFrame-1]
     for(var visemeName of this.visemesNames){
       if(visemeName === currViseme){
-        this.modelControl[this.modelControlDict[visemeName]] += Math.pow(this.state.intensity, this.exponent)
+        this.modelControl[this.modelControlDict[visemeName]] += this.state.intensity / this.exponent //Math.pow(this.state.intensity, this.exponent)
         if(this.modelControl[this.modelControlDict[visemeName]]>1)
           this.modelControl[this.modelControlDict[visemeName]] = 1
       }
       else{
-        this.modelControl[this.modelControlDict[visemeName]] -= Math.pow(this.state.intensity, this.exponent)
+        this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / this.exponent //Math.pow(this.state.intensity, this.exponent)
         if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
       }
@@ -208,7 +208,7 @@ class Model extends Component {
     if(currViseme === prevViseme)
       this.exponent += 1
     else
-      this.exponent = 1
+      this.exponent = 2
   }
 
   animate() {
