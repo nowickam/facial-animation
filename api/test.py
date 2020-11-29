@@ -13,17 +13,17 @@ class FlaskTest(unittest.TestCase):
     # check for response 200
     def test_index(self):
         tester = app.test_client(self)
-        response = tester.get("/time")
+        response = tester.get("/api/time")
         statuscode = response.status_code
         self.assertEqual(statuscode, 200)
 
     def test_index_content(self):
         tester = app.test_client(self)
-        response = tester.get("/time")
+        response = tester.get("/api/time")
         self.assertEqual(response.content_type, "application/json")
 
     def login(self, username, password):
-        return app.test_client(self).post('/login', json = {
+        return app.test_client(self).post('/api/login', json = {
         "username" : username,
         "password" : password
         })

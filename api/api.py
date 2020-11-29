@@ -25,11 +25,11 @@ app.config['STATIC_SOURCE'] = 'static'
 model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'anylength_1024lstm_55acc.h5'))
 SAMPLE_RATE = 16000
 
-@app.route('/time')
+@app.route('/api/time')
 def get_current_time():
     return{'time': time.time()}
 
-@app.route('/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 def file_upload():
     # save the file
     print("READ")
@@ -58,7 +58,7 @@ def file_upload():
     return jsonify(viseme_result)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/api/login', methods=['GET', 'POST'])
 def login():
     user = load_user(request.get_json(force=True)['username'])
     if user is None or not user.verify_password(request.get_json(force=True)['password']):

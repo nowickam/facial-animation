@@ -31,7 +31,7 @@ class Login extends Component {
 
   async validateData(){
     const userData = JSON.stringify({username : this.state.username, password : this.state.password})
-    const res = await axios.post("http://localhost:5000/login", userData, {});
+    const res = await axios.post("http://localhost:5000/api/login", userData, {});
     if(res.data.status === 200)
       {
         this.setState({

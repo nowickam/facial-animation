@@ -168,7 +168,7 @@ class View extends Component {
       data.append('file', this.state.file)
       this.setState({inputProcessed : undefined})
 
-      const res = await axios.post("http://localhost:5000/upload", data, {});
+      const res = await axios.post("http://localhost:5000/api/upload", data, {});
       this.processResponse(res.data);
     }
   }
