@@ -22,7 +22,11 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['UPLOAD_EXTENSIONS'] = {'.wav', '.mp3', '.mp4'}
 app.config['STATIC_SOURCE'] = 'static'
 
-model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'anylength_1024lstm_55acc.h5'))
+try:
+    model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'anylength_1024lstm_55acc.h5'))
+except OSError as e:
+    model = None
+
 SAMPLE_RATE = 16000
 
 @app.route('/time')
@@ -42,10 +46,13 @@ def file_upload():
         file_ext = os.path.splitext(filename)[1]
         print(file_ext)
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            abort(400)
+            return jsonify(status=404, message='Extension')
 
     destination = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(destination)
+
+    if model == None:
+        return jsonify(status=404, message='Model')
 
     # pass the file to the ml model
     audio_file, loaded_sample_rate = load(destination)
@@ -55,7 +62,7 @@ def file_upload():
     phoneme_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
     viseme_result = [timit_char_map[ph] for ph in phoneme_result]
 
-    return jsonify(viseme_result)
+    return jsonify(status=200, result=viseme_result)
 
 
 @app.route('/login', methods=['GET', 'POST'])

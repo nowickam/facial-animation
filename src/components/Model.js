@@ -131,7 +131,6 @@ class Model extends Component {
   }
 
   componentWillUnmount() {
-    this.stop()
     this.mount.removeChild(this.renderer.domElement)
   }
 
