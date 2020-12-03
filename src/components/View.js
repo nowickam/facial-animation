@@ -9,6 +9,18 @@ import { Transition } from 'react-transition-group';
 const AUDIO_FRAME = 10
 const FPS = 60
 
+const defaultStyle = {
+  transition: `opacity ${300}ms ease-in-out`,
+  opacity: 0,
+}
+
+const transitionStyles = {
+  entering: { opacity: 1 },
+  entered:  { opacity: 1 },
+  exiting:  { opacity: 0 },
+  exited:  { opacity: 0 },
+};
+
 class View extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +32,6 @@ class View extends Component {
       sliderValue: 0.4,
       popup: false,
       popupText: '',
-      mounted: false
     }
 
     this.move = 0.02
@@ -74,7 +85,7 @@ class View extends Component {
 
   processResponse(response) {
     // console.log(response)
-    const step = 100 / FPS
+    const step = 1000 / AUDIO_FRAME / FPS
     var result = [], maxViseme = undefined
     for (var i = 0; i < response.length; i += step) {
       maxViseme = this.maxElement(response.slice(i, i + step))
@@ -88,7 +99,7 @@ class View extends Component {
   }
 
   maxElement(array) {
-    if (array.length == 0)
+    if (array.length === 0)
       return null;
     var modeMap = {};
     var maxEl = array[0], maxCount = 1;
@@ -108,14 +119,14 @@ class View extends Component {
 
 
   playAnimation() {
-    if ((this.state.animationStatus == 'STOP' || this.state.animationStatus == 'PAUSE') && this.state.inputProcessed) {
+    if ((this.state.animationStatus === 'STOP' || this.state.animationStatus === 'PAUSE') && this.state.inputProcessed) {
       this.audio.play()
       this.setState({ animationStatus: 'PLAY' });
     }
   }
 
   stopAnimation() {
-    if ((this.state.animationStatus == 'PLAY' || this.state.animationStatus == 'PAUSE') && this.state.inputProcessed) {
+    if ((this.state.animationStatus === 'PLAY' || this.state.animationStatus === 'PAUSE') && this.state.inputProcessed) {
       this.audio.pause();
       this.audio.currentTime = 0;
       this.setState({ animationStatus: 'STOP' });
@@ -123,7 +134,7 @@ class View extends Component {
   }
 
   pauseAnimation() {
-    if ((this.state.animationStatus == 'PLAY') && this.state.inputProcessed) {
+    if ((this.state.animationStatus === 'PLAY') && this.state.inputProcessed) {
       this.audio.pause();
       this.setState({ animationStatus: 'PAUSE' });
     }
@@ -154,8 +165,8 @@ class View extends Component {
 
       const res = await axios.post("http://localhost:5000/upload", data, {});
       // response obtained
-      if (res.status == 200) {
-        if (res.data.status == 200) {
+      if (res.status === 200) {
+        if (res.data.status === 200) {
           this.processResponse(res.data.result);
         }
         else if (res.data.message === "Extension") {
@@ -202,27 +213,35 @@ class View extends Component {
     return (
       <div id="view-container">
         <Transition
-          classNames="fade"
-          timeout={300}
-          in={this.state.mounted}>
-          {this.state.popup &&
-            <div className="background">
-              <div className="popup">
-                <div>{this.state.popupText}</div>
-                <button id="popup-close" onClick={this.closePopup}>X</button>
-              </div>
-            </div>}
+          in={this.state.popup}>
+            {state => (
+              <div style={{
+                ...defaultStyle,
+                ...transitionStyles[state]
+              }}>
+                <div className="background">
+                  <div className="popup">
+                    <div>{this.state.popupText}</div>
+                    <button id="popup-close" onClick={this.closePopup}>X</button>
+                  </div>
+                </div>
+                </div>
+            )}
         </Transition >
-        {/* <CSSTransition 
-          classNames="fade"
-          timeout={300}
-          in={this.state.mounted}>
-        { this.state.inputProcessed == undefined && 
-          <div className="background">
-            <div className="loader">
-            </div>
-          </div> }
-        </CSSTransition > */}
+        <Transition 
+          in={this.state.inputProcessed === undefined}>
+            {state => (
+              <div style={{
+                ...defaultStyle,
+                ...transitionStyles[state]
+              }}>
+                <div className="background">
+                  <div className="loader">
+                  </div>
+                </div> 
+              </div>
+            )}
+        </Transition >
         <div className="top vertical">
           <AudioRecorder newRecording={this.handleRecording} />
           <label className="styled-button narrow">
