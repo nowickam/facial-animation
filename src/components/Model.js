@@ -211,7 +211,7 @@ class Model extends Component {
   }
 
   animate() {
-    if (this.state.animationStatus == 'PLAY' && this.modelControlActive) {
+    if (this.state.animationStatus === 'PLAY' && this.modelControlActive) {
       this.nextViseme()
       this.moveLid()
 
@@ -221,7 +221,7 @@ class Model extends Component {
 
       this.currentFrame += 1
     }
-    else if(this.state.animationStatus == "STOP"){
+    else if(this.state.animationStatus === "STOP"){
         this.currentFrame = 1
     }
 

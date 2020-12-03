@@ -119,24 +119,39 @@ class View extends Component {
 
 
   playAnimation() {
-    if ((this.state.animationStatus === 'STOP' || this.state.animationStatus === 'PAUSE') && this.state.inputProcessed) {
+    if(!this.state.inputProcessed){
+      this.openPopup('Upload the audio file to the server!')
+    }
+    else{
+    if ((this.state.animationStatus === 'STOP' || this.state.animationStatus === 'PAUSE')) {
       this.audio.play()
       this.setState({ animationStatus: 'PLAY' });
+    }
     }
   }
 
   stopAnimation() {
-    if ((this.state.animationStatus === 'PLAY' || this.state.animationStatus === 'PAUSE') && this.state.inputProcessed) {
+    if(!this.state.inputProcessed){
+      this.openPopup('Upload the audio file to the server!')
+    }
+    else{
+    if ((this.state.animationStatus === 'PLAY' || this.state.animationStatus === 'PAUSE')) {
       this.audio.pause();
       this.audio.currentTime = 0;
       this.setState({ animationStatus: 'STOP' });
+      }
     }
   }
 
   pauseAnimation() {
-    if ((this.state.animationStatus === 'PLAY') && this.state.inputProcessed) {
+    if(!this.state.inputProcessed){
+      this.openPopup('Upload the audio file to the server!')
+    }
+    else{
+    if ((this.state.animationStatus === 'PLAY')) {
       this.audio.pause();
       this.setState({ animationStatus: 'PAUSE' });
+      }
     }
   }
 
@@ -162,8 +177,16 @@ class View extends Component {
       const data = new FormData();
       data.append('file', this.state.file)
       this.setState({ inputProcessed: undefined })
+      var res = undefined;
 
-      const res = await axios.post("http://localhost:5000/upload", data, {});
+      try{
+        res = await axios.post("http://localhost:5000/upload", data, {});
+      }
+      catch(err){
+        this.setState({ inputProcessed: false })
+        this.openPopup("No connection with the server!")
+        return;
+      }
       // response obtained
       if (res.status === 200) {
         if (res.data.status === 200) {
@@ -218,27 +241,43 @@ class View extends Component {
               <div style={{
                 ...defaultStyle,
                 ...transitionStyles[state]
-              }}>
+              }}>{this.state.popup &&
                 <div className="background">
                   <div className="popup">
                     <div>{this.state.popupText}</div>
                     <button id="popup-close" onClick={this.closePopup}>X</button>
                   </div>
-                </div>
+                </div>}
                 </div>
             )}
         </Transition >
-        <Transition 
+        <Transition
+          in={this.state.popup}>
+            {state => (
+              <div style={{
+                ...defaultStyle,
+                ...transitionStyles[state]
+              }}>{this.state.popup &&
+                <div className="background">
+                  <div className="popup">
+                    <div>{this.state.popupText}</div>
+                    <button id="popup-close" onClick={this.closePopup}>X</button>
+                  </div>
+                </div>}
+                </div>
+            )}
+        </Transition > 
+       <Transition 
           in={this.state.inputProcessed === undefined}>
             {state => (
               <div style={{
                 ...defaultStyle,
                 ...transitionStyles[state]
-              }}>
+              }}>{this.state.inputProcessed === undefined &&
                 <div className="background">
                   <div className="loader">
                   </div>
-                </div> 
+              </div> }
               </div>
             )}
         </Transition >
