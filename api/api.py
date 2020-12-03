@@ -55,6 +55,9 @@ def file_upload():
     phoneme_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
     viseme_result = [timit_char_map[ph] for ph in phoneme_result]
 
+    if os.path.exists(destination):
+        os.remove(destination)
+
     return jsonify(viseme_result)
 
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3a4664f-d04c-41ce-a7e9-0dfc8bbd630b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/api/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/requirements.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/api" />
+  </component>
+  <component name="ProjectId" id="1kkqoIvIrmv12ByJ44WevKzZser" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/api" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unittests in test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="facial-animation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/api/test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests in test.py" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3a4664f-d04c-41ce-a7e9-0dfc8bbd630b" name="Default Changelist" comment="" />
+      <created>1606255111425</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606255111425</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1181" y="248" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606894792593">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state x="1181" y="248" width="424" height="491" key="FileChooserDialogImpl/56.27.1864.1053@56.27.1864.1053" timestamp="1606894792593" />
+    <state width="1125" height="483" key="GridCell.Tab.0.bottom" timestamp="1606255847032">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1125" height="483" key="GridCell.Tab.0.bottom/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
+    <state width="1125" height="483" key="GridCell.Tab.0.center" timestamp="1606255847032">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1125" height="483" key="GridCell.Tab.0.center/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
+    <state width="1125" height="483" key="GridCell.Tab.0.left" timestamp="1606255847032">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1125" height="483" key="GridCell.Tab.0.left/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
+    <state width="1125" height="483" key="GridCell.Tab.0.right" timestamp="1606255847032">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state width="1125" height="483" key="GridCell.Tab.0.right/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
+    <state x="206" y="196" width="659" height="522" key="find.popup" timestamp="1606728383011">
+      <screen x="56" y="27" width="1864" height="1053" />
+    </state>
+    <state x="206" y="196" width="659" height="522" key="find.popup/56.27.1864.1053@56.27.1864.1053" timestamp="1606728383011" />
+  </component>
+</project>
