@@ -45,6 +45,9 @@ class View extends Component {
     this.lidSpeed = 0.1
     this.lidWait = 1
 
+    this.play = this.play.bind(this)
+    this.pause = this.pause.bind(this)
+    this.stop = this.stop.bind(this)
     this.processResponse = this.processResponse.bind(this)
     this.fetchInput = this.fetchInput.bind(this)
     this.playAnimation = this.playAnimation.bind(this)
@@ -84,15 +87,30 @@ class View extends Component {
   }
 
   processResponse(response) {
-    // console.log(response)
     const step = 1000 / AUDIO_FRAME / FPS
-    var result = [], maxViseme = undefined
+    var result = [], frame=undefined, j=undefined;
     for (var i = 0; i < response.length; i += step) {
-      maxViseme = this.maxElement(response.slice(i, i + step))
-      result.push(maxViseme)
+      // change the frequency of the visemes from 100Hz to 60Hz
+      frame = response.slice(i, i + step)[0]
+      result.push(frame)
+      j = result.length-1;
+      if(j>=3){
+        // eliminate singular visemes
+        if(result[j-2] !== result[j-1] && result[j-1] !== result[j]){
+          result[result.length-2] = result[result.length-3];
+        }
+      }
+      if(j>=4){
+        // eliminate double visemes
+        if(result[j] !== result[j-1]){
+          if(!(result[j-1] === result[j-2] && result[j-2] === result[j-3])){
+            result[j-1]=result[j];
+            result[j-2]=result[j-3];
+          }
+        }
+      }
     }
     this.setState({
-      animationStatus: 'STOP',
       visemes: result,
       inputProcessed: true
     })
@@ -118,15 +136,35 @@ class View extends Component {
   }
 
 
+
+  stop(){
+    if ((this.state.animationStatus === 'PLAY' || this.state.animationStatus === 'PAUSE')) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.setState({ animationStatus: 'STOP' });
+      }
+  }
+
+  play(){
+    if ((this.state.animationStatus === 'STOP' || this.state.animationStatus === 'PAUSE')) {
+      this.audio.play()
+      this.setState({ animationStatus: 'PLAY' });
+    }
+  }
+
+  pause(){
+    if ((this.state.animationStatus === 'PLAY')) {
+      this.audio.pause();
+      this.setState({ animationStatus: 'PAUSE' });
+      }
+  }
+
   playAnimation() {
     if(!this.state.inputProcessed){
       this.openPopup('Upload the audio file to the server!')
     }
     else{
-    if ((this.state.animationStatus === 'STOP' || this.state.animationStatus === 'PAUSE')) {
-      this.audio.play()
-      this.setState({ animationStatus: 'PLAY' });
-    }
+      this.play()
     }
   }
 
@@ -135,11 +173,7 @@ class View extends Component {
       this.openPopup('Upload the audio file to the server!')
     }
     else{
-    if ((this.state.animationStatus === 'PLAY' || this.state.animationStatus === 'PAUSE')) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
-      this.setState({ animationStatus: 'STOP' });
-      }
+      this.stop()
     }
   }
 
@@ -148,25 +182,25 @@ class View extends Component {
       this.openPopup('Upload the audio file to the server!')
     }
     else{
-    if ((this.state.animationStatus === 'PLAY')) {
-      this.audio.pause();
-      this.setState({ animationStatus: 'PAUSE' });
-      }
+      this.pause()
     }
   }
 
   handleFile(event) {
+    console.log(event.target.files)
     if (event.target.files.length > 0) {
       var fileData = event.target.files[0];
       var fileSource = URL.createObjectURL(fileData)
 
-      this.setState({ file: fileData, inputProcessed: false })
+      this.stop()
+      this.setState({ file: fileData, inputProcessed: false, filename: fileData.name })
       this.audio.src = fileSource
     }
   }
 
   handleRecording(recording) {
-    this.setState({ file: recording, inputProcessed: false })
+    this.stop()
+    this.setState({ file: recording, inputProcessed: false, filename: "Recording" })
     this.audio.src = URL.createObjectURL(recording)
 
     console.log(this.state.file, this.audio.src)
@@ -177,6 +211,7 @@ class View extends Component {
       const data = new FormData();
       data.append('file', this.state.file)
       this.setState({ inputProcessed: undefined })
+      this.stop()
       var res = undefined;
 
       try{
@@ -283,8 +318,9 @@ class View extends Component {
         </Transition >
         <div className="top vertical">
           <AudioRecorder newRecording={this.handleRecording} />
-          <label className="styled-button narrow">
+          <label className="styled-button horizontal">
             <div>Choose file</div>
+            <div>{this.state.filename}</div>
             <input type="file" accept="audio/wav, audio/mp3" onChange={this.handleFile} multiple={false} />
           </label>
           <button id="upload-button" className="styled-button narrow" onClick={this.sendFile}>Upload</button>
