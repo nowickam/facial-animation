@@ -1,0 +1,25 @@
+server {
+    server_name example.com;
+    root /home/yasoob/sample-app/build;
+    index index.html;
+
+    location / {
+    try_files $uri /index.html;
+        add_header Cache-Control "no-cache";
+    }
+
+    location /static {
+        expires 1y;
+        add_header Cache-Control "public";
+    }
+
+    location /api {
+        include proxy_params;
+        proxy_pass http://localhost:5000;
+    }
+}
+
+server {
+    server_name www.example.com;
+    return 301 https://example.com$request_uri;
+}
