@@ -20,9 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3a4664f-d04c-41ce-a7e9-0dfc8bbd630b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/api/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sample-app.nginx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sample-app.service" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,20 +31,25 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/api" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1kkqoIvIrmv12ByJ44WevKzZser" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/api" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager">
@@ -89,31 +95,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1181" y="248" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606894792593">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state x="1181" y="248" width="424" height="491" key="FileChooserDialogImpl/56.27.1864.1053@56.27.1864.1053" timestamp="1606894792593" />
-    <state width="1125" height="483" key="GridCell.Tab.0.bottom" timestamp="1606255847032">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state width="1125" height="483" key="GridCell.Tab.0.bottom/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
-    <state width="1125" height="483" key="GridCell.Tab.0.center" timestamp="1606255847032">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state width="1125" height="483" key="GridCell.Tab.0.center/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
-    <state width="1125" height="483" key="GridCell.Tab.0.left" timestamp="1606255847032">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state width="1125" height="483" key="GridCell.Tab.0.left/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
-    <state width="1125" height="483" key="GridCell.Tab.0.right" timestamp="1606255847032">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state width="1125" height="483" key="GridCell.Tab.0.right/56.27.1864.1053@56.27.1864.1053" timestamp="1606255847032" />
-    <state x="206" y="196" width="659" height="522" key="find.popup" timestamp="1606728383011">
-      <screen x="56" y="27" width="1864" height="1053" />
-    </state>
-    <state x="206" y="196" width="659" height="522" key="find.popup/56.27.1864.1053@56.27.1864.1053" timestamp="1606728383011" />
   </component>
 </project>

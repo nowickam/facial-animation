@@ -1,8 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+  Link
+} from "react-router-dom";
 import './App.css';
 import View from './components/View.js'
 import Login from "./components/Login";
+
+import {login, authFetch, useAuth, logout} from "./auth"
+
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const [logged] = useAuth();
+
+  return <Route {...rest} render={(props) => (
+    logged
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+}
 
 function App() {
   return (
