@@ -27,3 +27,8 @@ Launches the test runner in the interactive watch mode.<br />
 ## Authors
 
 Małgorzata Nowicka and Filip Zawadka
+
+
+## Sources
+https://github.com/yasoob/Flask-React-JWT
+https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project
