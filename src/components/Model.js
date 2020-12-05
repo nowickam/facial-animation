@@ -27,7 +27,7 @@ class Model extends Component {
     this.lidSpeed = 0.1
     this.lidWait = 1
 
-    this.exponent = 2
+    this.exponent = 6
 
     this.obamaRatio = [0.8, 0.8]
 
@@ -39,6 +39,7 @@ class Model extends Component {
     this.getMouthControl = this.getModelControl.bind(this)
     this.moveLid = this.moveLid.bind(this)
     this.nextViseme = this.nextViseme.bind(this)
+    this.resetModel = this.resetModel.bind(this)
   }
 
   componentDidMount() {
@@ -87,11 +88,12 @@ class Model extends Component {
       }
       if(prevProps.visemes !== this.props.visemes){
         this.visemes = this.props.visemes
-        this.visemesNames = [... new Set(this.props.visemes)]
+        this.visemesNames = [...new Set(this.props.visemes)]
+        this.currentFrame = 1
         console.log(this.visemes)
         console.log(this.visemesNames)
     }
-    if(prevProps.sliderValue != this.props.sliderValue){
+    if(prevProps.sliderValue !== this.props.sliderValue){
       this.setState({
         intensity: this.props.sliderValue
       })
@@ -131,7 +133,6 @@ class Model extends Component {
   }
 
   componentWillUnmount() {
-    this.stop()
     this.mount.removeChild(this.renderer.domElement)
   }
 
@@ -161,7 +162,7 @@ class Model extends Component {
 
 
   moveLid(){
-    if(this.modelControl[this.modelControlDict['wink']] < 0){
+    if(this.modelControl[this.modelControlDict['wink']] <= 0){
       if (this.lidWait > 100){
         this.lidMove = this.lidSpeed;
         this.lidWait = 0
@@ -178,14 +179,6 @@ class Model extends Component {
     this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
   }
 
-  moveObama(){
-      if(this.modelControlActive)
-      {
-          this.modelControl[this.modelControlDict['vertical']] = this.mouthHeight[this.currentFrame]
-          this.modelControl[this.modelControlDict['horizontal']] = this.mouthWidth[this.currentFrame]
-      }
-  }
-
   nextViseme(){
     if(this.currentFrame < 1)
       this.currentFrame = 1
@@ -199,40 +192,48 @@ class Model extends Component {
           this.modelControl[this.modelControlDict[visemeName]] = 1
       }
       else{
-        this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / this.exponent //Math.pow(this.state.intensity, this.exponent)
+        this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / (10-this.exponent) //Math.pow(this.state.intensity, this.exponent)
         if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
       }
     }
 
-    if(currViseme === prevViseme)
-      this.exponent += 1
+    if(currViseme === prevViseme){
+      this.exponent -= 1
+      if(this.exponent < 2) this.exponent = 2;
+    }
     else
-      this.exponent = 2
+      this.exponent = 8
+  }
+
+  resetModel(){
+    this.lidWait = 0
+    if(this.modelControl){
+      for(var i=0; i<this.modelControl.length; i++){
+        this.modelControl[i] = 0;
+      }
+    }
   }
 
   animate() {
-    if (this.state.animationStatus == 'PLAY' && this.modelControlActive) {
+    if (this.state.animationStatus === 'PLAY' && this.modelControlActive) {
       this.nextViseme()
       this.moveLid()
 
-      if (this.currentFrame >= this.visemes.length || this.currentFrame === 0) {
+      if (this.currentFrame >= this.visemes.length) {
         this.currentFrame = 0
       }
 
       this.currentFrame += 1
     }
-    else if(this.state.animationStatus == "STOP"){
+    else if(this.state.animationStatus === "STOP"){
         this.currentFrame = 1
+        this.resetModel()
     }
 
-    // setTimeout(() => {
     this.controls.update()
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)
-    
-    // }, 1000 / 60)   // 25 fps
-
   }
 
   renderScene() {

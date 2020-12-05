@@ -20,7 +20,7 @@ class AudioRecorder extends React.Component {
   }
 
   onData = (recordedBlob) => {
-    console.log('chunk of real-time data is: ', recordedBlob);
+    // console.log('chunk of real-time data is: ', recordedBlob);
   }
 
   onStop = (recordedBlob) => {
@@ -48,8 +48,8 @@ class AudioRecorder extends React.Component {
           strokeColor="#000000"
           backgroundColor="#FFFFFF"
           mimeType="audio/wav"
-          width="100"
-          height="50"
+          width={100}
+          height={50}
           noiseSuppression={true}  />
         <button className="record-button record" onClick={this.startRecording} type="button">Start</button>
         <button className="record-button record" onClick={this.stopRecording} type="button">Stop</button>

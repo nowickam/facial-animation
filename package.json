@@ -19,11 +19,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-test-renderer": "^17.0.1",
+    "react-transition-group": "^4.4.1",
+    "reactjs-popup": "^2.0.4",
     "three": "^0.120.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "start-api": "cd api && venv\\Scripts\\flask run",
+    "start-api-mac": "cd api && source venv/bin/activate && python api.py",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
     "eject": "react-scripts eject"

@@ -74,3 +74,81 @@ canvas {
     outline: none;
     border:none;
 }
+
+.loader-container, .top, .bottom {
+    grid-area: 1 / 1;
+}
+
+#view-container{
+    display: grid;
+}
+
+
+.background {
+    position: absolute;
+    top: 0%;
+    background: radial-gradient(rgba(217, 217, 217, 0.5), rgba(255, 255, 255, 0.5));
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    /* opacity: 1; */
+    /* transition: opacity 0.01s; */
+}
+
+.fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
+  }
+
+/* 
+.background.hide{
+    transition: opacity 0.1s;
+    opacity: 0;
+} */
+
+.loader {
+    width: 100px;
+	height: 100px;
+}
+
+.loader:before {
+    z-index: 11;
+    position: absolute;
+    top: calc(50% - 175px);
+    left: calc(50% - 175px);
+    content: '';
+	width: 350px;
+	height: 350px;
+	border-radius: 100%;
+    border-bottom: 0 solid #ffffff05;
+    background-color: red;
+	
+	box-shadow: 
+		0 -10px 20px 20px #ffffff40 inset,
+		0 -5px 15px 10px #ffffff50 inset,
+		0 -2px 5px #ffffff80 inset,
+		0 -3px 2px #ffffffBB inset,
+		0 2px 0px #ffffff,
+		0 2px 3px #ffffff,
+		0 5px 5px #ffffff90,
+		0 10px 15px #ffffff60,
+		0 10px 20px 20px #ffffff40;
+	filter: blur(3px);
+	animation: 2s rotate linear infinite;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg)
+	}
+}
