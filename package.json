@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-test-renderer": "^17.0.1",
+    "react-token-auth": "^1.1.7",
     "react-transition-group": "^4.4.1",
     "reactjs-popup": "^2.0.4",
     "three": "^0.120.1"

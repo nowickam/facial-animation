@@ -79,10 +79,10 @@ cors.init_app(app)
 # Add users for the example
 with app.app_context():
     db.create_all()
-    if db.session.query(User).filter_by(username='Yasoob').count() < 1:
+    if db.session.query(User).filter_by(username='1').count() < 1:
         db.session.add(User(
-          username='Yasoob',
-          password=guard.hash_password('strongpassword'),
+          username='1',
+          password=guard.hash_password('1'),
           roles='admin'
 		))
     db.session.commit()
@@ -156,7 +156,7 @@ def file_upload():
         file_ext = os.path.splitext(filename)[1]
         print(file_ext)
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            flask.abort(400)
+            return jsonify(status=404, message='Extension')
 
     destination = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(destination)
@@ -172,11 +172,7 @@ def file_upload():
     phoneme_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
     viseme_result = [timit_char_map[ph] for ph in phoneme_result]
 
-<<<<<<< HEAD
-    return jsonify(status=200, result=viseme_result)
-
-=======
-    return flask.jsonify(viseme_result)
+    return flask.jsonify(status=200, result=viseme_result)
 
 @app.route('/<path:path>')
 def catch_all(path):

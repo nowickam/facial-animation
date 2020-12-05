@@ -1,10 +1,9 @@
 // https://serverless-stack.com/chapters/create-a-login-page.html
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { Redirect } from 'react-router-dom';
 // import "./Login.css";
 import axios from 'axios';
+import {login, authFetch, useAuth, logout} from "../auth"
 
 class Login extends Component {
   constructor(props){
@@ -31,18 +30,15 @@ class Login extends Component {
 
   async validateData(){
     const userData = JSON.stringify({username : this.state.username, password : this.state.password})
-    const res = await axios.post("http://localhost:5000/api/login", userData, {});
-    if(res.data.status === 200)
-      {
-        this.setState({
-          status : 'CORRECT'
-        })
-      }
-      else{
-        this.setState({
-          status : 'FALSE'
-        })
-      }
+    const res = await axios.post('/api/login', userData, {});
+    var token = res.data
+    if(token.access_token){
+      login(token)
+      console.log(token)
+    }
+    else{
+      console.log("Please type in correct username/password")
+    }
   }
 
   setUsername(e){
@@ -58,9 +54,6 @@ class Login extends Component {
   }
 
   render(){
-    if(this.state.status == "CORRECT"){
-      return <Redirect to="/lipsync" />
-    }
     return (
     <div className="Login">
       <form onSubmit={this.handleSubmit}>
