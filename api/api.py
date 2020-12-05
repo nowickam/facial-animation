@@ -156,13 +156,13 @@ def file_upload():
         file_ext = os.path.splitext(filename)[1]
         print(file_ext)
         if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-            return jsonify(status=404, message='Extension')
+            return flask.jsonify(status=404, message='Extension')
 
     destination = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(destination)
 
     if model == None:
-        return jsonify(status=404, message='Model')
+        return flask.jsonify(status=404, message='Model')
 
     # pass the file to the ml model
     audio_file, loaded_sample_rate = load(destination)

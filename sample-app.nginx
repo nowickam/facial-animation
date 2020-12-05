@@ -1,6 +1,6 @@
 server {
-    server_name example.com;
-    root /home/yasoob/sample-app/build;
+    server_name 168.62.187.142;
+    root /home/azureuser/facial-animation/build;
     index index.html;
 
     location / {
@@ -20,6 +20,6 @@ server {
 }
 
 server {
-    server_name www.example.com;
-    return 301 https://example.com$request_uri;
+    server_name 168.62.187.142;
+    return 301 168.62.187.142$request_uri;
 }
