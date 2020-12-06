@@ -26,7 +26,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "cd api && venv\\Scripts\\flask run",
+    "start-api": "cd api && env/bin/flask run --no-debugger",
+    "start-api-win": "cd api && venv\\Scripts\\flask run",
     "start-api-mac": "cd api && source venv/bin/activate && python api.py",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
