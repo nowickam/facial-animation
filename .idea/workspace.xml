@@ -148,12 +148,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_invalid" />
       <item itemvalue="Shell Script.end2end_tests_env" />
       <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_correct" />
       <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_incorrect" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_wav" />
+      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_invalid" />
       <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_mp3" />
+      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_wav" />
     </list>
     <recent_temporary>
       <list>

@@ -172,6 +172,7 @@ def file_upload():
     phoneme_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
     viseme_result = [timit_char_map[ph] for ph in phoneme_result]
 
+
     return flask.jsonify(status=200, result=viseme_result)
 
 @app.route('/<path:path>')
