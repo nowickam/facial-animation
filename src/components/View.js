@@ -305,27 +305,6 @@ class View extends Component {
             </div>
           )}
         </Transition>
-        <Transition timeout={300} in={this.state.popup}>
-          {(state) => (
-            <div
-              style={{
-                ...defaultStyle,
-                ...transitionStyles[state],
-              }}
-            >
-              {this.state.popup && (
-                <div className="background">
-                  <div className="popup">
-                    <div>{this.state.popupText}</div>
-                    <button id="popup-close" onClick={this.closePopup}>
-                      X
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </Transition>
         <Transition timeout={300} in={this.state.inputProcessed === undefined}>
           {(state) => (
             <div
