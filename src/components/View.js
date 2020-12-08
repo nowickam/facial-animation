@@ -295,7 +295,8 @@ class View extends Component {
               {this.state.popup && (
                 <div className="background">
                   <div className="popup">
-                    <div>{this.state.popupText}</div>
+                    <div id="popup-text">{this.state.popupText}</div>
+
                     <button id="popup-close" onClick={this.closePopup}>
                       X
                     </button>
@@ -305,7 +306,9 @@ class View extends Component {
             </div>
           )}
         </Transition>
+
         <Transition timeout={300} in={this.state.inputProcessed === undefined}>
+
           {(state) => (
             <div
               style={{
@@ -334,9 +337,11 @@ class View extends Component {
           />
           <label className="styled-button horizontal">
             <div>Choose file</div>
-            <div>{this.state.filename}</div>
+            <div id="chosen-file">{this.state.filename}</div>
             <input
-              id="upload-input"
+
+              id="choose-file"
+
               type="file"
               accept="audio/wav, audio/mp3"
               onChange={this.handleFile}
