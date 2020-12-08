@@ -10,3 +10,5 @@ configure({adapter: new Adapter()});
 
 // global.fetch = jest.fn();
 window.URL.createObjectURL = jest.fn();
+
+global.window = { location: { pathname: null } };

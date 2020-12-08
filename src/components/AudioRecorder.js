@@ -1,40 +1,52 @@
-import React, { Component } from 'react'
-import { ReactMic } from 'react-mic';
-import './AudioRecorder.css'
+import React, { Component } from "react";
+import "./AudioRecorder.css";
+// import { ReactMic } from "react-mic";
 
+let ReactMic;
 class AudioRecorder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       record: false,
-      downloadLinkURL: null
+      downloadLinkURL: null,
+    };
+    if (!ReactMic) {
+      try {
+        ReactMic = require("react-mic").ReactMic;
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
   startRecording = () => {
     this.setState({ record: true });
-  }
+  };
 
   stopRecording = () => {
     this.setState({ record: false });
-  }
+  };
 
   onData = (recordedBlob) => {
     // console.log('chunk of real-time data is: ', recordedBlob);
-  }
+  };
 
   onStop = (recordedBlob) => {
-    console.log('recordedBlob is: ', recordedBlob);
-    this.props.newRecording(new File([recordedBlob.blob], "recording.wav", {type: 'audio/wav', lastModified: Date.now()}))
+    console.log("recordedBlob is: ", recordedBlob);
+    this.props.newRecording(
+      new File([recordedBlob.blob], "recording.wav", {
+        type: "audio/wav",
+        lastModified: Date.now(),
+      })
+    );
     // this.props.newRecording(recordedBlob.blobURL)
-
-  }
+  };
 
   onSave = (recordedBlob) => {
     this.setState({
-        downloadLinkURL: recordedBlob.blobURL
-    })
-  }
+      downloadLinkURL: recordedBlob.blobURL,
+    });
+  };
 
   render() {
     return (
@@ -50,13 +62,32 @@ class AudioRecorder extends React.Component {
           mimeType="audio/wav"
           width={100}
           height={50}
-          noiseSuppression={true}  />
-        <button className="record-button record" onClick={this.startRecording} type="button">Start</button>
-        <button className="record-button record" onClick={this.stopRecording} type="button">Stop</button>
-        <a className="record" href={this.state.downloadLinkURL} download="recording.wav">Download</a>
+          noiseSuppression={true}
+        />
+        <button
+          className="record-button record"
+          onClick={this.startRecording}
+          type="button"
+        >
+          Start
+        </button>
+        <button
+          className="record-button record"
+          onClick={this.stopRecording}
+          type="button"
+        >
+          Stop
+        </button>
+        <a
+          className="record"
+          href={this.state.downloadLinkURL}
+          download="recording.wav"
+        >
+          Download
+        </a>
       </div>
     );
   }
 }
 
-export default AudioRecorder
+export default AudioRecorder;

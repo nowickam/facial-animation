@@ -194,7 +194,6 @@ class View extends Component {
   }
 
   handleFile(event) {
-    console.log(event.target.files);
     if (event.target.files.length > 0) {
       var fileData = event.target.files[0];
       var fileSource = URL.createObjectURL(fileData);
@@ -231,7 +230,6 @@ class View extends Component {
 
       authFetch("/api/upload", { method: "POST", body: data })
         .then((res) => {
-          console.log(res);
           if (res.status === 401) {
             this.setState({ inputProcessed: false });
             this.openPopup("Sorry you aren't authorized!");
@@ -244,7 +242,6 @@ class View extends Component {
           return res.json();
         })
         .then((res) => {
-          console.log(res);
           if (res) {
             if (res.status === 200) {
               this.processResponse(res.result);
@@ -287,7 +284,7 @@ class View extends Component {
   render() {
     return (
       <div id="view-container">
-        <Transition in={this.state.popup}>
+        <Transition timeout={300} in={this.state.popup}>
           {(state) => (
             <div
               style={{
@@ -299,6 +296,7 @@ class View extends Component {
                 <div className="background">
                   <div className="popup">
                     <div id="popup-text">{this.state.popupText}</div>
+
                     <button id="popup-close" onClick={this.closePopup}>
                       X
                     </button>
@@ -308,7 +306,9 @@ class View extends Component {
             </div>
           )}
         </Transition>
-        <Transition in={this.state.inputProcessed === undefined}>
+
+        <Transition timeout={300} in={this.state.inputProcessed === undefined}>
+
           {(state) => (
             <div
               style={{
@@ -324,13 +324,24 @@ class View extends Component {
             </div>
           )}
         </Transition>
+        <button
+            id="logout-button"
+            className="styled-button right"
+            onClick={logout}>
+              Logout
+          </button>
         <div className="top vertical">
-          <AudioRecorder newRecording={this.handleRecording} />
+          <AudioRecorder
+            id="audio-recorder"
+            newRecording={this.handleRecording}
+          />
           <label className="styled-button horizontal">
             <div>Choose file</div>
             <div id="chosen-file">{this.state.filename}</div>
             <input
+
               id="choose-file"
+
               type="file"
               accept="audio/wav, audio/mp3"
               onChange={this.handleFile}

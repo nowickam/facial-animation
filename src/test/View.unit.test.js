@@ -4,13 +4,11 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import View from "../components/View";
 import ReactDOM from 'react-dom';
+import * as auth from "../auth"
 
-const axios = require('axios');
-
-jest.mock('axios');
 let wrapper
   
-describe("initiation: ", () => {
+describe("Initiation: ", () => {
   beforeEach(() => {
     wrapper= shallow(<View />);
   });
@@ -19,16 +17,35 @@ describe("initiation: ", () => {
     wrapper.unmount();
   });
 
-  test('renders the correct content', () => {
+  test('renders the animation player', () => {
     expect(wrapper.find('#play')).toHaveLength(1);
     expect(wrapper.find('#pause')).toHaveLength(1);
-    expect(wrapper.find('#stop')).toHaveLength(1);
+    expect(wrapper.find('#stop')).toHaveLength(1); 
+    expect(wrapper.find('#slider')).toHaveLength(1);
+  })
+
+  test('renders the audio recorder', () => {
+    expect(wrapper.find('#audio-recorder')).toHaveLength(1);
+  })
+
+  test('renders the 3d model', () => {
+    expect(wrapper.find('#model')).toHaveLength(1);
+  })
+
+  test('does not render any popups', () => {
+    expect(wrapper.find('.popup')).toHaveLength(0);
+    expect(wrapper.find('.loader')).toHaveLength(0);
+  })
+
+  test('renders the upload input', () => {
     expect(wrapper.find('#upload-input')).toHaveLength(1);
     expect(wrapper.find('#upload-button')).toHaveLength(1);
     expect(wrapper.find('#upload-text')).toHaveLength(0);
-    expect(wrapper.find('#model')).toHaveLength(1);
+  })
 
+  test('initialises correct states', () => {
     expect(wrapper.state('animationStatus')).toBe('STOP');
+    expect(wrapper.state('inputProcessed')).toBeFalsy();
   })
 
 test('player buttons do not change the state when there is no audio file', () => {
@@ -44,7 +61,7 @@ test('player buttons do not change the state when there is no audio file', () =>
 })
 
 
-describe('upload: ', () => {
+describe('Checks the state of the application after uploading a file to the server: ', () => {
   beforeAll(() => {
     wrapper= shallow(<View />);
     wrapper.find('#upload-input').prop('onChange')({
@@ -62,12 +79,12 @@ describe('upload: ', () => {
   })
 
   test('sends files to the server and processes the response (the new animation moves are received and processed, the current animation stops)', async () => {
-    const dummyResponse = {
-      data : [0, 0]
+    var response = { "status" : 200 , "result" : [0, 0] };
+    const responseInit = {
+      status: 200,
+      statusText: 'ok',
     };
-    axios.post.mockResolvedValue(
-      dummyResponse
-  );
+    auth.authFetch = jest.fn().mockResolvedValue(Promise.resolve(new Response(JSON.stringify(response), responseInit)))
 
   await act(async () => {
     wrapper.instance().sendFile()
@@ -75,6 +92,6 @@ describe('upload: ', () => {
     expect(wrapper.state('animationStatus')).toBe('STOP');
     expect(wrapper.state('visemes')).not.toBeUndefined();
     expect(wrapper.state('inputProcessed')).toBeTruthy();
-    axios.post.mockRestore()
+    auth.authFetch.mockRestore()
   })
 })

@@ -10,6 +10,11 @@
     left: 200px;
 }
 
+.right {
+    position: absolute;
+    right: 0px;
+}
+
 .top {
     position: absolute;
     top: 0px;
