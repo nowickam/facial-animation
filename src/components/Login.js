@@ -11,7 +11,6 @@ class Login extends Component {
     this.state={
       username : "",
       password : "",
-      status : "FALSE"
     }
   // const history = useHistory();
   this.validateForm = this.validateForm.bind(this)
@@ -30,7 +29,9 @@ class Login extends Component {
 
   async validateData(){
     const userData = JSON.stringify({username : this.state.username, password : this.state.password})
+    console.log(userData)
     const res = await axios.post('/api/login', userData, {});
+    console.log(res)
     var token = res.data
     if(token.access_token){
       login(token)

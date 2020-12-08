@@ -15,7 +15,6 @@ import {login, authFetch, useAuth, logout} from "./auth"
 
 function App() {
   const [logged] = useAuth();
-  console.log(logged)
 
   return (
     <div className="App">
