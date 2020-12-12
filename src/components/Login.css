@@ -19,3 +19,28 @@
     justify-content: space-between;
     align-items: baseline;
 }
+
+.form-element-input{
+    background-color: var(--bg-color);
+    border: none;
+    border-bottom: solid 2px var(--font-color);
+    color: var(--font-color-focus)
+}
+
+.form-element-input:focus{
+    outline:none
+}
+
+#login-button {
+    border: none;
+    background-color: transparent;
+}
+
+#login-button:enabled:hover {
+    color: var(--font-color-focus);
+    cursor: pointer;
+}
+
+#login-button:focus{
+    outline: none;
+}

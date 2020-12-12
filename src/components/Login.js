@@ -5,7 +5,7 @@ import "./Login.css";
 import axios from "axios";
 import { login, authFetch, useAuth, logout } from "../auth";
 import { Transition } from "react-transition-group";
-import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle } from "../Config.js";
+import {transitionStyles, defaultStyle } from "../Config.js";
 
 class Login extends Component {
   constructor(props) {
@@ -81,11 +81,11 @@ class Login extends Component {
                 <FormGroup
                   id="username"
                   className="form-element"
-                  bssize="large"
                 >
                   <FormLabel>Username</FormLabel>
                   <FormControl
                     id="username-form"
+                    className="form-element-input"
                     autoFocus
                     type="text"
                     value={this.state.username}
@@ -95,11 +95,11 @@ class Login extends Component {
                 <FormGroup
                   id="password"
                   className="form-element"
-                  bssize="large"
                 >
                   <FormLabel>Password</FormLabel>
                   <FormControl
                     id="password-form"
+                    className="form-element-input"
                     value={this.state.password}
                     onChange={this.setPassword}
                     type="password"
@@ -108,7 +108,6 @@ class Login extends Component {
                 <Button
                   id="login-button"
                   block
-                  bssize="large"
                   disabled={!this.validateForm()}
                   type="submit"
                   onClick={this.validateData}

@@ -274,7 +274,7 @@ class View extends Component {
 
   render() {
     return (
-      <Transition timeout={300} in={this.state.mounted}>
+      <Transition timeout={500} in={this.state.mounted}>
       {(state) => (
         <div
           style={{
@@ -331,8 +331,8 @@ class View extends Component {
             id="audio-recorder"
             newRecording={this.handleRecording}
           />
-          <label className="styled-button horizontal">
-            <div>Choose file</div>
+          <label className="horizontal">
+            <div className="styled-button">Choose file</div>
             <div>{this.state.filename}</div>
             <input
               id="upload-input"
@@ -380,6 +380,7 @@ class View extends Component {
             Stop
           </button>
           <span className="spacer" />
+          <div id="slider-value">{this.state.sliderValue}</div>
           <div id="slider-container" className="player">
             <input
               type="range"
@@ -390,7 +391,6 @@ class View extends Component {
               step={0.05}
               onChange={this.handleSlider}
             />
-            <div>{this.state.sliderValue}</div>
           </div>
         </div>
       </div>

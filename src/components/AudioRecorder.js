@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import "./AudioRecorder.css";
+import { bgColor, fontColor } from '../Config.js'
+import { Transition } from "react-transition-group";
 // import { ReactMic } from "react-mic";
+import {transitionStyles, defaultStyle } from "../Config.js";
 
 let ReactMic;
-class AudioRecorder extends React.Component {
+class AudioRecorder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,19 +54,31 @@ class AudioRecorder extends React.Component {
   render() {
     return (
       <div id="recorder-container">
+        <Transition timeout={300} in={this.state.record}>
+        {(state) => (
+          <div
+            style={{
+              ...defaultStyle,
+              ...transitionStyles[state],
+            }}
+          >
         <ReactMic
           record={this.state.record}
           className="sound-wave"
           onStop={this.onStop}
           onData={this.onData}
           onSave={this.onSave}
-          strokeColor="#000000"
-          backgroundColor="#FFFFFF"
+          strokeColor={fontColor}
+          backgroundColor={bgColor}
           mimeType="audio/wav"
-          width={100}
-          height={50}
+          width={175}
+          height={30}
           noiseSuppression={true}
         />
+        </div>
+        )}
+      </Transition>
+        <div className="horizontal">
         <button
           className="record-button record"
           onClick={this.startRecording}
@@ -85,6 +100,7 @@ class AudioRecorder extends React.Component {
         >
           Download
         </a>
+        </div>
       </div>
     );
   }

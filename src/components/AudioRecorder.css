@@ -1,20 +1,37 @@
 #recorder-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items : center;
     justify-content: center;
 }
 
-.record-button {
+.record-button{
     height: 20px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+    color: var(--font-color);
 }
 
-.record {
-    padding: 2;
-    color: black;
-    font-size: large;
-    outline: none;
+.record-button:focus{
+    outline:none
+}
+
+.record-button:hover{
+    color: var(--font-color-focus)
+}
+
+a[href^="blob:"]{
+    text-decoration: none;
+    color: var(--font-color)
+}
+
+a[href^="blob:"]:hover{
+    text-decoration: none;
+    color: var(--font-color-focus)
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
 }

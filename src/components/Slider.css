@@ -1,22 +1,23 @@
 input[type=range] {
   -webkit-appearance: none;
-  margin: 10px 10px 10px 10px;
-  width: 20%px;
+  height: 150px;
+  border-radius: 5px;
+  background: var(--bg-color);
+  outline: none;
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
 }
 input[type=range]:focus {
   outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 4px;
+  width: 10px;
   cursor: pointer;
-  box-shadow: 0px 0px 2px #000000;
   background: #ffffff;
   border-radius: 6px;
   border: 0px solid #000000;
 }
 input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0px 0px 1px #000000;
   border: 1px solid #000000;
   height: 15px;
   width: 15px;
@@ -24,22 +25,20 @@ input[type=range]::-webkit-slider-thumb {
   background: #FFFFFF;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -6px;
+  margin-right: -3px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ffffff;
 }
 input[type=range]::-moz-range-track {
-  width: 100%;
+  width: 10px;
   height: 4px;
   cursor: pointer;
-  box-shadow: 0px 0px 2px #000000;
   background: #ffffff;
   border-radius: 6px;
   border: 0px solid #000000;
 }
 input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 1px #000000;
   border: 1px solid #000000;
   height: 15px;
   width: 15px;
@@ -48,7 +47,7 @@ input[type=range]::-moz-range-thumb {
   cursor: pointer;
 }
 input[type=range]::-ms-track {
-  width: 100%;
+  width: 10px;
   height: 4px;
   cursor: pointer;
 
@@ -83,3 +82,4 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #ffffff;
 }
+

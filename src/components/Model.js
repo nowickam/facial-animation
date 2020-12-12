@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
+import { bgColor, fontColor, fontColorHover } from '../Config.js'
 
 
 class Model extends Component {
@@ -54,13 +55,26 @@ class Model extends Component {
       1000
     )
     this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
+    this.scene.background = new THREE.Color( 0xDFE8E7 );
 
-    var light = new THREE.HemisphereLight(0xBEDDED, 0xDECADE, 0.55);
+    var light = new THREE.HemisphereLight(bgColor, fontColorHover, 0.75);
     this.scene.add(light)
-    light = new THREE.SpotLight(0xffffff, 0.75);
-    light.position.set(-80,100,100);
-    light.castShadow = true;
-    this.scene.add(light)
+    var spotLight = new THREE.SpotLight(fontColor, 0.4);
+    spotLight.position.set(-80,100,100);
+    spotLight.castShadow = true;
+    this.scene.add(spotLight)
+
+    // var light = new THREE.DirectionalLight( 0xd9d9d9 );
+		// 	light.position.set( 0.5, 0.5, 1 );
+		// 	this.scene.add( light );
+
+		// 	var pointLight = new THREE.PointLight( 0x3c6e71 );
+		// 	pointLight.position.set( 0, 0, 100 );
+		// 	this.scene.add( pointLight );
+
+			// var ambientLight = new THREE.AmbientLight( 0x404040 );
+			// this.scene.add( ambientLight );
+
 
     this.addModel()
 
@@ -117,8 +131,18 @@ class Model extends Component {
       console.log(this.model)
       this.scene.add(this.model)
       this.getModelControl()
+      this.model.traverse(o => {
+        if (o.isMesh && (o.name === 'head' || o.name === 'eye4')) {
+          var newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 150 } );
+          newMaterial.skinning = o.material.skinning;
+          newMaterial.morphTargets = o.material.morphTargets;
+          newMaterial.morphNormals = o.material.morphNormals;
+          o.material = newMaterial
+        }
+      })
       this.renderScene()
       this.props.mounted()
+      console.log(this.model)
     }, undefined, function (error) {
       console.error(error);
     }
