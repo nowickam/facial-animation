@@ -118,6 +118,7 @@ class Model extends Component {
       this.scene.add(this.model)
       this.getModelControl()
       this.renderScene()
+      this.props.mounted()
     }, undefined, function (error) {
       console.error(error);
     }

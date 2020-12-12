@@ -1,0 +1,21 @@
+#login-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#title {
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+
+.form-element {
+    margin: 10px;
+    margin-top: 0px;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}

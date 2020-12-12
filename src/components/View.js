@@ -6,21 +6,7 @@ import AudioRecorder from "./AudioRecorder.js";
 import "./Slider.css";
 import { Transition } from "react-transition-group";
 import { login, authFetch, useAuth, logout } from "../auth";
-
-const AUDIO_FRAME = 10;
-const FPS = 60;
-
-const defaultStyle = {
-  transition: `opacity ${300}ms ease-in-out`,
-  opacity: 0,
-};
-
-const transitionStyles = {
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
-};
+import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle } from '../Config.js'
 
 class View extends Component {
   constructor(props) {
@@ -32,6 +18,7 @@ class View extends Component {
       inputProcessed: false,
       sliderValue: 0.4,
       popup: false,
+      mounted: false,
       popupText: "",
     };
 
@@ -60,6 +47,7 @@ class View extends Component {
     this.handleRecording = this.handleRecording.bind(this);
     this.openPopup = this.openPopup.bind(this);
     this.closePopup = this.closePopup.bind(this);
+    this.modelLoaded = this.modelLoaded.bind(this)
   }
 
   componentDidMount() {
@@ -67,9 +55,6 @@ class View extends Component {
 
     this.audio = new Audio();
     this.audio.loop = true;
-    this.setState({
-      mounted: true,
-    });
   }
 
   componentDidUpdate() {}
@@ -281,8 +266,22 @@ class View extends Component {
     });
   }
 
+  modelLoaded(){
+    this.setState({
+      mounted: true
+    })
+  }
+
   render() {
     return (
+      <Transition timeout={300} in={this.state.mounted}>
+      {(state) => (
+        <div
+          style={{
+            ...defaultStyle,
+            ...transitionStyles[state],
+          }}
+        >
       <div id="view-container">
         <Transition timeout={300} in={this.state.popup}>
           {(state) => (
@@ -356,6 +355,7 @@ class View extends Component {
           animationStatus={this.state.animationStatus}
           visemes={this.state.visemes}
           sliderValue={this.state.sliderValue}
+          mounted={this.modelLoaded}
         />
         <div className="bottom horizontal">
           <button
@@ -394,6 +394,9 @@ class View extends Component {
           </div>
         </div>
       </div>
+      </div>
+    )}
+    </Transition>
     );
   }
 }
