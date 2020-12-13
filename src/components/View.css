@@ -36,14 +36,18 @@
     flex-direction: row;
     justify-content: space-between;
     width:100%;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-bottom: 10px;
 }
+
 
 .narrow {
     width: 100px;
 }
 
 .spacer {
-    flex-grow: 4;
+    flex-grow: 1;
 }
 
 .styled-button{
@@ -52,7 +56,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: var(--font-color);
+    color: var(--secondary);
 }
 
 .styled-button:focus{
@@ -60,7 +64,7 @@
 }
 
 .styled-button:hover{
-    color: var(--font-color-focus)
+    color: var(--focus)
 }
 
 input[type="file"] {
@@ -81,14 +85,19 @@ input[type="file"] {
     left: 400px;
 }
 
-#slider-value{
-    margin: 20px
+#slider{
+    position: absolute;
+    right: -40px;
+    bottom: 0px;
 }
 
-/* #slider{
-    -webkit-appearance: slider-vertical;
-    width:10px;
-  } */
+#slider-value{
+    position: absolute;
+    right: 80px;
+    bottom: 0px;
+    margin: 20px;
+}
+
 
 canvas {
     outline: none;

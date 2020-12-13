@@ -21,10 +21,11 @@
 }
 
 .form-element-input{
-    background-color: var(--bg-color);
+    background-color: var(--primary);
     border: none;
-    border-bottom: solid 2px var(--font-color);
-    color: var(--font-color-focus)
+    border-bottom: solid 2px var(--secondary);
+    color: var(--focus);
+    margin-left: 10px;
 }
 
 .form-element-input:focus{
@@ -37,7 +38,7 @@
 }
 
 #login-button:enabled:hover {
-    color: var(--font-color-focus);
+    color: var(--focus);
     cursor: pointer;
 }
 

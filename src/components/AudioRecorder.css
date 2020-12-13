@@ -10,7 +10,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: var(--font-color);
+    color: var(--secondary);
 }
 
 .record-button:focus{
@@ -18,17 +18,17 @@
 }
 
 .record-button:hover{
-    color: var(--font-color-focus)
+    color: var(--focus)
 }
 
 a[href^="blob:"]{
     text-decoration: none;
-    color: var(--font-color)
+    color: var(--secondary)
 }
 
 a[href^="blob:"]:hover{
     text-decoration: none;
-    color: var(--font-color-focus)
+    color: var(--focus)
 }
 
 .horizontal{

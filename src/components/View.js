@@ -379,20 +379,17 @@ class View extends Component {
           >
             Stop
           </button>
-          <span className="spacer" />
-          <div id="slider-value">{this.state.sliderValue}</div>
-          <div id="slider-container" className="player">
-            <input
-              type="range"
-              id="slider"
-              min={0.1}
-              max={1}
-              value={this.state.sliderValue}
-              step={0.05}
-              onChange={this.handleSlider}
-            />
           </div>
-        </div>
+          <div id="slider-value">{this.state.sliderValue}</div>
+          <input
+            type="range"
+            id="slider"
+            min={0.1}
+            max={1}
+            value={this.state.sliderValue}
+            step={0.05}
+            onChange={this.handleSlider}
+          />
       </div>
       </div>
     )}

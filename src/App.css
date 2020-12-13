@@ -1,15 +1,28 @@
+:root{
+  --primary: #DFE8E7;
+  --secondary:#A6BFBC;
+  --focus: #C2888E;
+}
+
 .App {
   text-align: center;
   height: 100%;
-  background-color: var(--bg-color);
+  background-color: var(--primary);
 }
 
 * {
   font-family: arial, sans-serif;
-  font-size: large;
-  color: var(--font-color);
-  --bg-color: #DFE8E7;
-  --font-color: #A6BFBC;
-  --font-color-focus: #C2888E;
+  font-size: 25px;
+  color: var(--secondary);
+}
+
+/* --bg-color: #DFE8E7;
+--font-color: #A6BFBC;
+--font-color-focus: #C2888E; */
+
+:export {
+  primary: #DFE8E7;
+  secondary: #A6BFBC;
+  focus: #C2888E;
 }
 

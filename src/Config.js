@@ -13,8 +13,10 @@ export const transitionStyles = {
   exited: { opacity: 0 },
 };
 
-export const bgColor = '#DFE8E7';
+var colors = require('./App.css');
 
-export const fontColor = '#A6BFBC'
+export const bgColor = colors.primary;
 
-export const fontColorHover = "#C2888E"
+export const fontColor = colors.secondary;
+
+export const fontColorFocus = colors.focus;

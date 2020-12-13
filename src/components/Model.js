@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { bgColor, fontColor, fontColorHover } from '../Config.js'
+import { bgColor, fontColor, fontColorFocus } from '../Config.js'
 
 
 class Model extends Component {
@@ -13,7 +13,7 @@ class Model extends Component {
         animationStatus: this.props.animationStatus,
         intensity: this.props.sliderValue
     }
-
+    console.log("color", bgColor)
     this.visemes = undefined
     this.visemesNames = undefined
 
@@ -55,9 +55,9 @@ class Model extends Component {
       1000
     )
     this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
-    this.scene.background = new THREE.Color( 0xDFE8E7 );
+    this.scene.background = new THREE.Color( bgColor );
 
-    var light = new THREE.HemisphereLight(bgColor, fontColorHover, 0.75);
+    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 0.75);
     this.scene.add(light)
     var spotLight = new THREE.SpotLight(fontColor, 0.4);
     spotLight.position.set(-80,100,100);
