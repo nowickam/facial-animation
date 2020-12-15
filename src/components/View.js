@@ -304,7 +304,9 @@ class View extends Component {
             </div>
           )}
         </Transition>
+
         <Transition timeout={300} in={this.state.inputProcessed === undefined}>
+
           {(state) => (
             <div
               style={{
@@ -333,9 +335,9 @@ class View extends Component {
           />
           <label className="horizontal">
             <div className="styled-button">Choose file</div>
-            <div>{this.state.filename}</div>
+            <div id="chosen-file">{this.state.filename}</div>
             <input
-              id="upload-input"
+              id="choose-file"
               type="file"
               accept="audio/wav, audio/mp3"
               onChange={this.handleFile}
