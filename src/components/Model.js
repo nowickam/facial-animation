@@ -55,7 +55,8 @@ class Model extends Component {
       1000
     )
     this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
-    this.scene.background = new THREE.Color( bgColor );
+    // this.scene.background = new THREE.Color( bgColor );
+    // this.renderer.setClearColor( 0x000000, 0 );
 
     var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 0.75);
     this.scene.add(light)
@@ -84,7 +85,7 @@ class Model extends Component {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.update();
 
-    this.renderer.setClearColor('#ffffff')
+    // this.renderer.setClearColor('#ffffff')
     this.renderer.setSize(width, height)
 
     window.addEventListener('resize', this.onWindowResize, false);

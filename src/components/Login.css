@@ -21,7 +21,7 @@
 }
 
 .form-element-input{
-    background-color: var(--primary);
+    background-color: transparent;
     border: none;
     border-bottom: solid 2px var(--secondary);
     color: var(--focus);

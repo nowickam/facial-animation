@@ -71,8 +71,8 @@ class AudioRecorder extends Component {
           strokeColor={fontColor}
           backgroundColor={bgColor}
           mimeType="audio/wav"
-          width={175}
-          height={30}
+          width={225}
+          height={25}
           noiseSuppression={true}
         />
         </div>

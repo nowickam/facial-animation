@@ -294,8 +294,8 @@ class View extends Component {
               {this.state.popup && (
                 <div className="background">
                   <div className="popup">
-                    <div>{this.state.popupText}</div>
-                    <button id="popup-close" onClick={this.closePopup}>
+                    <div id="popup-text">{this.state.popupText}</div>
+                    <button id="popup-close" className="styled-button" onClick={this.closePopup}>
                       X
                     </button>
                   </div>
@@ -326,7 +326,7 @@ class View extends Component {
             onClick={logout}>
               Logout
           </button>
-        <div className="top vertical">
+        <div className="top vertical margin-left">
           <AudioRecorder
             id="audio-recorder"
             newRecording={this.handleRecording}

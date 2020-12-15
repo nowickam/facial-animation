@@ -22,7 +22,7 @@
 
 .bottom {
     position: absolute;
-    bottom: 0px;
+    bottom: 10px;
     align-items: flex-end;
 }
 
@@ -48,6 +48,38 @@
 
 .spacer {
     flex-grow: 1;
+}
+
+.popup {
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.margin-left{
+    margin-left: 10px;
+}
+
+#popup-text{
+    color: var(--focus);
+    font-size: 40px;
+}
+
+#popup-close{
+    width: 20px;
+    color: var(--focus);
+    font-size: 40px;
+}
+
+#popup-close:hover{
+    color: var(--secondary)
+}
+
+#logout-button{
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .styled-button{
@@ -87,8 +119,8 @@ input[type="file"] {
 
 #slider{
     position: absolute;
-    right: -40px;
-    bottom: 0px;
+    right: -50px;
+    bottom: 10px;
 }
 
 #slider-value{
@@ -100,6 +132,8 @@ input[type="file"] {
 
 
 canvas {
+    background-color: transparent;
+    color: transparent;
     outline: none;
     border:none;
 }
@@ -115,7 +149,7 @@ canvas {
 .background {
     position: absolute;
     top: 0%;
-    background: radial-gradient(rgba(217, 217, 217, 0.5), rgba(255, 255, 255, 0.5));
+    background: radial-gradient(rgba(217, 217, 217, 0.65), rgba(255, 255, 255, 0.65));
     height: 100%;
     width: 100%;
     z-index: 10;
