@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { bgColor, fontColor, fontColorFocus } from '../Config.js'
+import { bgColor, fontColor, fontColorFocus, visemeMap } from '../Config.js'
 
 
 class Model extends Component {
@@ -113,6 +113,9 @@ class Model extends Component {
         intensity: this.props.sliderValue
       })
     }
+    // console.log(visemeMap)
+    // console.log(this.visemes)
+    // console.log(this.modelControl, this.modelControlDict)
   }
 
 
@@ -127,7 +130,7 @@ class Model extends Component {
   addModel() {
     var loader = new GLTFLoader();
 
-    loader.load('model/head_visemes.gltf', gltf => {
+    loader.load('model/head_new_visemes.gltf', gltf => {
       this.model = SkeletonUtils.clone(gltf.scene)
       console.log(this.model)
       this.scene.add(this.model)
@@ -205,31 +208,54 @@ class Model extends Component {
     this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
   }
 
+  // nextViseme(){
+  //   if(this.currentFrame < 1)
+  //     this.currentFrame = 1
+
+  //   var currViseme = this.visemes[this.currentFrame]
+  //   var prevViseme = this.visemes[this.currentFrame-1]
+  //   for(var visemeName of this.visemesNames){
+  //     if(visemeName === currViseme){
+  //       this.modelControl[this.modelControlDict[visemeName]] += this.state.intensity / this.exponent //Math.pow(this.state.intensity, this.exponent)
+  //       if(this.modelControl[this.modelControlDict[visemeName]]>1)
+  //         this.modelControl[this.modelControlDict[visemeName]] = 1
+  //     }
+  //     else{
+  //       this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / (10-this.exponent) //Math.pow(this.state.intensity, this.exponent)
+  //       if(this.modelControl[this.modelControlDict[visemeName]]<0)
+  //         this.modelControl[this.modelControlDict[visemeName]] = 0
+  //     }
+  //   }
+
+  //   if(currViseme === prevViseme){
+  //     this.exponent -= 1
+  //     if(this.exponent < 2) this.exponent = 2;
+  //   }
+  //   else
+  //     this.exponent = 8
+  // }
+
   nextViseme(){
-    if(this.currentFrame < 1)
-      this.currentFrame = 1
-
-    var currViseme = this.visemes[this.currentFrame]
-    var prevViseme = this.visemes[this.currentFrame-1]
-    for(var visemeName of this.visemesNames){
-      if(visemeName === currViseme){
-        this.modelControl[this.modelControlDict[visemeName]] += this.state.intensity / this.exponent //Math.pow(this.state.intensity, this.exponent)
-        if(this.modelControl[this.modelControlDict[visemeName]]>1)
-          this.modelControl[this.modelControlDict[visemeName]] = 1
-      }
-      else{
-        this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / (10-this.exponent) //Math.pow(this.state.intensity, this.exponent)
-        if(this.modelControl[this.modelControlDict[visemeName]]<0)
+    for(var visemeName of Object.keys(this.modelControlDict)){
+      this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / 10
+      // console.log("SUBTRACT", visemeName, this.modelControl[this.modelControlDict[visemeName]])
+      if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
-      }
     }
-
-    if(currViseme === prevViseme){
-      this.exponent -= 1
-      if(this.exponent < 2) this.exponent = 2;
+    var mapping = visemeMap[this.visemes[this.currentFrame]]
+    for(var currentVisemeName of Object.keys(mapping)){
+      // TODO add the proper additions
+      console.log("ADD", this.visemes[this.currentFrame], currentVisemeName, this.modelControl[this.modelControlDict[currentVisemeName]])
+      var inc = this.state.intensity / this.exponent
+      if(mapping[currentVisemeName] > 1)
+        inc /= 4
+      this.modelControl[this.modelControlDict[currentVisemeName]] += this.state.intensity / (10-this.exponent)
+      this.modelControl[this.modelControlDict[currentVisemeName]] += inc
+      if(this.modelControl[this.modelControlDict[currentVisemeName]] > 1 && mapping[currentVisemeName] > 1)
+          this.modelControl[this.modelControlDict[currentVisemeName]] = 1
+      if(this.modelControl[this.modelControlDict[currentVisemeName]] > mapping[currentVisemeName]*this.state.intensity && !(mapping[currentVisemeName] > 1))
+        this.modelControl[this.modelControlDict[currentVisemeName]] = mapping[currentVisemeName]*this.state.intensity
     }
-    else
-      this.exponent = 8
   }
 
   resetModel(){
@@ -246,14 +272,14 @@ class Model extends Component {
       this.nextViseme()
       this.moveLid()
 
+      this.currentFrame += 1
+
       if (this.currentFrame >= this.visemes.length) {
         this.currentFrame = 0
       }
-
-      this.currentFrame += 1
     }
     else if(this.state.animationStatus === "STOP"){
-        this.currentFrame = 1
+        this.currentFrame = 0
         this.resetModel()
     }
 

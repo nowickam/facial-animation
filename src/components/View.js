@@ -6,7 +6,7 @@ import AudioRecorder from "./AudioRecorder.js";
 import "./Slider.css";
 import { Transition } from "react-transition-group";
 import { login, authFetch, useAuth, logout } from "../auth";
-import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle } from '../Config.js'
+import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle, visemeMap } from '../Config.js'
 
 class View extends Component {
   constructor(props) {
@@ -81,7 +81,9 @@ class View extends Component {
     for (var i = 0; i < response.length; i += step) {
       // change the frequency of the visemes from 100Hz to 60Hz
       frame = response.slice(i, i + step)[0];
-      result.push(frame);
+      // result.push(visemeMap[frame.toString()]);
+      result.push(frame)
+
       j = result.length - 1;
       if (j >= 3) {
         // eliminate singular visemes

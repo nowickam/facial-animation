@@ -29,3 +29,5 @@ yarn-error.log*
 __pycache__
 /api/env
 database.db
+
+api/uploads
