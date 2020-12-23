@@ -91,19 +91,19 @@ class View extends Component {
           result[result.length - 2] = result[result.length - 3];
         }
       }
-      if (j >= 4) {
-        // eliminate double visemes
-        if (result[j] !== result[j - 1]) {
-          if (
-            !(
-              result[j - 1] === result[j - 2] && result[j - 2] === result[j - 3]
-            )
-          ) {
-            result[j - 1] = result[j];
-            result[j - 2] = result[j - 3];
-          }
-        }
-      }
+      // if (j >= 4) {
+      //   // eliminate double visemes
+      //   if (result[j] !== result[j - 1]) {
+      //     if (
+      //       !(
+      //         result[j - 1] === result[j - 2] && result[j - 2] === result[j - 3]
+      //       )
+      //     ) {
+      //       result[j - 1] = result[j];
+      //       result[j - 2] = result[j - 3];
+      //     }
+      //   }
+      // }
     }
     this.setState({
       visemes: result,

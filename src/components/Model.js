@@ -236,25 +236,35 @@ class Model extends Component {
   // }
 
   nextViseme(){
+    // decrease all visemes
     for(var visemeName of Object.keys(this.modelControlDict)){
       this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / 10
-      // console.log("SUBTRACT", visemeName, this.modelControl[this.modelControlDict[visemeName]])
       if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
     }
+    // increase the current visemes
     var mapping = visemeMap[this.visemes[this.currentFrame]]
     for(var currentVisemeName of Object.keys(mapping)){
-      // TODO add the proper additions
       console.log("ADD", this.visemes[this.currentFrame], currentVisemeName, this.modelControl[this.modelControlDict[currentVisemeName]])
-      var inc = this.state.intensity / this.exponent
+      // calculate the added value
+      var inc = Math.pow(this.state.intensity, this.exponent)
+      // check if the visime is relative
       if(mapping[currentVisemeName] > 1)
         inc /= 4
-      this.modelControl[this.modelControlDict[currentVisemeName]] += this.state.intensity / (10-this.exponent)
+      // add the value
+      this.modelControl[this.modelControlDict[currentVisemeName]] += this.state.intensity / 15
       this.modelControl[this.modelControlDict[currentVisemeName]] += inc
+      // check constraints
       if(this.modelControl[this.modelControlDict[currentVisemeName]] > 1 && mapping[currentVisemeName] > 1)
           this.modelControl[this.modelControlDict[currentVisemeName]] = 1
       if(this.modelControl[this.modelControlDict[currentVisemeName]] > mapping[currentVisemeName]*this.state.intensity && !(mapping[currentVisemeName] > 1))
         this.modelControl[this.modelControlDict[currentVisemeName]] = mapping[currentVisemeName]*this.state.intensity
+      // decrease added value
+      if(this.currentFrame > 0 && this.visemes[this.currentFrame] === this.visemes[this.currentFrame-1]){
+        this.exponent -= 0.1
+      }
+      else
+        this.exponent = 10
     }
   }
 
