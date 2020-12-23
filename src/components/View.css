@@ -149,7 +149,7 @@ canvas {
 .background {
     position: absolute;
     top: 0%;
-    background: radial-gradient(rgba(217, 217, 217, 0.65), rgba(255, 255, 255, 0.65));
+    background: radial-gradient(#0b0d1f98, #1f24558c);
     height: 100%;
     width: 100%;
     z-index: 10;
@@ -172,15 +172,15 @@ canvas {
     border-bottom: 0 solid #ffffff05;
 	
 	box-shadow: 
-		0 -10px 20px 20px #ffffff40 inset,
-		0 -5px 15px 10px #ffffff50 inset,
-		0 -2px 5px #ffffff80 inset,
-		0 -3px 2px #ffffffBB inset,
-		0 2px 0px #ffffff,
-		0 2px 3px #ffffff,
-		0 5px 5px #ffffff90,
-		0 10px 15px #ffffff60,
-		0 10px 20px 20px #ffffff40;
+		0 -10px 20px 20px #c2888e4d inset,
+		0 -5px 15px 10px #c2888e54 inset,
+		0 -2px 5px #c2888e83 inset,
+		0 -3px 2px #c2888ea6 inset,
+		0 2px 0px #c2888ee5,
+		0 2px 3px #C2888E,
+		0 5px 5px #c2888ee5,
+		0 10px 15px #c2888e83,
+		0 10px 20px 20px #c2888e5b;
 	filter: blur(3px);
 	animation: 2s rotate linear infinite;
 }

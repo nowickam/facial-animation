@@ -58,10 +58,10 @@ class Model extends Component {
     // this.scene.background = new THREE.Color( bgColor );
     // this.renderer.setClearColor( 0x000000, 0 );
 
-    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 0.75);
+    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 1);
     this.scene.add(light)
     var spotLight = new THREE.SpotLight(fontColor, 0.4);
-    spotLight.position.set(-80,100,100);
+    spotLight.position.set(-80,100,10);
     spotLight.castShadow = true;
     this.scene.add(spotLight)
 
@@ -138,6 +138,7 @@ class Model extends Component {
       this.model.traverse(o => {
         if (o.isMesh && (o.name === 'head' || o.name === 'eye4')) {
           var newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 150 } );
+          newMaterial.emissive = new THREE.Color(bgColor)
           newMaterial.skinning = o.material.skinning;
           newMaterial.morphTargets = o.material.morphTargets;
           newMaterial.morphNormals = o.material.morphNormals;

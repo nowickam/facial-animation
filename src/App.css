@@ -1,9 +1,17 @@
 :root{
-  --primary: #DFE8E7;
-  --secondary:#A6BFBC;
+  --primary: #0B0D1F;
+  --secondary:#1F2455;
   --focus: #C2888E;
   --dark: #533B4D;
 }
+
+:export {
+  primary: #0B0D1F;
+  secondary: #1F2455;
+  focus: #C2888E;
+  dark: #533B4D
+}
+
 
 .App {
   text-align: center;
@@ -47,10 +55,4 @@
 --font-color: #A6BFBC;
 --font-color-focus: #C2888E; */
 
-:export {
-  primary: #DFE8E7;
-  secondary: #A6BFBC;
-  focus: #C2888E;
-  dark: #533B4D
-}
 
