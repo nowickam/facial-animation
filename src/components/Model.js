@@ -41,6 +41,7 @@ class Model extends Component {
     this.moveLid = this.moveLid.bind(this)
     this.nextViseme = this.nextViseme.bind(this)
     this.resetModel = this.resetModel.bind(this)
+    this.moveLights = this.moveLights.bind(this)
   }
 
   componentDidMount() {
@@ -58,12 +59,34 @@ class Model extends Component {
     // this.scene.background = new THREE.Color( bgColor );
     // this.renderer.setClearColor( 0x000000, 0 );
 
-    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 1);
+    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 1.1);
     this.scene.add(light)
-    var spotLight = new THREE.SpotLight(fontColor, 0.4);
+    var spotLight = new THREE.SpotLight(fontColor, 0.75);
     spotLight.position.set(-80,100,10);
     spotLight.castShadow = true;
     this.scene.add(spotLight)
+
+    const sphere = new THREE.SphereBufferGeometry( 0.1, 16, 8 );
+
+    this.light1 = new THREE.PointLight( 0xFFFFFF, 0.1, 50 );
+    this.light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.scene.add( this.light1 );
+
+    this.light2 = new THREE.PointLight( 0xFF715B, 0.1, 50 );
+    this.light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.scene.add( this.light2 );
+
+    this.light3 = new THREE.PointLight( 0x1EA896, 0.1, 50 );
+    this.light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.scene.add( this.light3 );
+
+    this.light4 = new THREE.PointLight( fontColorFocus, 0.1, 50 );
+    this.light4.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.scene.add( this.light4 );
+
+    this.light5 = new THREE.PointLight( fontColor, 0.1, 50 );
+    this.light5.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.scene.add( this.light5 );
 
     // var light = new THREE.DirectionalLight( 0xd9d9d9 );
 		// 	light.position.set( 0.5, 0.5, 1 );
@@ -209,6 +232,30 @@ class Model extends Component {
     this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
   }
 
+  moveLights(){
+    const time = Date.now() * 0.0005;
+
+    this.light1.position.x = Math.sin( time * 0.7 ) * 10;
+    this.light1.position.y = Math.cos( time * 0.5 ) * 20;
+    this.light1.position.z = Math.cos( time * 0.3 ) * 10;
+
+    this.light2.position.x = Math.cos( time * 0.3 ) * 10;
+    this.light2.position.y = Math.sin( time * 0.5 ) * 20;
+    this.light2.position.z = Math.sin( time * 0.7 ) * 10;
+
+    this.light3.position.x = Math.sin( time * 0.7 ) * 10;
+    this.light3.position.y = Math.cos( time * 0.3 ) * 20;
+    this.light3.position.z = Math.sin( time * 0.5 ) * 10;
+
+    this.light4.position.x = Math.cos( time * 0.3 ) * 10;
+    this.light4.position.y = Math.cos( time * 0.7 ) * 20;
+    this.light4.position.z = Math.sin( time * 0.5 ) * 10;
+
+    this.light5.position.x = Math.cos( time * 0.3 ) * 10;
+    this.light5.position.y = Math.sin( time * 0.7 ) * 20;
+    this.light5.position.z = Math.cos( time * 0.5 ) * 10;
+  }
+
   // nextViseme(){
   //   if(this.currentFrame < 1)
   //     this.currentFrame = 1
@@ -237,6 +284,12 @@ class Model extends Component {
   // }
 
   nextViseme(){
+    // decrease added value
+    if(this.currentFrame > 0 && this.visemes[this.currentFrame] === this.visemes[this.currentFrame-1]){
+      this.exponent -= 0.1
+    }
+    else
+      this.exponent = 10
     // decrease all visemes
     for(var visemeName of Object.keys(this.modelControlDict)){
       this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / 10
@@ -260,12 +313,6 @@ class Model extends Component {
           this.modelControl[this.modelControlDict[currentVisemeName]] = 1
       if(this.modelControl[this.modelControlDict[currentVisemeName]] > mapping[currentVisemeName]*this.state.intensity && !(mapping[currentVisemeName] > 1))
         this.modelControl[this.modelControlDict[currentVisemeName]] = mapping[currentVisemeName]*this.state.intensity
-      // decrease added value
-      if(this.currentFrame > 0 && this.visemes[this.currentFrame] === this.visemes[this.currentFrame-1]){
-        this.exponent -= 0.1
-      }
-      else
-        this.exponent = 10
     }
   }
 
@@ -293,7 +340,8 @@ class Model extends Component {
         this.currentFrame = 0
         this.resetModel()
     }
-
+    
+    this.moveLights()
     this.controls.update()
     this.renderScene()
     this.frameId = window.requestAnimationFrame(this.animate)

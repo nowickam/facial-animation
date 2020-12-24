@@ -82,7 +82,7 @@ class Login extends Component {
                   id="username"
                   className="form-element"
                 >
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel id="form-header">Username</FormLabel>
                   <FormControl
                     id="username-form"
                     className="form-element-input"
@@ -96,7 +96,7 @@ class Login extends Component {
                   id="password"
                   className="form-element"
                 >
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel id="form-header">Password</FormLabel>
                   <FormControl
                     id="password-form"
                     className="form-element-input"
