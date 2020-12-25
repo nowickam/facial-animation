@@ -26,7 +26,7 @@
 
 .bottom {
     position: absolute;
-    bottom: 30px;
+    bottom: 25px;
     left: 5px;
     align-items: flex-end;
 }
@@ -104,8 +104,8 @@
 
 .styled-button{
     margin-right: 10px;
-    padding-bottom: 15px;
-    height: 20px;
+    padding-bottom: 5px;
+    height: 30px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -130,7 +130,7 @@ input[type="file"] {
 
 #upload-button{
     padding: 0;
-    margin-top: 0px;
+    margin-top: -10px;
     height: fit-content;
     width: fit-content;
     position: absolute;
@@ -144,13 +144,13 @@ input[type="file"] {
 #slider{
     position: absolute;
     left: 20px;
-    bottom: 70px;
+    bottom: 80px;
 }
 
 #slider-value{
     position: absolute;
     left: 230px;
-    bottom: 70px;
+    bottom: 80px;
 }
 
 
@@ -216,12 +216,12 @@ canvas {
 
 #choose-file{
     position:absolute;
-    top: 120px;
+    top: 140px;
     left: 20px;
 }
 
 .recorder{
     position: absolute;
-    top:160px;
+    top:180px;
     left: 10px
 }
