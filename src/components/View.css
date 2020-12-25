@@ -1,19 +1,23 @@
 #play {
-    left: 0px
+    left: 0px;
+    font-size: 40px;
 }
 
 #pause {
     left: 100px;
+    font-size: 40px;
 }
 
 #stop {
     left: 200px;
+    font-size: 40px;
 }
 
 .right {
     position: absolute;
     right: 0px;
 }
+
 
 .top {
     position: absolute;
@@ -22,23 +26,28 @@
 
 .bottom {
     position: absolute;
-    bottom: 10px;
+    bottom: 25px;
+    left: 5px;
     align-items: flex-end;
 }
 
-.vertical {
+/* .vertical {
     display: flex;
     flex-direction: column;
-}
+} */
 
 .horizontal {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width:100%;
     justify-content: flex-start;
-    align-items: baseline;
+    /* align-items: baseline; */
     margin-bottom: 10px;
+}
+
+.vert{
+    align-items: center;
+    justify-content: center;
+    
 }
 
 
@@ -58,8 +67,19 @@
     align-items: center;
 }
 
-.margin-left{
-    margin-left: 10px;
+#menu-icon{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.menu-bar{
+    width: 35px;
+    height: 2px;
+    background-color: var(--secondary);
+    margin: 10px 10px;
+    cursor: pointer;
 }
 
 #popup-text{
@@ -83,8 +103,9 @@
 }
 
 .styled-button{
-    margin: 5px;
-    height: 20px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    height: 30px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -109,8 +130,11 @@ input[type="file"] {
 
 #upload-button{
     padding: 0;
-    margin-top: 20px;
+    margin-top: -10px;
+    height: fit-content;
     width: fit-content;
+    position: absolute;
+    left: 10px;
 }
 
 #upload-text {
@@ -119,15 +143,14 @@ input[type="file"] {
 
 #slider{
     position: absolute;
-    right: -50px;
-    bottom: 10px;
+    left: 20px;
+    bottom: 80px;
 }
 
 #slider-value{
     position: absolute;
-    right: 80px;
-    bottom: 0px;
-    margin: 20px;
+    left: 230px;
+    bottom: 80px;
 }
 
 
@@ -149,7 +172,7 @@ canvas {
 .background {
     position: absolute;
     top: 0%;
-    background: radial-gradient(rgba(217, 217, 217, 0.65), rgba(255, 255, 255, 0.65));
+    background: radial-gradient(var(--back1), var(--back2));
     height: 100%;
     width: 100%;
     z-index: 10;
@@ -172,15 +195,15 @@ canvas {
     border-bottom: 0 solid #ffffff05;
 	
 	box-shadow: 
-		0 -10px 20px 20px #ffffff40 inset,
-		0 -5px 15px 10px #ffffff50 inset,
-		0 -2px 5px #ffffff80 inset,
-		0 -3px 2px #ffffffBB inset,
-		0 2px 0px #ffffff,
-		0 2px 3px #ffffff,
-		0 5px 5px #ffffff90,
-		0 10px 15px #ffffff60,
-		0 10px 20px 20px #ffffff40;
+		0 -10px 20px 20px #c2888e4d inset,
+		0 -5px 15px 10px #c2888e54 inset,
+		0 -2px 5px #c2888e83 inset,
+		0 -3px 2px #c2888ea6 inset,
+		0 2px 0px #c2888ee5,
+		0 2px 3px #C2888E,
+		0 5px 5px #c2888ee5,
+		0 10px 15px #c2888e83,
+		0 10px 20px 20px #c2888e5b;
 	filter: blur(3px);
 	animation: 2s rotate linear infinite;
 }
@@ -189,4 +212,16 @@ canvas {
 	100% {
 		transform: rotate(360deg)
 	}
+}
+
+#choose-file{
+    position:absolute;
+    top: 140px;
+    left: 20px;
+}
+
+.recorder{
+    position: absolute;
+    top:180px;
+    left: 10px
 }

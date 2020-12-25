@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./View.css";
 import Model from "./Model.js";
-import axios from "axios";
 import AudioRecorder from "./AudioRecorder.js";
 import "./Slider.css";
+import "./Toggle.css"
 import { Transition } from "react-transition-group";
 import { login, authFetch, useAuth, logout } from "../auth";
-import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle } from '../Config.js'
+import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle, defaultStyleMount, darkBg, darkFont, darkFocus, lightBg, lightFont, lightFocus, darkBack1, darkBack2, lightBack1, lightBack2 } from '../Config.js'
 
 class View extends Component {
   constructor(props) {
@@ -16,11 +16,15 @@ class View extends Component {
       animationStatus: "STOP",
       visemes: undefined,
       inputProcessed: false,
-      sliderValue: 0.4,
+      sliderValue: 0,
       popup: false,
       mounted: false,
       popupText: "",
+      menu: false,
     };
+
+    this.theme = this.props.theme
+    this.themeSlider = React.createRef()
 
     this.move = 0.02;
     this.delta = 0;
@@ -47,12 +51,18 @@ class View extends Component {
     this.handleRecording = this.handleRecording.bind(this);
     this.openPopup = this.openPopup.bind(this);
     this.closePopup = this.closePopup.bind(this);
-    this.modelLoaded = this.modelLoaded.bind(this)
+    this.modelLoaded = this.modelLoaded.bind(this);
+    this.setTheme = this.setTheme.bind(this);
+    this.themeHandler = this.themeHandler.bind(this)
+    this.showMenu = this.showMenu.bind(this)
   }
 
   componentDidMount() {
     this.fetchInput();
 
+    if(this.theme === "light")
+      this.themeSlider.current.checked = true
+    this.setTheme(this.theme)
     this.audio = new Audio();
     this.audio.loop = true;
   }
@@ -81,7 +91,9 @@ class View extends Component {
     for (var i = 0; i < response.length; i += step) {
       // change the frequency of the visemes from 100Hz to 60Hz
       frame = response.slice(i, i + step)[0];
-      result.push(frame);
+      // result.push(visemeMap[frame.toString()]);
+      result.push(frame)
+
       j = result.length - 1;
       if (j >= 3) {
         // eliminate singular visemes
@@ -89,19 +101,19 @@ class View extends Component {
           result[result.length - 2] = result[result.length - 3];
         }
       }
-      if (j >= 4) {
-        // eliminate double visemes
-        if (result[j] !== result[j - 1]) {
-          if (
-            !(
-              result[j - 1] === result[j - 2] && result[j - 2] === result[j - 3]
-            )
-          ) {
-            result[j - 1] = result[j];
-            result[j - 2] = result[j - 3];
-          }
-        }
-      }
+      // if (j >= 4) {
+      //   // eliminate double visemes
+      //   if (result[j] !== result[j - 1]) {
+      //     if (
+      //       !(
+      //         result[j - 1] === result[j - 2] && result[j - 2] === result[j - 3]
+      //       )
+      //     ) {
+      //       result[j - 1] = result[j];
+      //       result[j - 2] = result[j - 3];
+      //     }
+      //   }
+      // }
     }
     this.setState({
       visemes: result,
@@ -246,10 +258,21 @@ class View extends Component {
     }
   }
 
+  mapSliderValue(x){
+    return 0.5 + 0.5 * (x);
+  }
+
   handleSlider(event) {
     this.setState({
       sliderValue: event.target.value,
     });
+  }
+
+  showMenu(){
+    this.setState({
+      menu: !this.state.menu
+    }
+    )
   }
 
   openPopup(text) {
@@ -272,13 +295,72 @@ class View extends Component {
     })
   }
 
+  themeHandler(e){
+    console.log(e.target.checked)
+    if(e.target.checked)
+      this.setTheme("light")
+    else
+      this.setTheme("dark")
+  }
+  
+  setTheme(newTheme){
+    if(newTheme !== this.theme){
+      this.theme = newTheme
+    }
+    this.props.setTheme(this.theme)
+    if(this.theme === "light"){
+      document.body.style.setProperty(
+        "--primary",
+        lightBg
+      );
+      document.body.style.setProperty(
+        "--secondary",
+        lightFont
+      );
+      document.body.style.setProperty(
+        "--focus",
+        lightFocus
+      );
+      document.body.style.setProperty(
+        "--back1",
+        lightBack1
+      );
+      document.body.style.setProperty(
+        "--back2",
+        lightBack2
+      );
+    }
+    else{
+      document.body.style.setProperty(
+        "--primary",
+        darkBg
+      );
+      document.body.style.setProperty(
+        "--secondary",
+        darkFont
+      );
+      document.body.style.setProperty(
+        "--focus",
+        darkFocus
+      );
+      document.body.style.setProperty(
+        "--back1",
+        darkBack1
+      );
+      document.body.style.setProperty(
+        "--back2",
+        darkBack2
+      );
+    }
+  }
+
   render() {
     return (
       <Transition timeout={500} in={this.state.mounted}>
       {(state) => (
         <div
           style={{
-            ...defaultStyle,
+            ...defaultStyleMount,
             ...transitionStyles[state],
           }}
         >
@@ -306,7 +388,6 @@ class View extends Component {
         </Transition>
 
         <Transition timeout={300} in={this.state.inputProcessed === undefined}>
-
           {(state) => (
             <div
               style={{
@@ -328,12 +409,30 @@ class View extends Component {
             onClick={logout}>
               Logout
           </button>
-        <div className="top vertical margin-left">
-          <AudioRecorder
-            id="audio-recorder"
-            newRecording={this.handleRecording}
-          />
-          <label className="horizontal">
+
+          <div id="menu-icon" onClick={this.showMenu}>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+          </div>
+
+          <Transition timeout={300} in={this.state.menu}>
+          {(state) => (
+            <div
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+            >
+          <div id="main-container">
+          <label class="switch">
+            <div id="dark">Dark</div>
+            <div className="span"></div>
+            <input type="checkbox" onChange={this.themeHandler} ref={this.themeSlider}/>
+            <span class="slider round"></span>
+            <div>Light</div>
+          </label>
+          <label id="choose-file" className="horizontal vert">
             <div className="styled-button">Choose file</div>
             <div id="chosen-file">{this.state.filename}</div>
             <input
@@ -344,6 +443,12 @@ class View extends Component {
               multiple={false}
             />
           </label>
+        <div className="recorder vertical">
+          <AudioRecorder
+            id="audio-recorder"
+            newRecording={this.handleRecording}
+            theme={this.theme}
+          />
           <button
             id="upload-button"
             className="styled-button narrow"
@@ -352,13 +457,6 @@ class View extends Component {
             Upload
           </button>
         </div>
-        <Model
-          id="model"
-          animationStatus={this.state.animationStatus}
-          visemes={this.state.visemes}
-          sliderValue={this.state.sliderValue}
-          mounted={this.modelLoaded}
-        />
         <div className="bottom horizontal">
           <button
             id="play"
@@ -386,18 +484,30 @@ class View extends Component {
           <input
             type="range"
             id="slider"
-            min={0.1}
+            min={0}
             max={1}
             value={this.state.sliderValue}
             step={0.05}
             onChange={this.handleSlider}
           />
-      </div>
-      </div>
-    )}
+        </div>
+        </div>
+          )}
+        </Transition>
+        <Model
+          id="model"
+          animationStatus={this.state.animationStatus}
+          visemes={this.state.visemes}
+          sliderValue={this.mapSliderValue(this.state.sliderValue)}
+          mounted={this.modelLoaded}
+          theme={this.theme}
+        />
+        </div>
+        </div>
+      )}
     </Transition>
-    );
-  }
-}
+      );
+            }
+          }
 
 export default View;

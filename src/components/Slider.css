@@ -3,7 +3,7 @@ input[type=range] {
   margin: 10px 0;
   width: 200px;
   background-color: transparent;
-  transform: translate(0,-90px) rotate(270deg);
+  /* transform: translate(0,-90px) rotate(270deg); */
 }
 input[type=range]:focus {
   outline: none;

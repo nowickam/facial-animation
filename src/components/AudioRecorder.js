@@ -3,7 +3,7 @@ import "./AudioRecorder.css";
 import { bgColor, fontColor } from '../Config.js'
 import { Transition } from "react-transition-group";
 // import { ReactMic } from "react-mic";
-import {transitionStyles, defaultStyle } from "../Config.js";
+import {transitionStyles, defaultStyle, darkFocus } from "../Config.js";
 
 let ReactMic;
 class AudioRecorder extends Component {
@@ -54,6 +54,43 @@ class AudioRecorder extends Component {
   render() {
     return (
       <div id="recorder-container">
+        <div className="horizontal-recorder">
+          {!this.state.record &&
+        <button
+          className="record-button record"
+          onClick={this.startRecording}
+          type="button"
+        >
+          Record
+        </button>
+  }
+{this.state.record &&
+        <button
+          className="record-button record"
+          onClick={this.stopRecording}
+          type="button"
+        >
+          Stop recording
+        </button>}
+        </div>
+        <Transition timeout={300} in={!this.state.record && this.state.downloadLinkURL}>
+        {(state) => (
+          <div
+            style={{
+              ...defaultStyle,
+              ...transitionStyles[state],
+            }}
+          >
+        <a
+          className="record download"
+          href={this.state.downloadLinkURL}
+          download="recording.wav"
+        >
+          Download
+        </a>
+        </div>
+        )}
+      </Transition>
         <Transition timeout={300} in={this.state.record}>
         {(state) => (
           <div
@@ -64,43 +101,20 @@ class AudioRecorder extends Component {
           >
         <ReactMic
           record={this.state.record}
-          className="sound-wave"
+          className="sound-wave visualization"
           onStop={this.onStop}
           onData={this.onData}
           onSave={this.onSave}
-          strokeColor={fontColor}
-          backgroundColor={bgColor}
+          strokeColor={darkFocus}
+          backgroundColor={`transparent`}
           mimeType="audio/wav"
           width={225}
-          height={25}
+          height={30}
           noiseSuppression={true}
         />
         </div>
         )}
       </Transition>
-        <div className="horizontal">
-        <button
-          className="record-button record"
-          onClick={this.startRecording}
-          type="button"
-        >
-          Start
-        </button>
-        <button
-          className="record-button record"
-          onClick={this.stopRecording}
-          type="button"
-        >
-          Stop
-        </button>
-        <a
-          className="record"
-          href={this.state.downloadLinkURL}
-          download="recording.wav"
-        >
-          Download
-        </a>
-        </div>
       </div>
     );
   }
