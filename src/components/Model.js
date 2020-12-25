@@ -189,10 +189,14 @@ class Model extends Component {
 
         this.model.traverse(o => {
           if (o.isMesh && (o.name === 'head' || o.name === 'eye4' || o.name === 'eye4001')) {
-            if(this.state.theme === "dark")
+            if(this.state.theme === "dark"){
               o.material.emissive = new THREE.Color(this.bgColor)
-            else
+              o.material.shininess = 150
+            }
+            else{
               o.material.emissive = new THREE.Color("#000000")
+              o.material.shininess = 50
+            }
           }
         })
 
@@ -223,10 +227,15 @@ class Model extends Component {
         // if(o.name === 'eye4001')
         //   o.material.transparent = true
         if (o.isMesh && (o.name === 'head' || o.name === 'eye4' || o.name === 'eye4001')) {
-          var newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 150 } );
-          newMaterial.needsUpdate = true;
-          if(this.state.theme === "dark")
+          var newMaterial;
+          if(this.state.theme === "dark"){
+            newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 150 } );
             newMaterial.emissive = new THREE.Color(this.bgColor)
+          }
+          else{
+            newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 50 } );
+          }
+          newMaterial.needsUpdate = true;
           newMaterial.skinning = o.material.skinning;
           newMaterial.morphTargets = o.material.morphTargets;
           newMaterial.morphNormals = o.material.morphNormals;
