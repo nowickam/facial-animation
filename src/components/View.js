@@ -16,10 +16,11 @@ class View extends Component {
       animationStatus: "STOP",
       visemes: undefined,
       inputProcessed: false,
-      sliderValue: 0.4,
+      sliderValue: 0,
       popup: false,
       mounted: false,
       popupText: "",
+      menu: false,
     };
 
     this.theme = this.props.theme
@@ -53,6 +54,7 @@ class View extends Component {
     this.modelLoaded = this.modelLoaded.bind(this);
     this.setTheme = this.setTheme.bind(this);
     this.themeHandler = this.themeHandler.bind(this)
+    this.showMenu = this.showMenu.bind(this)
   }
 
   componentDidMount() {
@@ -256,10 +258,21 @@ class View extends Component {
     }
   }
 
+  mapSliderValue(x){
+    return 0.5 + 0.5 * (x);
+  }
+
   handleSlider(event) {
     this.setState({
       sliderValue: event.target.value,
     });
+  }
+
+  showMenu(){
+    this.setState({
+      menu: !this.state.menu
+    }
+    )
   }
 
   openPopup(text) {
@@ -375,7 +388,6 @@ class View extends Component {
         </Transition>
 
         <Transition timeout={300} in={this.state.inputProcessed === undefined}>
-
           {(state) => (
             <div
               style={{
@@ -397,17 +409,30 @@ class View extends Component {
             onClick={logout}>
               Logout
           </button>
+
+          <div id="menu-icon" onClick={this.showMenu}>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+            <div className="menu-bar"></div>
+          </div>
+
+          <Transition timeout={300} in={this.state.menu}>
+          {(state) => (
+            <div
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+            >
+          <div id="main-container">
           <label class="switch">
+            <div id="dark">Dark</div>
+            <div className="span"></div>
             <input type="checkbox" onChange={this.themeHandler} ref={this.themeSlider}/>
             <span class="slider round"></span>
+            <div>Light</div>
           </label>
-        <div className="top vertical margin-left">
-          <AudioRecorder
-            id="audio-recorder"
-            newRecording={this.handleRecording}
-            theme={this.theme}
-          />
-          <label className="horizontal">
+          <label id="choose-file" className="horizontal vert">
             <div className="styled-button">Choose file</div>
             <div id="chosen-file">{this.state.filename}</div>
             <input
@@ -418,6 +443,12 @@ class View extends Component {
               multiple={false}
             />
           </label>
+        <div className="recorder vertical">
+          <AudioRecorder
+            id="audio-recorder"
+            newRecording={this.handleRecording}
+            theme={this.theme}
+          />
           <button
             id="upload-button"
             className="styled-button narrow"
@@ -426,14 +457,6 @@ class View extends Component {
             Upload
           </button>
         </div>
-        <Model
-          id="model"
-          animationStatus={this.state.animationStatus}
-          visemes={this.state.visemes}
-          sliderValue={this.state.sliderValue}
-          mounted={this.modelLoaded}
-          theme={this.theme}
-        />
         <div className="bottom horizontal">
           <button
             id="play"
@@ -461,18 +484,30 @@ class View extends Component {
           <input
             type="range"
             id="slider"
-            min={0.1}
+            min={0}
             max={1}
             value={this.state.sliderValue}
             step={0.05}
             onChange={this.handleSlider}
           />
-      </div>
-      </div>
-    )}
+        </div>
+        </div>
+          )}
+        </Transition>
+        <Model
+          id="model"
+          animationStatus={this.state.animationStatus}
+          visemes={this.state.visemes}
+          sliderValue={this.mapSliderValue(this.state.sliderValue)}
+          mounted={this.modelLoaded}
+          theme={this.theme}
+        />
+        </div>
+        </div>
+      )}
     </Transition>
-    );
-  }
-}
+      );
+            }
+          }
 
 export default View;

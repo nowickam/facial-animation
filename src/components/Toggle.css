@@ -1,11 +1,19 @@
 /* The switch - the box around the slider */
 .switch {
     position: absolute;
-    top: 0;
-    left: 50%;
+    display: flex;
+    flex-direction: row;
+    top: 60px;
+    left: 90px;
     width: 60px;
     height: 34px;
   }
+
+  #dark{
+    position: relative;
+    left:-70px;
+  }
+
   
   /* Hide default HTML checkbox */
   .switch input {

@@ -1,19 +1,23 @@
 #play {
-    left: 0px
+    left: 0px;
+    font-size: 40px;
 }
 
 #pause {
     left: 100px;
+    font-size: 40px;
 }
 
 #stop {
     left: 200px;
+    font-size: 40px;
 }
 
 .right {
     position: absolute;
     right: 0px;
 }
+
 
 .top {
     position: absolute;
@@ -22,23 +26,28 @@
 
 .bottom {
     position: absolute;
-    bottom: 10px;
+    bottom: 30px;
+    left: 5px;
     align-items: flex-end;
 }
 
-.vertical {
+/* .vertical {
     display: flex;
     flex-direction: column;
-}
+} */
 
 .horizontal {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width:100%;
     justify-content: flex-start;
-    align-items: baseline;
+    /* align-items: baseline; */
     margin-bottom: 10px;
+}
+
+.vert{
+    align-items: center;
+    justify-content: center;
+    
 }
 
 
@@ -58,8 +67,19 @@
     align-items: center;
 }
 
-.margin-left{
-    margin-left: 10px;
+#menu-icon{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.menu-bar{
+    width: 35px;
+    height: 2px;
+    background-color: var(--secondary);
+    margin: 10px 10px;
+    cursor: pointer;
 }
 
 #popup-text{
@@ -83,7 +103,8 @@
 }
 
 .styled-button{
-    margin: 5px;
+    margin-right: 10px;
+    padding-bottom: 15px;
     height: 20px;
     background-color: transparent;
     border: none;
@@ -109,8 +130,11 @@ input[type="file"] {
 
 #upload-button{
     padding: 0;
-    margin-top: 20px;
+    margin-top: 0px;
+    height: fit-content;
     width: fit-content;
+    position: absolute;
+    left: 10px;
 }
 
 #upload-text {
@@ -119,15 +143,14 @@ input[type="file"] {
 
 #slider{
     position: absolute;
-    right: -50px;
-    bottom: 10px;
+    left: 20px;
+    bottom: 70px;
 }
 
 #slider-value{
     position: absolute;
-    right: 80px;
-    bottom: 0px;
-    margin: 20px;
+    left: 230px;
+    bottom: 70px;
 }
 
 
@@ -189,4 +212,16 @@ canvas {
 	100% {
 		transform: rotate(360deg)
 	}
+}
+
+#choose-file{
+    position:absolute;
+    top: 120px;
+    left: 20px;
+}
+
+.recorder{
+    position: absolute;
+    top:160px;
+    left: 10px
 }
