@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { bgColor, fontColor, fontColorFocus, visemeMap } from '../Config.js'
+import { darkBg, darkFocus, darkFont, lightBg, lightFont, lightFocus, visemeMap } from '../Config.js'
 
 
 class Model extends Component {
@@ -11,11 +11,17 @@ class Model extends Component {
     super(props)
     this.state = {
         animationStatus: this.props.animationStatus,
-        intensity: this.props.sliderValue
+        intensity: this.props.sliderValue,
+        theme: this.props.theme,
     }
-    console.log("color", bgColor)
     this.visemes = undefined
     this.visemesNames = undefined
+
+    this.bgColor = undefined
+    this.fontColor = undefined
+    this.focusColor = undefined
+    this.hemiIntensity = undefined
+    this.spotIntensity = undefined
 
     this.move = 0.02
     this.delta = 0
@@ -24,13 +30,18 @@ class Model extends Component {
 
     this.currentFrame = 1
 
-    this.lidMove = 0.1
-    this.lidSpeed = 0.1
+    this.lidMove = 0.08
+    this.lidSpeed = 0.08
     this.lidWait = 1
 
     this.exponent = 6
 
     this.obamaRatio = [0.8, 0.8]
+
+    this.dhi = 1.1
+    this.dsi = 0.75
+    this.lhi = 0.85
+    this.lsi = 0.25
 
     this.start = this.start.bind(this)
     this.animate = this.animate.bind(this)
@@ -45,6 +56,20 @@ class Model extends Component {
   }
 
   componentDidMount() {
+    if(this.state.theme === "dark"){
+        this.bgColor = darkBg
+        this.fontColor = darkFont
+        this.focusColor = darkFocus
+        this.hemiIntensity = this.dhi
+        this.spotIntensity = this.dsi
+    }
+    else{
+        this.bgColor = lightBg
+        this.fontColor = lightFont
+        this.focusColor = lightFocus
+        this.hemiIntensity = this.lhi
+        this.spotIntensity = this.lsi
+    }
     const width = window.innerWidth
     const height = window.innerHeight
 
@@ -56,49 +81,36 @@ class Model extends Component {
       1000
     )
     this.renderer = new THREE.WebGLRenderer({ antialias: true , alpha:true})
-    // this.scene.background = new THREE.Color( bgColor );
-    // this.renderer.setClearColor( 0x000000, 0 );
 
-    var light = new THREE.HemisphereLight(bgColor, fontColorFocus, 1.1);
-    this.scene.add(light)
-    var spotLight = new THREE.SpotLight(fontColor, 0.75);
-    spotLight.position.set(-80,100,10);
-    spotLight.castShadow = true;
-    this.scene.add(spotLight)
+    this.hemiLight = new THREE.HemisphereLight(this.bgColor, this.focusColor, this.hemiIntensity);
+    this.scene.add(this.hemiLight)
+
+    this.spotLight = new THREE.PointLight(this.fontColor, this.spotIntensity);
+    this.spotLight.position.set(-80,100,10);
+    this.spotLight.castShadow = true;
+    this.scene.add(this.spotLight)
 
     const sphere = new THREE.SphereBufferGeometry( 0.1, 16, 8 );
 
     this.light1 = new THREE.PointLight( 0xFFFFFF, 0.1, 50 );
-    this.light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light1 );
 
     this.light2 = new THREE.PointLight( 0xFF715B, 0.1, 50 );
-    this.light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light2 );
 
     this.light3 = new THREE.PointLight( 0x1EA896, 0.1, 50 );
-    this.light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light3 );
 
-    this.light4 = new THREE.PointLight( fontColorFocus, 0.1, 50 );
-    this.light4.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.light4 = new THREE.PointLight( this.focusColor, 0.1, 50 );
+    this.light4.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light4 );
 
-    this.light5 = new THREE.PointLight( fontColor, 0.1, 50 );
-    this.light5.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: fontColor } ) ) );
+    this.light5 = new THREE.PointLight( this.fontColor, 0.1, 50 );
+    this.light5.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light5 );
-
-    // var light = new THREE.DirectionalLight( 0xd9d9d9 );
-		// 	light.position.set( 0.5, 0.5, 1 );
-		// 	this.scene.add( light );
-
-		// 	var pointLight = new THREE.PointLight( 0x3c6e71 );
-		// 	pointLight.position.set( 0, 0, 100 );
-		// 	this.scene.add( pointLight );
-
-			// var ambientLight = new THREE.AmbientLight( 0x404040 );
-			// this.scene.add( ambientLight );
-
 
     this.addModel()
 
@@ -136,10 +148,59 @@ class Model extends Component {
         intensity: this.props.sliderValue
       })
     }
-    // console.log(visemeMap)
-    // console.log(this.visemes)
-    // console.log(this.modelControl, this.modelControlDict)
+    if(prevProps.theme !== this.props.theme){
+      this.setState({
+        theme: this.props.theme
+      }, () =>
+      {
+        console.log(this.state.theme)
+        if(this.state.theme === "dark"){
+          this.bgColor = darkBg
+          this.fontColor = darkFont
+          this.focusColor = darkFocus
+          this.hemiIntensity = this.dhi
+          this.spotIntensity = this.dsi
+      }
+      else{
+          this.bgColor = lightBg
+          this.fontColor = lightFont
+          this.focusColor = lightFocus
+          this.hemiIntensity = this.lhi
+          this.spotIntensity = this.lsi
+      }
+        this.hemiLight.color = new THREE.Color(this.bgColor)
+        this.hemiLight.groundColor = new THREE.Color(this.focusColor)
+        this.hemiLight.intensity = this.hemiIntensity
+
+        this.spotLight.color = new THREE.Color(this.fontColor)
+        this.spotLight.intensity = this.spotIntensity
+
+        this.light1.children[0].material.color = new THREE.Color(this.fontColor)
+
+        this.light2.children[0].material.color = new THREE.Color(this.fontColor)
+
+        this.light3.children[0].material.color = new THREE.Color(this.fontColor)
+
+        this.light4.children[0].material.color = new THREE.Color(this.fontColor)
+        this.light4.color = new THREE.Color(this.focusColor)
+
+        this.light5.children[0].material.color = new THREE.Color(this.fontColor)
+        this.light5.color = new THREE.Color(this.fontColor)
+
+        this.model.traverse(o => {
+          if (o.isMesh && (o.name === 'head' || o.name === 'eye4' || o.name === 'eye4001')) {
+            if(this.state.theme === "dark")
+              o.material.emissive = new THREE.Color(this.bgColor)
+            else
+              o.material.emissive = new THREE.Color("#000000")
+          }
+        })
+
+      })
+      }
+    
   }
+  
 
 
   addCube(x, y, z) {
@@ -153,15 +214,19 @@ class Model extends Component {
   addModel() {
     var loader = new GLTFLoader();
 
-    loader.load('model/head_new_visemes.gltf', gltf => {
+    loader.load('model/head_new_visemes_2.gltf', gltf => {
       this.model = SkeletonUtils.clone(gltf.scene)
       console.log(this.model)
       this.scene.add(this.model)
       this.getModelControl()
       this.model.traverse(o => {
-        if (o.isMesh && (o.name === 'head' || o.name === 'eye4')) {
+        // if(o.name === 'eye4001')
+        //   o.material.transparent = true
+        if (o.isMesh && (o.name === 'head' || o.name === 'eye4' || o.name === 'eye4001')) {
           var newMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, shininess: 150 } );
-          newMaterial.emissive = new THREE.Color(bgColor)
+          newMaterial.needsUpdate = true;
+          if(this.state.theme === "dark")
+            newMaterial.emissive = new THREE.Color(this.bgColor)
           newMaterial.skinning = o.material.skinning;
           newMaterial.morphTargets = o.material.morphTargets;
           newMaterial.morphNormals = o.material.morphNormals;
@@ -215,8 +280,9 @@ class Model extends Component {
 
 
   moveLid(){
+    if(this.modelControl){
     if(this.modelControl[this.modelControlDict['wink']] <= 0){
-      if (this.lidWait > 100){
+      if (this.lidWait > 400){
         this.lidMove = this.lidSpeed;
         this.lidWait = 0
       }
@@ -228,8 +294,8 @@ class Model extends Component {
     else if (this.modelControl[this.modelControlDict['wink']] > 1) {
       this.lidMove = -this.lidMove;
     }
-
-    this.modelControl[this.modelControlDict['wink']] = this.modelControl[this.modelControlDict['wink']] + this.lidMove;
+    this.modelControl[this.modelControlDict['wink']] += this.lidMove;
+  }
   }
 
   moveLights(){
@@ -292,14 +358,16 @@ class Model extends Component {
       this.exponent = 10
     // decrease all visemes
     for(var visemeName of Object.keys(this.modelControlDict)){
+      if(visemeName !== "wink"){
       this.modelControl[this.modelControlDict[visemeName]] -= this.state.intensity / 10
       if(this.modelControl[this.modelControlDict[visemeName]]<0)
           this.modelControl[this.modelControlDict[visemeName]] = 0
+      }
     }
     // increase the current visemes
     var mapping = visemeMap[this.visemes[this.currentFrame]]
     for(var currentVisemeName of Object.keys(mapping)){
-      console.log("ADD", this.visemes[this.currentFrame], currentVisemeName, this.modelControl[this.modelControlDict[currentVisemeName]])
+      // console.log("ADD", this.visemes[this.currentFrame], currentVisemeName, this.modelControl[this.modelControlDict[currentVisemeName]])
       // calculate the added value
       var inc = Math.pow(this.state.intensity, this.exponent)
       // check if the visime is relative
@@ -317,10 +385,11 @@ class Model extends Component {
   }
 
   resetModel(){
-    this.lidWait = 0
+    // this.lidWait = 0
     if(this.modelControl){
       for(var i=0; i<this.modelControl.length; i++){
-        this.modelControl[i] = 0;
+        if(this.modelControlDict["wink"] !== i)
+          this.modelControl[i] = 0;
       }
     }
   }
@@ -328,7 +397,6 @@ class Model extends Component {
   animate() {
     if (this.state.animationStatus === 'PLAY' && this.modelControlActive) {
       this.nextViseme()
-      this.moveLid()
 
       this.currentFrame += 1
 
@@ -341,6 +409,7 @@ class Model extends Component {
         this.resetModel()
     }
     
+    this.moveLid()
     this.moveLights()
     this.controls.update()
     this.renderScene()

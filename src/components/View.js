@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./View.css";
 import Model from "./Model.js";
-import axios from "axios";
 import AudioRecorder from "./AudioRecorder.js";
 import "./Slider.css";
+import "./Toggle.css"
 import { Transition } from "react-transition-group";
 import { login, authFetch, useAuth, logout } from "../auth";
-import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle, visemeMap } from '../Config.js'
+import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle, defaultStyleMount, darkBg, darkFont, darkFocus, lightBg, lightFont, lightFocus, darkBack1, darkBack2, lightBack1, lightBack2 } from '../Config.js'
 
 class View extends Component {
   constructor(props) {
@@ -21,6 +21,9 @@ class View extends Component {
       mounted: false,
       popupText: "",
     };
+
+    this.theme = this.props.theme
+    this.themeSlider = React.createRef()
 
     this.move = 0.02;
     this.delta = 0;
@@ -47,12 +50,17 @@ class View extends Component {
     this.handleRecording = this.handleRecording.bind(this);
     this.openPopup = this.openPopup.bind(this);
     this.closePopup = this.closePopup.bind(this);
-    this.modelLoaded = this.modelLoaded.bind(this)
+    this.modelLoaded = this.modelLoaded.bind(this);
+    this.setTheme = this.setTheme.bind(this);
+    this.themeHandler = this.themeHandler.bind(this)
   }
 
   componentDidMount() {
     this.fetchInput();
 
+    if(this.theme === "light")
+      this.themeSlider.current.checked = true
+    this.setTheme(this.theme)
     this.audio = new Audio();
     this.audio.loop = true;
   }
@@ -274,13 +282,72 @@ class View extends Component {
     })
   }
 
+  themeHandler(e){
+    console.log(e.target.checked)
+    if(e.target.checked)
+      this.setTheme("light")
+    else
+      this.setTheme("dark")
+  }
+  
+  setTheme(newTheme){
+    if(newTheme !== this.theme){
+      this.theme = newTheme
+    }
+    this.props.setTheme(this.theme)
+    if(this.theme === "light"){
+      document.body.style.setProperty(
+        "--primary",
+        lightBg
+      );
+      document.body.style.setProperty(
+        "--secondary",
+        lightFont
+      );
+      document.body.style.setProperty(
+        "--focus",
+        lightFocus
+      );
+      document.body.style.setProperty(
+        "--back1",
+        lightBack1
+      );
+      document.body.style.setProperty(
+        "--back2",
+        lightBack2
+      );
+    }
+    else{
+      document.body.style.setProperty(
+        "--primary",
+        darkBg
+      );
+      document.body.style.setProperty(
+        "--secondary",
+        darkFont
+      );
+      document.body.style.setProperty(
+        "--focus",
+        darkFocus
+      );
+      document.body.style.setProperty(
+        "--back1",
+        darkBack1
+      );
+      document.body.style.setProperty(
+        "--back2",
+        darkBack2
+      );
+    }
+  }
+
   render() {
     return (
       <Transition timeout={500} in={this.state.mounted}>
       {(state) => (
         <div
           style={{
-            ...defaultStyle,
+            ...defaultStyleMount,
             ...transitionStyles[state],
           }}
         >
@@ -330,10 +397,15 @@ class View extends Component {
             onClick={logout}>
               Logout
           </button>
+          <label class="switch">
+            <input type="checkbox" onChange={this.themeHandler} ref={this.themeSlider}/>
+            <span class="slider round"></span>
+          </label>
         <div className="top vertical margin-left">
           <AudioRecorder
             id="audio-recorder"
             newRecording={this.handleRecording}
+            theme={this.theme}
           />
           <label className="horizontal">
             <div className="styled-button">Choose file</div>
@@ -360,6 +432,7 @@ class View extends Component {
           visemes={this.state.visemes}
           sliderValue={this.state.sliderValue}
           mounted={this.modelLoaded}
+          theme={this.theme}
         />
         <div className="bottom horizontal">
           <button

@@ -3,7 +3,7 @@ import "./AudioRecorder.css";
 import { bgColor, fontColor } from '../Config.js'
 import { Transition } from "react-transition-group";
 // import { ReactMic } from "react-mic";
-import {transitionStyles, defaultStyle } from "../Config.js";
+import {transitionStyles, defaultStyle, darkFocus } from "../Config.js";
 
 let ReactMic;
 class AudioRecorder extends Component {
@@ -68,8 +68,8 @@ class AudioRecorder extends Component {
           onStop={this.onStop}
           onData={this.onData}
           onSave={this.onSave}
-          strokeColor={fontColor}
-          backgroundColor={bgColor}
+          strokeColor={darkFocus}
+          backgroundColor={`transparent`}
           mimeType="audio/wav"
           width={225}
           height={25}

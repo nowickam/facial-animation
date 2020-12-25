@@ -149,7 +149,7 @@ canvas {
 .background {
     position: absolute;
     top: 0%;
-    background: radial-gradient(#0b0d1f98, #1f24558c);
+    background: radial-gradient(var(--back1), var(--back2));
     height: 100%;
     width: 100%;
     z-index: 10;

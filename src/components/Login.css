@@ -9,7 +9,6 @@
 #title {
     font-size: 100px;
     margin-bottom: 20px;
-    color: var(--focus)
 }
 
 .form-element {
@@ -24,7 +23,7 @@
 .form-element-input{
     background-color: transparent;
     border: none;
-    border-bottom: solid 2px var(--focus);
+    border-bottom: solid 2px var(--secondary);
     color: var(--focus);
     margin-left: 10px;
 }
@@ -36,7 +35,6 @@
 #login-button {
     border: none;
     background-color: transparent;
-    color: var(--primary)
 }
 
 #login-button:enabled:hover {
@@ -46,8 +44,4 @@
 
 #login-button:focus{
     outline: none;
-}
-
-#form-header{
-    color: var(--focus)
 }

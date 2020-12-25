@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter,
   Switch,
   Route,
-  Redirect,
-  Link
+  Redirect
 } from "react-router-dom";
 import './App.css';
 import View from './components/View.js'
@@ -15,6 +14,7 @@ import {login, authFetch, useAuth, logout} from "./auth"
 
 function App() {
   const [logged] = useAuth();
+  const [theme, setTheme] = useState('dark');
 
   return (
     <div className="App">
@@ -28,7 +28,7 @@ function App() {
           </>}
           {logged && <>
           <Route path="/lipsync">
-            <View />
+            <View theme={theme} setTheme={setTheme}/>
           </Route>
           <Redirect to="/lipsync"/>
           </>}
