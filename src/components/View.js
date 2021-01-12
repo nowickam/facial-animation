@@ -168,7 +168,7 @@ class View extends Component {
 
   playAnimation() {
     if (!this.state.inputProcessed) {
-      this.openxup("Upload the audio file to the server!");
+      this.openPopup("Upload the audio file to the server!");
     } else {
       this.play();
     }
@@ -455,6 +455,7 @@ class View extends Component {
                 ...transitionStyles[state],
               }}
             >
+              {this.state.menu &&
           <div id="main-container">
           <label class="switch">
             <div id="dark">Dark</div>
@@ -521,7 +522,7 @@ class View extends Component {
             step={0.05}
             onChange={this.handleSlider}
           />
-        </div>
+        </div>}
         </div>
           )}
         </Transition>

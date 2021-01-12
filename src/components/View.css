@@ -20,12 +20,13 @@
 
 .bit-right {
     position: absolute;
-    right: 90px;
+    right: 0px;
+    bottom:20px;
 }
 
 .logout{
-    -webkit-text-stroke: 3px var(--primary);
-    font-size: 40px;
+    -webkit-text-stroke: 5px var(--primary);
+    font-size: 50px;
 }
 
 .logout:hover{
