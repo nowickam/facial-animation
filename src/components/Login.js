@@ -77,7 +77,7 @@ class Login extends Component {
           >
             <div className="login">
               <form id="login-form" onSubmit={this.handleSubmit}>
-                <div id="title">Audio-driven animation</div>
+                <div id="title">Audio-driven facial animation</div>
                 <FormGroup
                   id="username"
                   className="form-element"

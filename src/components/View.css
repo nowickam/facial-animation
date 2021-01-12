@@ -35,13 +35,42 @@
 
 #info-head{
     color: var(--focus);
-    font-size: 60px;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+#info-inst-head{
+    margin-top: 20px;
+    color: var(--focus);
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#info-inst{
+    color: var(--focus);
+    margin:10px;
 }
 
 #info-authors{
     color: var(--focus);
     font-size: 30px;
+    margin-bottom: 20px;
 }
+
+b{
+    color: var(--focus);
+}
+
+#info-text{
+    color: var(--focus);
+    font-size: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom:10px;
+    text-align: justify;
+}
+
 
 .top {
     position: absolute;

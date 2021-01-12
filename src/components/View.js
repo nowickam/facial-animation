@@ -60,7 +60,7 @@ class View extends Component {
   componentDidMount() {
     this.fetchInput();
 
-    if(this.theme === "light")
+    if(this.theme === "light" && this.themeSlider.current)
       this.themeSlider.current.checked = true
     this.setTheme(this.theme)
     this.audio = new Audio();
@@ -271,6 +271,14 @@ class View extends Component {
   showMenu(){
     this.setState({
       menu: !this.state.menu
+    }, () =>{
+      if(this.state.menu){
+        if(this.theme === "light" && this.themeSlider.current)
+          this.themeSlider.current.checked = true
+        else if(this.theme === "dark" && this.themeSlider.current){
+          this.themeSlider.current.checked = false
+        }
+      }
     }
     )
   }
@@ -415,9 +423,17 @@ class View extends Component {
               {this.state.infoPopup && (
                 <div className="background">
                   <div className="popup">
-                  <div id="info-head">Audio-driven animation</div>
+                  <div id="info-head">Audio-driven facial animation</div>
                   <div id="info-authors">Authors: Małgorzata Nowicka, Filip Zawadka</div>
-                  <div id="info-text"></div>
+                  <div id="info-text">This application is a realization of the author's Bachelor's thesis project at the Warsaw University of Technology.
+                  It generates animation for given speech recording.
+                  The application integrates the trained long short-term memory neural network model, residing on the remote server.</div>
+                  <div id="info-inst-head">Instruction:</div>
+                  <div id="info-inst">Press the icon in the top-left corner to display the menu.</div>
+                  <div id="info-inst">Press <b>Choose file</b> to upload a <b>wav</b> or <b>mp3</b> audio file with speech. Press <b>Record</b> to record the speech in real-time.</div>
+                  <div id="info-inst">Press <b>Upload</b> to send the speech recording to the server.</div>
+                  <div id="info-inst">When the model is performing the computations on the server, a loading spinner is displayed. Wait until it disappears.</div> 
+                  <div id="info-inst">The <b>player</b> options in the bottom-right corner handle the animation. Change the intensity of the avatar's expression with the <b>slider</b>.</div>
                   <button id="popup-close" className="styled-button" onClick={e => this.setState({infoPopup: false})}>
                       X
                     </button>
