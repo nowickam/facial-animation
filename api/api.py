@@ -50,7 +50,7 @@ class User(db.Model):
 
 
 # Initialize flask app for the example
-app = flask.Flask(__name__, static_folder='../build', static_url_path=None)
+app = flask.Flask(__name__, static_folder='../frontend/build', static_url_path=None)
 app.debug = True
 app.config['SECRET_KEY'] = 'top secret'
 app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
@@ -178,7 +178,7 @@ def file_upload():
 @app.route('/<path:path>')
 def catch_all(path):
     print("Hello from catch all")
-    if path != "" and os.path.exists(os.path.join('..','build',path)):
+    if path != "" and os.path.exists(os.path.join('..','frontend','build',path)):
         return app.send_static_file(path)
     else:
         return app.send_static_file('index.html')

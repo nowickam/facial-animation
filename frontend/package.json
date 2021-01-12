@@ -1,0 +1,56 @@
+{
+  "name": "web2",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.21.0",
+    "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "rc-slider": "^9.6.4",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.4.0",
+    "react-dom": "^16.13.1",
+    "react-mic": "^12.4.6",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "react-test-renderer": "^17.0.1",
+    "react-token-auth": "^1.1.7",
+    "react-transition-group": "^4.4.1",
+    "reactjs-popup": "^2.0.4",
+    "three": "^0.120.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start-api": "cd api && env/bin/flask run --no-debugger",
+    "start-api-win": "cd api && venv\\Scripts\\flask run",
+    "start-api-mac": "cd api && source venv/bin/activate && python api.py",
+    "build": "react-scripts build",
+    "test": "react-scripts test --verbose --transformIgnorePatterns \"node_modules/(?!ui-core)/\" --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "mocha": "^8.2.1",
+    "ts-jest": "^26.4.4"
+  }
+}

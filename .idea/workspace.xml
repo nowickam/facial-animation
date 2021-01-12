@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3a4664f-d04c-41ce-a7e9-0dfc8bbd630b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/audio_files/SA1.mp3" afterDir="false" />
+    <list default="true" id="d75709ea-c650-4b03-aeb6-74bb6b9700d5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/View.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/View.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/api/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model/head.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model/head_no_ik.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model/head_shape_keys.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model/head_shape_keys2.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model/head_visemes.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1kkqoIvIrmv12ByJ44WevKzZser" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1mjQIyBRbiSEMaYqSpmaHdS8QUl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,138 +39,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/audio_files" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/audio_files" />
-      <recent name="$PROJECT_DIR$/api" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Python tests.pytest for end2end_testing.End2EndTests.test_upload_invalid">
-    <configuration name="end2end_tests_env" type="ShConfigurationType">
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="$PROJECT_DIR$/api/env/bin/python3" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for end2end_testing.End2EndTests.test_login_correct" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="facial-animation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;end2end_testing.End2EndTests.test_login_correct&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for end2end_testing.End2EndTests.test_login_incorrect" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="facial-animation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;end2end_testing.End2EndTests.test_login_incorrect&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for end2end_testing.End2EndTests.test_upload_invalid" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="facial-animation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;end2end_testing.End2EndTests.test_upload_invalid&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for end2end_testing.End2EndTests.test_upload_mp3" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="facial-animation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;end2end_testing.End2EndTests.test_upload_mp3&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for end2end_testing.End2EndTests.test_upload_wav" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="facial-animation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/api" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;end2end_testing.End2EndTests.test_upload_wav&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Shell Script.end2end_tests_env" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_correct" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_incorrect" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_invalid" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_mp3" />
-      <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_wav" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_invalid" />
-        <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_mp3" />
-        <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_upload_wav" />
-        <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_incorrect" />
-        <item itemvalue="Python tests.pytest for end2end_testing.End2EndTests.test_login_correct" />
-      </list>
-    </recent_temporary>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a3a4664f-d04c-41ce-a7e9-0dfc8bbd630b" name="Default Changelist" comment="" />
-      <created>1606255111425</created>
+      <changelist id="d75709ea-c650-4b03-aeb6-74bb6b9700d5" name="Default Changelist" comment="" />
+      <created>1610004446747</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1606255111425</updated>
+      <updated>1610004446747</updated>
     </task>
     <servers />
   </component>

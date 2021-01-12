@@ -1,0 +1,20 @@
+#recorder-container {
+    display: flex;
+    flex-direction: row;
+    align-items : center;
+    justify-content: center;
+}
+
+.record-button {
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.record {
+    padding: 2;
+    color: black;
+    font-size: large;
+    outline: none;
+}

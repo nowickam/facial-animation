@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "5.1"
+  - "5.0"
+  - "4.2"
+  - "4.1"
+  - "4.0"
+env:
+  - CHAI_VERSION=^3.0.0
+  - CHAI_VERSION=^4.0.0
+  - ENZYME_VERSION=^2
+  - ENZYME_VERSION=^3
+before_script:
+  - npm install chai@$CHAI_VERSION
+  - if [ "$ENZYME_VERSION" = "^2" ]; then npm uninstall enzyme-adapter-react-15; npm install cheerio@0.22; fi
+  - npm install enzyme@$ENZYME_VERSION
+script:
+  - npm test
