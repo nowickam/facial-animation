@@ -10,6 +10,8 @@ Bachelor thesis project providing an interactive web application with the core f
 4. When the model is performing the computations on the server, a loading spinner is displayed. Wait until it disappears.
 5. The <b>player</b> options in the bottom-right corner handle the animation. Change the intensity of the avatar's expression with the <b>slider</b>.
 
+![image](https://user-images.githubusercontent.com/49707233/104379229-77fcac00-5529-11eb-9e2f-2364861712a7.png)
+
 
 ## Public access
 
