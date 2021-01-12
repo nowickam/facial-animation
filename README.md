@@ -15,7 +15,7 @@ Bachelor thesis project providing an interactive web application with the core f
 
 ## Public access
 
-You can access the web application through the link: www.facialanimation.page
+You can access the web application through the link: www.facialanimation.page. Contact one of the contributors of the project to gain the valid credentials.
 
 ## Running locally
 
