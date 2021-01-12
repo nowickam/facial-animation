@@ -16,7 +16,7 @@ class View extends Component {
       animationStatus: "STOP",
       visemes: undefined,
       inputProcessed: false,
-      sliderValue: 0,
+      sliderValue: 0.55,
       popup: false,
       mounted: false,
       popupText: "",
@@ -168,7 +168,7 @@ class View extends Component {
 
   playAnimation() {
     if (!this.state.inputProcessed) {
-      this.openPopup("Upload the audio file to the server!");
+      this.openxup("Upload the audio file to the server!");
     } else {
       this.play();
     }
@@ -403,11 +403,42 @@ class View extends Component {
             </div>
           )}
         </Transition>
+
+        <Transition timeout={300} in={this.state.infoPopup}>
+          {(state) => (
+            <div
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+            >
+              {this.state.infoPopup && (
+                <div className="background">
+                  <div className="popup">
+                  <div id="info-head">Audio-driven animation</div>
+                  <div id="info-authors">Authors: Małgorzata Nowicka, Filip Zawadka</div>
+                  <div id="info-text"></div>
+                  <button id="popup-close" className="styled-button" onClick={e => this.setState({infoPopup: false})}>
+                      X
+                    </button>
+                    </div>
+                </div>
+              )}
+            </div>
+          )}
+        </Transition>
+
+        <button
+        id="logout-button"
+        className="styled-button bit-right"
+        onClick={e => this.setState({infoPopup: true})}>
+        &#9432;
+        </button>
         <button
             id="logout-button"
             className="styled-button right"
             onClick={logout}>
-              Logout
+              <i class="fa fa-power-off logout"></i>
           </button>
 
           <div id="menu-icon" onClick={this.showMenu}>

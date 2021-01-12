@@ -18,6 +18,29 @@
     right: 0px;
 }
 
+.bit-right {
+    position: absolute;
+    right: 90px;
+}
+
+.logout{
+    -webkit-text-stroke: 3px var(--primary);
+    font-size: 40px;
+}
+
+.logout:hover{
+    color: var(--focus);
+}
+
+#info-head{
+    color: var(--focus);
+    font-size: 60px;
+}
+
+#info-authors{
+    color: var(--focus);
+    font-size: 30px;
+}
 
 .top {
     position: absolute;
@@ -30,6 +53,7 @@
     left: 5px;
     align-items: flex-end;
 }
+
 
 /* .vertical {
     display: flex;
