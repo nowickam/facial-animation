@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SkeletonUtils } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { darkBg, darkFocus, darkFont, lightBg, lightFont, lightFocus, visemeMap } from '../Config.js'
+import { darkBg, darkFocus, darkFont, lightBg, lightFont, lightFocus, visemeMap, lightLight1, lightLight2 } from '../Config.js'
 
 
 class Model extends Component {
@@ -41,7 +41,7 @@ class Model extends Component {
     this.dhi = 1.1
     this.dsi = 0.75
     this.lhi = 0.85
-    this.lsi = 0.25
+    this.lsi = 0.2
 
     this.start = this.start.bind(this)
     this.animate = this.animate.bind(this)
@@ -96,11 +96,11 @@ class Model extends Component {
     this.light1.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light1 );
 
-    this.light2 = new THREE.PointLight( 0xFF715B, 0.1, 50 );
+    this.light2 = new THREE.PointLight( lightLight1, 0.1, 50 );
     this.light2.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light2 );
 
-    this.light3 = new THREE.PointLight( 0x1EA896, 0.1, 50 );
+    this.light3 = new THREE.PointLight( lightLight2, 0.1, 50 );
     this.light3.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: this.fontColor } ) ) );
     this.scene.add( this.light3 );
 
@@ -160,6 +160,7 @@ class Model extends Component {
           this.focusColor = darkFocus
           this.hemiIntensity = this.dhi
           this.spotIntensity = this.dsi
+          this.spotLight.position.set(-80,100,10);
       }
       else{
           this.bgColor = lightBg
@@ -167,6 +168,7 @@ class Model extends Component {
           this.focusColor = lightFocus
           this.hemiIntensity = this.lhi
           this.spotIntensity = this.lsi
+          this.spotLight.position.set(-80,100,100);
       }
         this.hemiLight.color = new THREE.Color(this.bgColor)
         this.hemiLight.groundColor = new THREE.Color(this.focusColor)
@@ -195,7 +197,7 @@ class Model extends Component {
             }
             else{
               o.material.emissive = new THREE.Color("#000000")
-              o.material.shininess = 50
+              o.material.shininess = 70
             }
           }
         })

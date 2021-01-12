@@ -48,6 +48,10 @@ export const lightBack1 = "#dfe8e7b4"
 
 export const lightBack2 = "#a6bfbc9f"
 
+export const lightLight1 = "#FFFD82"
+
+export const lightLight2 = "#3185FC"
+
 const viseme_map_str = `1 open -0.05 upper_down 0.9 lower_up 1
 2 open 0.01 wide 0.7 lower_down 0.5
 3 upper_up 1 lower_up 1
