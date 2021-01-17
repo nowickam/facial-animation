@@ -1,0 +1,17 @@
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+     appearance: none;
+     background-color:var(--primary);
+  }
+
+  progress[value]::-webkit-progress-bar {
+    background-color:var(--primary);
+    border: 1px solid var(--secondary);
+    border-radius: 10px;
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-color: var(--secondary);
+    border-radius: 10px; 
+  }

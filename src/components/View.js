@@ -3,7 +3,8 @@ import "./View.css";
 import Model from "./Model.js";
 import AudioRecorder from "./AudioRecorder.js";
 import "./Slider.css";
-import "./Toggle.css"
+import "./Toggle.css";
+import "./Progress.css"
 import { Transition } from "react-transition-group";
 import { login, authFetch, useAuth, logout } from "../auth";
 import { AUDIO_FRAME, FPS, transitionStyles, defaultStyle, defaultStyleMount, darkBg, darkFont, darkFocus, lightBg, lightFont, lightFocus, darkBack1, darkBack2, lightBack1, lightBack2 } from '../Config.js'
@@ -21,6 +22,7 @@ class View extends Component {
       mounted: false,
       popupText: "",
       menu: false,
+      progress: 0,
     };
 
     this.theme = this.props.theme
@@ -55,6 +57,7 @@ class View extends Component {
     this.setTheme = this.setTheme.bind(this);
     this.themeHandler = this.themeHandler.bind(this)
     this.showMenu = this.showMenu.bind(this)
+    this.setProgress = this.setProgress.bind(this)
   }
 
   componentDidMount() {
@@ -64,7 +67,7 @@ class View extends Component {
       this.themeSlider.current.checked = true
     this.setTheme(this.theme)
     this.audio = new Audio();
-    this.audio.loop = true;
+    this.audio.loop = false;
   }
 
   componentDidUpdate() {}
@@ -310,6 +313,12 @@ class View extends Component {
     else
       this.setTheme("dark")
   }
+
+  setProgress(p){
+    this.setState({
+      progress: p
+    })
+  }
   
   setTheme(newTheme){
     if(newTheme !== this.theme){
@@ -445,8 +454,8 @@ class View extends Component {
         </Transition>
 
         <button
-        id="logout-button"
-        className="styled-button bit-right"
+        id="info-button"
+        className="styled-button"
         onClick={e => this.setState({infoPopup: true})}>
         &#9432;
         </button>
@@ -454,7 +463,7 @@ class View extends Component {
             id="logout-button"
             className="styled-button right"
             onClick={logout}>
-              <i class="fa fa-power-off logout"></i>
+              <i className="fa fa-power-off logout"></i>
           </button>
 
           <div id="menu-icon" onClick={this.showMenu}>
@@ -528,6 +537,7 @@ class View extends Component {
             Stop
           </button>
           </div>
+          <div id="exp-int">Expression <br/> intensity:</div>
           <div id="slider-value">{this.state.sliderValue}</div>
           <input
             type="range"
@@ -538,6 +548,7 @@ class View extends Component {
             step={0.05}
             onChange={this.handleSlider}
           />
+          {!this.state.popup && <progress id="progress" max="1" value={this.state.progress}></progress>}
         </div>}
         </div>
           )}
@@ -549,6 +560,9 @@ class View extends Component {
           sliderValue={this.mapSliderValue(this.state.sliderValue)}
           mounted={this.modelLoaded}
           theme={this.theme}
+          setProgress={this.setProgress}
+          audio={this.audio}
+          stopAnimation={this.stopAnimation}
         />
         </div>
         </div>

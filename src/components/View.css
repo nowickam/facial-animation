@@ -18,10 +18,10 @@
     right: 0px;
 }
 
-.bit-right {
+#info-button {
     position: absolute;
     right: 0px;
-    bottom:20px;
+    bottom:5px;
 }
 
 .logout{
@@ -75,13 +75,6 @@ b{
 .top {
     position: absolute;
     top: 0px;
-}
-
-.bottom {
-    position: absolute;
-    bottom: 25px;
-    left: 5px;
-    align-items: flex-end;
 }
 
 
@@ -159,7 +152,7 @@ b{
 .styled-button{
     margin-right: 10px;
     padding-bottom: 5px;
-    height: 30px;
+    /* height: 30px; */
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -184,7 +177,7 @@ input[type="file"] {
 
 #upload-button{
     padding: 0;
-    margin-top: -10px;
+    margin-top: -40px;
     height: fit-content;
     width: fit-content;
     position: absolute;
@@ -195,18 +188,39 @@ input[type="file"] {
     left: 400px;
 }
 
+#exp-int{
+    position: absolute;
+    left:70px;
+    bottom: 145px;
+    text-align: left;
+}
+
 #slider{
     position: absolute;
-    left: 20px;
-    bottom: 80px;
+    left: -60px;
+    bottom: 140px;
 }
 
 #slider-value{
     position: absolute;
-    left: 230px;
-    bottom: 80px;
+    left: 215px;
+    bottom: 145px;
 }
 
+#progress{
+    position: absolute;
+    left: 20px;
+    bottom: 25px;
+    width: 310px;
+    height: 15px;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 35px;
+    left: 15px;
+    align-items: flex-end;
+}
 
 canvas {
     background-color: transparent;
@@ -270,12 +284,12 @@ canvas {
 
 #choose-file{
     position:absolute;
-    top: 140px;
+    top: 150px;
     left: 20px;
 }
 
 .recorder{
     position: absolute;
-    top:180px;
+    top:195px;
     left: 10px
 }

@@ -12,6 +12,7 @@ class AudioRecorder extends Component {
     this.state = {
       record: false,
       downloadLinkURL: null,
+      timer: "00:00",
     };
     if (!ReactMic) {
       try {
@@ -23,10 +24,33 @@ class AudioRecorder extends Component {
   }
 
   startRecording = () => {
-    this.setState({ record: true });
+    setInterval(this.setTimer, 1000)
+    this.setState({ record: true, start: Date.now() });
   };
 
+  setTimer = () => {
+    var seconds = Math.floor((Date.now() - this.state.start)/1000);
+    var minutes = Math.floor(seconds/60);
+    var time = "";
+    if(seconds<10){
+      seconds = "0"+seconds
+    }
+    if(minutes > 0){
+      if(minutes>9){
+        time = minutes+":"+seconds
+      }
+      else{
+        time = "0"+minutes+":"+seconds
+      }
+    }
+    else{
+      time="00:"+seconds;
+    }
+    this.setState({timer: time})
+  }
+
   stopRecording = () => {
+    clearInterval();
     this.setState({ record: false });
   };
 
@@ -105,13 +129,12 @@ class AudioRecorder extends Component {
           onStop={this.onStop}
           onData={this.onData}
           onSave={this.onSave}
-          strokeColor={darkFocus}
-          backgroundColor={`transparent`}
           mimeType="audio/wav"
-          width={225}
-          height={30}
+          width={0}
+          height={0}
           noiseSuppression={true}
         />
+        <div id="timer">{this.state.timer}</div>
         </div>
         )}
       </Transition>

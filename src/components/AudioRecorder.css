@@ -46,8 +46,8 @@ a[href^="blob:"]:hover{
     z-index: 100;
 }
 
-.visualization{
+#timer{
     position: relative;
-    top:-25px;
-    left: 20px;
+    top:-65px;
+    left: 10px;
 }

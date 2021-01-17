@@ -410,14 +410,22 @@ class Model extends Component {
       this.nextViseme()
 
       this.currentFrame += 1
-
+      
+      this.props.setProgress(this.currentFrame/this.visemes.length)
       if (this.currentFrame >= this.visemes.length) {
         this.currentFrame = 0
+        this.resetModel()
+        this.props.setProgress(0)
       }
+      if(this.props.audio.ended){
+        this.props.stopAnimation();
+      }
+      
     }
     else if(this.state.animationStatus === "STOP"){
         this.currentFrame = 0
         this.resetModel()
+        this.props.setProgress(0)
     }
     
     this.moveLid()
