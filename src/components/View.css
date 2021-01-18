@@ -91,11 +91,11 @@ b{
     margin-bottom: 10px;
 }
 
-.vert{
+/* .vert{
     align-items: center;
     justify-content: center;
     
-}
+} */
 
 
 .narrow {
@@ -135,7 +135,7 @@ b{
 }
 
 #popup-close{
-    width: 20px;
+    width: fit-content;
     color: var(--focus);
     font-size: 40px;
 }
@@ -177,11 +177,13 @@ input[type="file"] {
 
 #upload-button{
     padding: 0;
-    margin-top: -40px;
+    /* margin-top: -40px; */
     height: fit-content;
     width: fit-content;
     position: absolute;
-    left: 10px;
+    top: 350px;
+    left: 20px;
+    font-size: 35px;
 }
 
 #upload-text {
@@ -292,4 +294,12 @@ canvas {
     position: absolute;
     top:195px;
     left: 10px
+}
+
+#chosen-file{
+    position: absolute;
+    top: 300px;
+    left: 20px;
+    text-decoration: underline;
+    width: fit-content;
 }

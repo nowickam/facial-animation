@@ -41,8 +41,8 @@ a[href^="blob:"]:hover{
 
 .download{
     position:relative;
-    left: 10px;
-    top: 5px;
+    left: 120px;
+    top: -35px;
     z-index: 100;
 }
 

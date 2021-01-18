@@ -491,7 +491,7 @@ class View extends Component {
           </label>
           <label id="choose-file" className="horizontal vert">
             <div className="styled-button">Choose file</div>
-            <div id="chosen-file">{this.state.filename}</div>
+            
             <input
               id="choose-file"
               type="file"
@@ -500,12 +500,15 @@ class View extends Component {
               multiple={false}
             />
           </label>
-        <div className="recorder vertical">
+        <div className="recorder">
           <AudioRecorder
             id="audio-recorder"
             newRecording={this.handleRecording}
             theme={this.theme}
           />
+        </div>
+
+        <div id="chosen-file">{this.state.filename}</div>
           <button
             id="upload-button"
             className="styled-button narrow"
@@ -513,7 +516,6 @@ class View extends Component {
           >
             Upload
           </button>
-        </div>
         <div className="bottom horizontal">
           <button
             id="play"
