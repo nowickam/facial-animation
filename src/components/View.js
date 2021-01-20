@@ -459,7 +459,7 @@ class View extends Component {
                             it disappears.
                           </div>
                           <div id="info-inst">
-                            The <b>player</b> options in the bottom-right corner
+                            The <b>player</b> options in the bottom-left corner
                             handle the animation. Change the intensity of the
                             avatar's expression with the <b>slider</b>.
                           </div>

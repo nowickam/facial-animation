@@ -8,7 +8,7 @@ Bachelor thesis project providing an interactive web application with the core f
 2. <b>Choose file</b> to upload a <b>wav</b> or <b>mp3</b> audio file with speech. Press <b>Record</b> to record the speech in real-time.
 3. Press <b>Upload</b> to send the speech recording to the server.
 4. When the model is performing the computations on the server, a loading spinner is displayed. Wait until it disappears.
-5. The <b>player</b> options in the bottom-right corner handle the animation. Change the intensity of the avatar's expression with the <b>slider</b>.
+5. The <b>player</b> options in the bottom-left corner handle the animation. Change the intensity of the avatar's expression with the <b>slider</b>.
 
 ![image](https://user-images.githubusercontent.com/49707233/105201992-c91c2980-5b41-11eb-9c3f-6c266a8e274e.png)
 
