@@ -50,6 +50,10 @@ pip install flask python-dotenv
 
 Launches the unit tests for the presentation module.
 
+### See the Model preparation on google colab
+
+https://drive.google.com/file/d/1T6DWKNVQZMKijlfK4iaIJit4xSIvozJ8/view?usp=sharing
+
 ## Authors
 
 Małgorzata Nowicka and Filip Zawadka
