@@ -405,7 +405,7 @@ class Model extends Component {
   }
 
   nextViseme() {
-    // takes the next viseme from the list and changes the controllers accordingly
+    // takes the next viseme from the list and changes the controllers
     // decrease added value
     if (
       this.currentFrame > 0 &&
