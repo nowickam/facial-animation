@@ -1,0 +1,305 @@
+#play {
+    left: 0px;
+    font-size: 40px;
+}
+
+#pause {
+    left: 100px;
+    font-size: 40px;
+}
+
+#stop {
+    left: 200px;
+    font-size: 40px;
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+}
+
+#info-button {
+    position: absolute;
+    right: 0px;
+    bottom:5px;
+}
+
+.logout{
+    -webkit-text-stroke: 5px var(--primary);
+    font-size: 50px;
+}
+
+.logout:hover{
+    color: var(--focus);
+}
+
+#info-head{
+    color: var(--focus);
+    font-size: 70px;
+    font-weight: bold;
+}
+
+#info-inst-head{
+    margin-top: 20px;
+    color: var(--focus);
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#info-inst{
+    color: var(--focus);
+    margin:10px;
+}
+
+#info-authors{
+    color: var(--focus);
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+b{
+    color: var(--focus);
+}
+
+#info-text{
+    color: var(--focus);
+    font-size: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom:10px;
+    text-align: justify;
+}
+
+
+.top {
+    position: absolute;
+    top: 0px;
+}
+
+
+/* .vertical {
+    display: flex;
+    flex-direction: column;
+} */
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    /* align-items: baseline; */
+    margin-bottom: 10px;
+}
+
+/* .vert{
+    align-items: center;
+    justify-content: center;
+    
+} */
+
+
+.narrow {
+    width: 100px;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.popup {
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu-icon{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.menu-bar{
+    width: 35px;
+    height: 2px;
+    background-color: var(--secondary);
+    margin: 10px 10px;
+    cursor: pointer;
+}
+
+#popup-text{
+    color: var(--focus);
+    font-size: 40px;
+}
+
+#popup-close{
+    width: fit-content;
+    color: var(--focus);
+    font-size: 40px;
+}
+
+#popup-close:hover{
+    color: var(--secondary)
+}
+
+#logout-button{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.styled-button{
+    margin-right: 10px;
+    padding-bottom: 5px;
+    /* height: 30px; */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary);
+}
+
+.styled-button:focus{
+    outline:none
+}
+
+.styled-button:hover{
+    color: var(--focus)
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#upload-input{
+    left:0px;
+}
+
+#upload-button{
+    padding: 0;
+    /* margin-top: -40px; */
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 350px;
+    left: 20px;
+    font-size: 35px;
+}
+
+#upload-text {
+    left: 400px;
+}
+
+#exp-int{
+    position: absolute;
+    left:70px;
+    bottom: 145px;
+    text-align: left;
+}
+
+#slider{
+    position: absolute;
+    left: -60px;
+    bottom: 140px;
+}
+
+#slider-value{
+    position: absolute;
+    left: 215px;
+    bottom: 145px;
+}
+
+#progress{
+    position: absolute;
+    left: 20px;
+    bottom: 25px;
+    width: 310px;
+    height: 15px;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 35px;
+    left: 15px;
+    align-items: flex-end;
+}
+
+canvas {
+    background-color: transparent;
+    color: transparent;
+    outline: none;
+    border:none;
+}
+
+.loader-container, .top, .bottom {
+    grid-area: 1 / 1;
+}
+
+#view-container{
+    display: grid;
+}
+
+.background {
+    position: absolute;
+    top: 0%;
+    background: radial-gradient(var(--back1), var(--back2));
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+
+.loader {
+    width: 100px;
+	height: 100px;
+}
+
+.loader:before {
+    z-index: 11;
+    position: absolute;
+    top: calc(50% - 175px);
+    left: calc(50% - 175px);
+    content: '';
+	width: 350px;
+	height: 350px;
+	border-radius: 100%;
+    border-bottom: 0 solid #ffffff05;
+	
+	box-shadow: 
+		0 -10px 20px 20px #c2888e4d inset,
+		0 -5px 15px 10px #c2888e54 inset,
+		0 -2px 5px #c2888e83 inset,
+		0 -3px 2px #c2888ea6 inset,
+		0 2px 0px #c2888ee5,
+		0 2px 3px #C2888E,
+		0 5px 5px #c2888ee5,
+		0 10px 15px #c2888e83,
+		0 10px 20px 20px #c2888e5b;
+	filter: blur(3px);
+	animation: 2s rotate linear infinite;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg)
+	}
+}
+
+#choose-file{
+    position:absolute;
+    top: 150px;
+    left: 20px;
+}
+
+.recorder{
+    position: absolute;
+    top:195px;
+    left: 10px
+}
+
+#chosen-file{
+    position: absolute;
+    top: 300px;
+    left: 20px;
+    text-decoration: underline;
+    width: fit-content;
+}

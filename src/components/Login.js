@@ -1,7 +1,7 @@
 // https://serverless-stack.com/chapters/create-a-login-page.html
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import "./Login.css";
+import "./css/Login.css";
 import axios from "axios";
 import { login, authFetch, useAuth, logout } from "../auth";
 import { Transition } from "react-transition-group";
@@ -15,7 +15,6 @@ class Login extends Component {
       password: "",
       mounted: false,
     };
-    // const history = useHistory();
     this.validateForm = this.validateForm.bind(this);
     this.validateData = this.validateData.bind(this);
     this.setUsername = this.setUsername.bind(this);
@@ -37,13 +36,12 @@ class Login extends Component {
   }
 
   async validateData() {
+    // obtains the access token for valid credentials
     const userData = JSON.stringify({
       username: this.state.username,
       password: this.state.password,
     });
-    console.log(userData);
     const res = await axios.post("/api/login", userData, {});
-    console.log(res);
     var token = res.data;
     if (token.access_token) {
       login(token);

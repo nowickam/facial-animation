@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./AudioRecorder.css";
+import "./css/AudioRecorder.css";
 import { bgColor, fontColor } from '../Config.js'
 import { Transition } from "react-transition-group";
 // import { ReactMic } from "react-mic";
@@ -51,11 +51,10 @@ class AudioRecorder extends Component {
 
   stopRecording = () => {
     clearInterval();
-    this.setState({ record: false });
+    this.setState({ record: false, timer: "00:00" });
   };
 
   onData = (recordedBlob) => {
-    // console.log('chunk of real-time data is: ', recordedBlob);
   };
 
   onStop = (recordedBlob) => {
@@ -66,7 +65,6 @@ class AudioRecorder extends Component {
         lastModified: Date.now(),
       })
     );
-    // this.props.newRecording(recordedBlob.blobURL)
   };
 
   onSave = (recordedBlob) => {

@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.0",
+    "browserify-fs": "^1.0.0",
     "chai": "^4.2.0",
     "chai-enzyme": "^1.0.0-beta.1",
     "enzyme": "^3.11.0",
@@ -24,7 +25,8 @@
     "react-token-auth": "^1.1.7",
     "react-transition-group": "^4.4.1",
     "reactjs-popup": "^2.0.4",
-    "three": "^0.120.1"
+    "three": "^0.120.1",
+    "write-json-file": "^4.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

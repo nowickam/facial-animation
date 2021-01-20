@@ -1,3 +1,5 @@
+# Mapping dictionary from model encoding to phones
+
 timit_map_str = """
 h# 0
 d 1

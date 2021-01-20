@@ -1,4 +1,6 @@
-timit_map_str = """
+# Mapping dictionary from phones to visemes
+
+viseme_map = """
 h# 0
 d 7
 ih 2
@@ -62,9 +64,9 @@ em 1
 eng 8
 
 """
-timit_char_map = {}
-timit_index_map = {}
-for line in timit_map_str.strip().split('\n'):
+viseme_char_map = {}
+viseme_index_map = {}
+for line in viseme_map.strip().split('\n'):
 	ch, index = line.split()
-	timit_char_map[ch] = int(index)
-	timit_index_map[int(index)] = ch
+	viseme_char_map[ch] = int(index)
+	viseme_index_map[int(index)] = ch

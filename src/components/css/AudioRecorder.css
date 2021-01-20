@@ -1,0 +1,46 @@
+#recorder-container {
+    display: flex;
+    flex-direction: column;
+    align-items : flex-start;
+    justify-content: flex-start;
+}
+
+.record-button{
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary);
+    margin-left: 5px;
+}
+
+.record-button:focus{
+    outline:none
+}
+
+.record-button:hover{
+    color: var(--focus)
+}
+
+a[href^="blob:"]{
+    text-decoration: none;
+    color: var(--secondary)
+}
+
+a[href^="blob:"]:hover{
+    text-decoration: none;
+    color: var(--focus)
+}
+
+.download{
+    position:relative;
+    left: 120px;
+    top: -35px;
+    z-index: 100;
+}
+
+#timer{
+    position: relative;
+    top:-65px;
+    left: 10px;
+}

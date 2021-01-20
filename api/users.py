@@ -1,7 +1,9 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User():
-
+    """
+    Class holding the database of users
+    """
     def __init__(self, username, password):
         self.name = username
         self.password = generate_password_hash(password)

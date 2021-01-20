@@ -20,8 +20,13 @@ mp3file = "SA1.mp3"
 invalidfile = "obama.json"
 
 class End2EndTests(unittest.TestCase):
-    
+    """
+    Class for end2end testing that mocks user interaction
+    """
     def test_login_correct(self):
+        """
+        Correct login provided
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)
@@ -35,6 +40,9 @@ class End2EndTests(unittest.TestCase):
         driver.close()
 
     def test_login_incorrect(self):
+        """
+        Incorrect login provided
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)
@@ -48,6 +56,9 @@ class End2EndTests(unittest.TestCase):
         driver.close()
     
     def test_upload_wav(self):
+        """
+        Wav file is uploaded
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)
@@ -66,6 +77,9 @@ class End2EndTests(unittest.TestCase):
         driver.close()
 
     def test_upload_mp3(self):
+        """
+        Mp3 file is uploaded
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)
@@ -84,6 +98,9 @@ class End2EndTests(unittest.TestCase):
         driver.close()
 
     def test_upload_invalid(self):
+        """
+        Invalid file is uploaded
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)
@@ -104,6 +121,9 @@ class End2EndTests(unittest.TestCase):
         driver.close()
 
     def test_upload_no_file(self):
+        """
+        No file is uploaded
+        """
         driver = webdriver.Chrome(PATH)
         driver.get(page_url)
         time.sleep(2)

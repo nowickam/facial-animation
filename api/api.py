@@ -4,7 +4,7 @@ import flask_sqlalchemy
 import flask_praetorian
 import flask_cors
 from werkzeug.utils import secure_filename
-from phoneme_to_viseme import timit_char_map
+from phoneme_to_viseme import viseme_char_map
 from phoneme_decoder import timit_index_map
 from tensorflow import keras
 import numpy as np
@@ -13,6 +13,7 @@ from librosa import load, resample
 import time
 
 
+# Backend database, cors initalization
 db = flask_sqlalchemy.SQLAlchemy()
 guard = flask_praetorian.Praetorian()
 cors = flask_cors.CORS()
@@ -104,7 +105,7 @@ def login():
     issuing a JWT token.
     .. example::
        $ curl http://localhost:5000/api/login -X POST \
-         -d '{"username":"Yasoob","password":"strongpassword"}'
+         -d '{"username":"1","password":"1"}'
     """
     req = flask.request.get_json(force=True)
     username = req.get('username', None)
@@ -145,8 +146,9 @@ def protected():
 @app.route('/api/upload', methods=['POST'])
 @flask_praetorian.auth_required
 def file_upload():
-    # save the file
-    print("READ")
+    """
+    Endpoint for receiving the uploaded file and returning the mapped model prediction
+    """
     file = flask.request.files['file']
     filename = secure_filename(file.filename)
     print(file)
@@ -164,14 +166,18 @@ def file_upload():
     if model == None:
         return flask.jsonify(status=404, message='Model')
 
-    # pass the file to the ml model
+    # Pass the file to the ml model
     audio_file, loaded_sample_rate = load(destination)
+    # Change the frequency
     audio_file = resample(audio_file, loaded_sample_rate, SAMPLE_RATE)
+    # Extract mfcc
     mfcc_coeff = mfcc(audio_file, SAMPLE_RATE)
+    # Use the model
     prediction = model.predict(mfcc_coeff[np.newaxis,:,:])
-    phoneme_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
-    viseme_result = [timit_char_map[ph] for ph in phoneme_result]
-
+    # Map from model encoding to phones
+    phone_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
+    # Map from phones to visemes
+    viseme_result = [viseme_char_map[ph] for ph in phone_result]
 
     return flask.jsonify(status=200, result=viseme_result)
 
@@ -183,6 +189,5 @@ def catch_all(path):
     else:
         return app.send_static_file('index.html')
 
-# Run the example
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
