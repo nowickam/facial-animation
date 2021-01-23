@@ -45,6 +45,7 @@ class Model extends Component {
     this.lidWait = 1;
 
     this.exponent = 6;
+    this.dec = 15;
 
     this.obamaRatio = [0.8, 0.8];
 
@@ -417,7 +418,7 @@ class Model extends Component {
     for (var visemeName of Object.keys(this.modelControlDict)) {
       if (visemeName !== "wink") {
         this.modelControl[this.modelControlDict[visemeName]] -=
-          this.state.intensity / 15;
+          this.state.intensity / this.dec;
         if (this.modelControl[this.modelControlDict[visemeName]] < 0)
           this.modelControl[this.modelControlDict[visemeName]] = 0;
       }
@@ -431,7 +432,7 @@ class Model extends Component {
       if (mapping[currentVisemeName] > 1) inc /= 4;
       // add the value
       this.modelControl[this.modelControlDict[currentVisemeName]] +=
-        this.state.intensity / 15;
+        this.state.intensity / this.dec;
       this.modelControl[this.modelControlDict[currentVisemeName]] += inc;
       // check constraints
       if (

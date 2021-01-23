@@ -26,7 +26,8 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn start-api`
+### `yarn start-api-win`
+### `yarn start-api-mac`
 
 Runs backend on the http://localhost:5000 port.
 First you need to prepare virtual environment using commands:
