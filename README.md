@@ -55,6 +55,8 @@ Launches the unit tests for the presentation module.
 
 https://drive.google.com/file/d/1T6DWKNVQZMKijlfK4iaIJit4xSIvozJ8/view?usp=sharing
 
+or in the ml_model_folder
+
 ## Authors
 
 Małgorzata Nowicka and Filip Zawadka
