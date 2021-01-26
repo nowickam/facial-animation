@@ -31,3 +31,4 @@ __pycache__
 database.db
 
 api/uploads
+.idea
