@@ -58,11 +58,7 @@ pip install -r requirements.txt
 
 Launches the unit tests for the presentation module.
 
-### See the model preparation on Google Colab
-
-https://drive.google.com/file/d/1T6DWKNVQZMKijlfK4iaIJit4xSIvozJ8/view?usp=sharing
-
-or in the ml_model_folder.
+### See the model preparation in the ml_model_folder.
 
 ## Authors
 
