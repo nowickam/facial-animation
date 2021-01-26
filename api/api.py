@@ -61,7 +61,7 @@ app.config['UPLOAD_EXTENSIONS'] = {'.wav', '.mp3', '.mp4'}
 app.config['STATIC_SOURCE'] = 'static'
 
 try:
-    model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'BI_LSTM_128_20epochs_3drop.h5'))
+    model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'BI_LSTM_512_30epochs_dropout01.h5'))
 except OSError as e:
     model = None
 
