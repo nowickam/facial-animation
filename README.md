@@ -28,8 +28,8 @@ First you need to prepare the environment using the command:
 ```
 npm install
 ```
-<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+Open http://localhost:3000 to view it in the browser.
 
 ### `yarn start-api-win`
 ### `yarn start-api-mac`
