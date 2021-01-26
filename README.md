@@ -23,7 +23,12 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode.
+First you need to prepare the environment using the command:
+```
+npm install
+```
+<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `yarn start-api-win`
@@ -35,8 +40,9 @@ First you need to prepare virtual environment using commands:
 ```
 cd api
 python3 -m venv venv
-. venv\Scripts\activate
+.\venv\Scripts\activate
 pip install flask python-dotenv
+pip install -r requirements.txt
 ```
 
 #### macOS
@@ -45,17 +51,18 @@ cd api
 python3 -m venv venv
 source venv/bin/activate
 pip install flask python-dotenv
+pip install -r requirements.txt
 ```
 
 ### `npm test`
 
 Launches the unit tests for the presentation module.
 
-### See the Model preparation on google colab
+### See the model preparation on Google Colab
 
 https://drive.google.com/file/d/1T6DWKNVQZMKijlfK4iaIJit4xSIvozJ8/view?usp=sharing
 
-or in the ml_model_folder
+or in the ml_model_folder.
 
 ## Authors
 
