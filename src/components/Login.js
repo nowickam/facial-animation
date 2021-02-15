@@ -41,9 +41,16 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password,
     });
-    const res = await axios.post("/api/login", userData, {});
+    const validUserData = JSON.stringify({
+      username: '1',
+      password: '1',
+    });
+    const res = await axios.post("/api/login", validUserData, {});
     var token = res.data;
     if (token.access_token) {
+      this.setState({
+        mounted: false
+      })
       login(token);
       console.log(token);
     } else {
@@ -76,7 +83,7 @@ class Login extends Component {
             <div className="login">
               <form id="login-form" onSubmit={this.handleSubmit}>
                 <div id="title">Audio-driven facial animation</div>
-                <FormGroup
+                {/* <FormGroup
                   id="username"
                   className="form-element"
                 >
@@ -102,15 +109,15 @@ class Login extends Component {
                     onChange={this.setPassword}
                     type="password"
                   />
-                </FormGroup>
+                </FormGroup> */}
                 <Button
                   id="login-button"
                   block
-                  disabled={!this.validateForm()}
+                  // disabled={!this.validateForm()}
                   type="submit"
                   onClick={this.validateData}
                 >
-                  Login
+                  Start
                 </Button>
               </form>
             </div>
