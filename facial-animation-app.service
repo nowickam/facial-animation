@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=azureuser
 WorkingDirectory=/home/azureuser/facial-animation/api
-ExecStart=/home/azureuser/facial-animation/api/env/bin/gunicorn -b 127.0.0.1:5000 api:app --log-file /home/azureuser/facial-animation/api/gunicorn.log --log-level=debug
+ExecStart=/home/azureuser/facial-animation/api/env/bin/gunicorn -b 127.0.0.1:5001 api:app --log-file /home/azureuser/facial-animation/api/gunicorn.log --log-level=debug
 Restart=always
 
 [Install]

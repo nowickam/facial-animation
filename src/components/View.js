@@ -86,7 +86,7 @@ class View extends Component {
     this.audio.loop = false;
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() { }
 
   fetchInput() {
     // test server fetch
@@ -243,7 +243,7 @@ class View extends Component {
       this.stop();
 
       // authenticated fetch by JWT
-      authFetch("/api/upload", { method: "POST", body: data })
+      authFetch("http://localhost:5001/api/upload", { method: "POST", body: data })
         // handle the response
         .then((res) => {
           if (res.status === 401) {

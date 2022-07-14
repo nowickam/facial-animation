@@ -61,7 +61,8 @@ app.config['UPLOAD_EXTENSIONS'] = {'.wav', '.mp3', '.mp4'}
 app.config['STATIC_SOURCE'] = 'static'
 
 try:
-    model = keras.models.load_model(os.path.join(app.config['STATIC_SOURCE'],'BI_LSTM_512_30epochs_dropout01.h5'))
+    model = keras.models.load_model(os.path.join(
+        app.config['STATIC_SOURCE'], 'BI_LSTM_512_30epochs_dropout01.h5'))
 except OSError as e:
     model = None
 
@@ -82,21 +83,23 @@ with app.app_context():
     db.create_all()
     if db.session.query(User).filter_by(username='1').count() < 1:
         db.session.add(User(
-          username='1',
-          password=guard.hash_password('1'),
-          roles='admin'
-		))
+            username='1',
+            password=guard.hash_password('1'),
+            roles='admin'
+        ))
     db.session.commit()
 
 
 # Set up some routes for the example
 @app.route('/api/')
 def home():
-  	return {"Hello": "World"}, 200
+    return {"Hello": "World"}, 200
+
 
 @app.route('/api/time')
 def get_current_time():
     return{'time': time.time()}
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -113,6 +116,7 @@ def login():
     user = guard.authenticate(username, password)
     ret = {'access_token': guard.encode_jwt_token(user)}
     return ret, 200
+
 
 @app.route('/api/refresh', methods=['POST'])
 def refresh():
@@ -173,7 +177,7 @@ def file_upload():
     # Extract mfcc
     mfcc_coeff = mfcc(audio_file, SAMPLE_RATE)
     # Use the model
-    prediction = model.predict(mfcc_coeff[np.newaxis,:,:])
+    prediction = model.predict(mfcc_coeff[np.newaxis, :, :])
     # Map from model encoding to phones
     phone_result = [timit_index_map[np.argmax(ph)] for ph in prediction[0]]
     # Map from phones to visemes
@@ -181,13 +185,15 @@ def file_upload():
 
     return flask.jsonify(status=200, result=viseme_result)
 
+
 @app.route('/<path:path>')
 def catch_all(path):
     print("Hello from catch all")
-    if path != "" and os.path.exists(os.path.join('..','build',path)):
+    if path != "" and os.path.exists(os.path.join('..', 'build', path)):
         return app.send_static_file(path)
     else:
         return app.send_static_file('index.html')
 
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5001)

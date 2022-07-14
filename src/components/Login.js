@@ -5,7 +5,7 @@ import "./css/Login.css";
 import axios from "axios";
 import { login, authFetch, useAuth, logout } from "../auth";
 import { Transition } from "react-transition-group";
-import {transitionStyles, defaultStyle } from "../Config.js";
+import { transitionStyles, defaultStyle } from "../Config.js";
 
 class Login extends Component {
   constructor(props) {
@@ -45,7 +45,12 @@ class Login extends Component {
       username: '1',
       password: '1',
     });
-    const res = await axios.post("/api/login", validUserData, {});
+    const res = await axios.post("http://localhost:5001/api/login", validUserData, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      }
+    });
     var token = res.data;
     if (token.access_token) {
       this.setState({

@@ -5,12 +5,15 @@ Bachelor thesis project providing an interactive web application with the core f
 ## Setup
 
 First, prepare the frontend environment using the command:
+
 ```
 npm install
 ```
 
 Second, prepare the backend virtual environment using commands:
+
 #### Windows
+
 ```
 cd api
 python3 -m venv venv
@@ -20,6 +23,7 @@ pip install -r requirements.txt
 ```
 
 #### macOS
+
 ```
 cd api
 python3 -m venv venv
@@ -31,26 +35,33 @@ pip install -r requirements.txt
 ## Running locally
 
 If you followed the **Setup** guide, run
+
 ```
 python api.py
 ```
-to start the backend on port 5000.
+
+to start the backend on port 5001.
 
 Alternatively run (depending on your OS)
 
 ```
 yarn start-api-win
 ```
+
 or
+
 ```
 yarn start-api-mac
 ```
+
 in the project source.
 
 To start the frontend on port 3000, run:
+
 ```
 npm start
 ```
+
 in the project source.
 
 Open http://localhost:3000 to view the project in the browser.
@@ -65,11 +76,12 @@ Open http://localhost:3000 to view the project in the browser.
 
 ![image](https://user-images.githubusercontent.com/49707233/105201992-c91c2980-5b41-11eb-9c3f-6c266a8e274e.png)
 
-
 ## Public access
 
 ~~You can access the web application through the link: https://facialanimation.page/.~~ Not supported!
+
 <!-- Contact one of the contributors of the project to gain the valid credentials.  -->
+
 Use the exemplary files in audio_files folder.
 
 ## Project structure
