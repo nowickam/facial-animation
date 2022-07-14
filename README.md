@@ -74,7 +74,12 @@ Open http://localhost:3000 to view the project in the browser.
 4. When the model is performing the computations on the server, a loading spinner is displayed. Wait until it disappears.
 5. The <b>player</b> options in the bottom-left corner handle the animation. Change the intensity of the avatar's expression with the <b>slider</b>.
 
-![image](https://user-images.githubusercontent.com/49707233/105201992-c91c2980-5b41-11eb-9c3f-6c266a8e274e.png)
+
+
+https://user-images.githubusercontent.com/49707233/179067976-20759816-8cfc-41ac-9eaf-c78702d70db6.mp4
+
+
+
 
 ## Public access
 
